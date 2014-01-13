@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Bump</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="mauvais_pseudo">Mauvais pseudo</string>
+    <string name="alert_label">Erreur</string>
+    <string name="probleme_reseau">Probleme de connexion au reseau.</string>
+    <string name="non_wifi">Attention, vous n\'utilisez pas la connexion wifi.</string>
+    <string name="avertissement">Avertissement</string>
+    <string name="title_activity_send_client">SendClient</string>
+
+</resources>
