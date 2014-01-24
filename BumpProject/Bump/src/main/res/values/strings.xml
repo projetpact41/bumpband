@@ -10,5 +10,12 @@
     <string name="non_wifi">Attention, vous n\'utilisez pas la connexion wifi.</string>
     <string name="avertissement">Avertissement</string>
     <string name="title_activity_send_client">SendClient</string>
+    <string name="title_activity_page_accueil">Page Accueil</string>
+    <string name="title_activity_menu_principal">Menu Principal</string>
+    <string name="title_activity_bump_friend_liste">BumpFriend Liste</string>
+    <string name="title_activity_bump_friend_action">Action BF</string>
+    <string name="title_activity_apropos">A Propos</string>
+    <string name="title_activity_simu_bump">Simulation Bump</string>
+    <string name="title_activity_message">Message</string>
 
 </resources>

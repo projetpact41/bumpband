@@ -1,5 +1,7 @@
 package com.example.bump.actions;
 
+import android.content.Context;
+
 import java.io.Serializable;
 
 /**
@@ -30,7 +32,14 @@ public class Transmission implements Serializable, Transmissible{
         return erreur;
     }
 
-    public void execute() {
+    public Transmissible execute(Context context) {
+        if (dialogueReussi) return null;
+        // TODO gerer les differents cas d'erreurs.
+        if (erreur == ErreurTransmission.IPNONRECONNUE) {
 
+        } else if (erreur == ErreurTransmission.PROBLEMETRAITEMENT) {
+
+        }
+        return null;
     }
 }

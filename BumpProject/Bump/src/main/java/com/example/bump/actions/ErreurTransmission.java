@@ -12,6 +12,8 @@ public enum ErreurTransmission {
     NOMBREARGUMENT, // Pas assez d'argument dans la methode
     TYPEARGUMENT,	// Argument du mauvais type
     SCINCORRECT, // Le code de securite est incorrect
-    MESSAGENONDELIVRE //Quand on ne trouve pas le destinataire
+    MESSAGENONDELIVRE, //Quand on ne trouve pas le destinataire
+    PROBLEMETRAITEMENT, //Quand on n'a pas reussi a traiter la connexion
+    IPNONRECONNUE
 
 }

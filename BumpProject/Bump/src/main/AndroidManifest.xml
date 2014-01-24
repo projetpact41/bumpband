@@ -33,11 +33,38 @@
             android:name="com.example.bump.SendClient"
             android:label="@string/title_activity_send_client" >
         </activity>
+        <activity
+            android:name="com.example.bump.MenuPrincipal"
+            android:label="@string/title_activity_menu_principal" >
+        </activity>
+        <activity
+            android:name="com.example.bump.BumpFriendListe"
+            android:label="@string/title_activity_bump_friend_liste" >
+        </activity>
+        <activity
+            android:name="com.example.bump.BumpFriendAction"
+            android:label="@string/title_activity_bump_friend_action" >
+        </activity>
+        <activity
+            android:name="com.example.bump.APropos"
+            android:label="@string/title_activity_apropos" >
+        </activity>
+        <activity
+            android:name="com.example.bump.SimuBump"
+            android:label="@string/title_activity_simu_bump" >
+        </activity>
+        <activity
+            android:name="com.example.bump.MessageActivity"
+            android:label="@string/title_activity_message"
+            android:parentActivityName="com.example.bump.MenuPrincipal">
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.BLUETOOTH"></uses-permission>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"></uses-permission>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
 
 </manifest>

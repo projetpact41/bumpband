@@ -54,9 +54,9 @@ public class BtInterface {
     }
 
 
-    public void sendData(String data) {
+    public void sendData(byte[] data) {
         try {
-            os.write(data.getBytes());
+            os.write(data);
             os.flush();
             Log.i(TAG,"Ecriture dans le flux de sortie");
         } catch (IOException e) {
@@ -124,7 +124,7 @@ public class BtInterface {
                             for(int i=0;i<k;i++) //Recopie du bon nombre de caracteres.
                                 temp[i] = buffer[i];
 
-                            String data = new String(temp);
+                            String data = new String(temp); //Attention, la chaine de caractere ne veut rien dire en soit, la reconvertir en byte[]
                             Log.i(TAG,"Conversion des bytes en String");
 
                             Message msg = handler.obtainMessage();

@@ -1,5 +1,7 @@
 package com.example.bump.actions;
 
+import android.content.Context;
+
 import java.io.Serializable;
 
 public class Color implements Serializable, Transmissible{
@@ -15,7 +17,8 @@ public class Color implements Serializable, Transmissible{
 	}
 
     @Override
-    public void execute() {
-
+    public Transmissible execute(Context context) {
+        // TODO
+        return null;
     }
 }

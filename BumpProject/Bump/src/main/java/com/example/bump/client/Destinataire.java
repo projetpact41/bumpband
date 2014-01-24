@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.bump.actions.Transmissible;
 import com.example.bump.actions.Transmission;
 
 import java.io.IOException;
@@ -47,50 +48,32 @@ public class Destinataire {
                     out.flush();
                     Log.i(TAG,"Envoi des donnees");
 
-                    Transmission t = null;
+                    if (!(obj instanceof Transmission)) {
+                        Transmissible t = null;
+                        Transmissible t2 = null;
 
-                    /*for (int i = 0; i < 10; i++) { //On essaye d'envoyer le message 10 fois : ne marche pas
+                        try{
+                            Log.i(TAG,"Recuperation de l'objet");
+                            Thread.sleep(1000);
+                            t = (Transmissible) in.readObject();
+                            t2 = t.execute(context);
+                            if (t2 != null) envoieObjet(t2,context);
 
-                        Log.i(TAG,"Creation du chrono");
-                        long end=System.currentTimeMillis()+60*100;
-
-                        Log.i(TAG,"Debut de la boucle");
-                        while (System.currentTimeMillis() < end) { // Temps avant de renvoyer l'info
-                            if (in.available() > 0) {
-                                try{
-                                    Log.i(TAG,"Recuperation de l'objet");
-                                    t = (Transmission) in.readObject();
-
-                                } catch (ClassNotFoundException e) {
-                                    Log.i(TAG, "Objet transmis invalide");
-                                }
-                            }
-                            if (t != null) break;
+                       } catch (ClassNotFoundException e) {
+                            Log.i(TAG, "Objet transmis invalide");
                         }
-                        if (t!=null) break;
-                    }*/
-
-                    try{
-                        Log.i(TAG,"Recuperation de l'objet");
-                        t = (Transmission) in.readObject(); //On recoit forcement un rapport de transmission.
-
-                    } catch (ClassNotFoundException e) {
-                        Log.i(TAG, "Objet transmis invalide");
+                        //throw new TransmissionException (ErreurTransmission.MESSAGENONDELIVRE); @TODO gerer les exceptions
                     }
-                    //throw new TransmissionException (ErreurTransmission.MESSAGENONDELIVRE); @TODO gerer les exceptions
+                    Log.i(TAG,"Reussite");
+                    //Intent intent = new Intent(context,com.example.bump.Reussie.class);
+                    //context.startActivity(intent);
 
-                    if (t==null) Log.i(TAG,"t null");
-                    //throw new TransmissionException (t.getErreur()); //Renvoie l'erreur éventuelle
-                    else if (!t.statut()) Log.i(TAG,"Probleme dans la connexion");
-                    else {
-                        Log.i(TAG,"Reussite");
-                        Intent intent = new Intent(context,com.example.bump.Reussie.class);
-                        context.startActivity(intent);
-                    }
-
+                    Thread.sleep(1000);
 
                 } catch (IOException e) {
                     Log.i(TAG,"Erreur");
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
                     try{

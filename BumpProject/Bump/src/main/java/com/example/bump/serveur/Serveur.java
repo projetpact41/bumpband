@@ -2,6 +2,7 @@ package com.example.bump.serveur;
 
 import android.app.IntentService;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
@@ -31,6 +32,7 @@ public class Serveur extends IntentService implements Runnable{
         Log.i(TAG,"Creation serveur bis");
     }
 
+
     public void run () {
         try {
             serveurSocket = new ServerSocket(PORT);
@@ -39,7 +41,7 @@ public class Serveur extends IntentService implements Runnable{
                     Log.i(TAG,"Attente de client");
                     clientSocket = serveurSocket.accept();
                     Log.i(TAG,"Client trouve");
-                    TraitementClient t = new TraitementClient(clientSocket);
+                    TraitementClient t = new TraitementClient(clientSocket, this);
                 } catch (Exception e) {
                     Log.i(TAG,"Probleme");
                     e.printStackTrace();

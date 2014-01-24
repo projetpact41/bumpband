@@ -1,5 +1,6 @@
 package com.example.bump.serveur;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.ObjectInputStream;
@@ -16,9 +17,11 @@ public class TraitementClient extends Thread{
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private final String TAG = "TRAITEMENT";
+    private Context context;
 
-    public TraitementClient (Socket clientSocket) {
+    public TraitementClient (Socket clientSocket, Context context) {
         this.clientSocket = clientSocket;
+        this.context = context;
         this.start();
     }
 
@@ -31,16 +34,26 @@ public class TraitementClient extends Thread{
             obj = (Transmissible) in.readObject();
             Log.i(TAG,"Lecture de l'objet");
 
-            if (obj != null) { // On lance la bonne action en fonction de ce que l'on recoit
+            Transmissible t = null;
+
+            while (obj != null && !(obj instanceof Transmission) ) { // On lance la bonne action en fonction de ce que l'on recoit
                 try {
-                    obj.execute();
+                    t = obj.execute(context);
+
+                    out.writeObject(t);
+
+
                 } catch (Exception e) {
                         out.writeObject(new Transmission (ErreurTransmission.TYPEINCONNU));
                 }
                 out.flush();
-                Log.i(TAG,"FIN TRAITEMENT");
-                Thread.sleep(1000);
+                if (t instanceof Transmission || t == null) // On suppose que l'on termine la conversation avec Transmission
+                    break;
+                else obj = (Transmissible) in.readObject();
             }
+            if (obj != null && t != null) t.execute(context); //On fini la conversation avec une transmission
+            Log.i(TAG,"FIN TRAITEMENT");
+            Thread.sleep(1000); // On ne ferme pas la socket trop tot
 
         } catch (Exception e) {
             e.printStackTrace();

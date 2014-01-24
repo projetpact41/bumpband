@@ -26,6 +26,12 @@ import android.widget.EditText;
 import com.example.bump.actions.BumpFriend;
 import com.example.bump.serveur.Serveur;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -138,9 +144,63 @@ public class MainActivity extends ActionBarActivity {
                 //Fiche perso
                 BumpFriend moi = null;
                 Log.i(TAG,"Creation fiche perso");
+                ObjectOutputStream oos = null;
                 try {
-                    InetAddress address = InetAddress.getLocalHost();
+                    InetAddress address = InetAddress.getByName(InetAddress.getLocalHost().getHostAddress());
+
                     moi = new BumpFriend(texte,address);
+
+                    //Enregistrement de ma fiche BF
+
+                    Log.i(TAG,this.getFilesDir().toString());
+
+                    oos = new ObjectOutputStream (
+                            new BufferedOutputStream(
+                                    new FileOutputStream(
+                                            new File(this.getFilesDir(), "fichePerso.txt")
+                                    )
+                            )
+                    );
+                    //Initialise tous les fichiers
+                    oos.writeObject(moi);
+                    oos.flush();
+                    oos.close();
+
+                    oos = new ObjectOutputStream (
+                            new BufferedOutputStream(
+                                    new FileOutputStream(
+                                            new File(this.getFilesDir(), "monSC.txt")
+                                    )
+                            )
+                    );
+                    oos.close();
+
+                    oos = new ObjectOutputStream (
+                            new BufferedOutputStream(
+                                    new FileOutputStream(
+                                            new File(this.getFilesDir(), "tonSC.txt")
+                                    )
+                            )
+                    );
+                    oos.close();
+
+                    oos = new ObjectOutputStream (
+                            new BufferedOutputStream(
+                                    new FileOutputStream(
+                                            new File(this.getFilesDir(), "enCours.txt")
+                                    )
+                            )
+                    );
+                    oos.close();
+
+                    oos = new ObjectOutputStream (
+                            new BufferedOutputStream(
+                                    new FileOutputStream(
+                                            new File(this.getFilesDir(), "BFList.txt")
+                                    )
+                            )
+                    );
+                    oos.close();
 
                     fichePerso = getSharedPreferences(FICHE_PERSO, Context.MODE_PRIVATE);
                     Log.i(TAG,"Recuperation Preferences");
@@ -159,17 +219,21 @@ public class MainActivity extends ActionBarActivity {
 
                     Intent i = new Intent(MainActivity.this,com.example.bump.serveur.Serveur.class);
 
-                    startService(i);
+                    startService(i); //Lancement du serveur
 
-                    i = new Intent(MainActivity.this, SendClient.class);
+                    //i = new Intent(MainActivity.this, SendClient.class);
+                    i = new Intent(MainActivity.this, MenuPrincipal.class);
                     startActivity(i);
                     Log.i(TAG,"Lancement de l'autre activite");
 
                 } catch (UnknownHostException e) {
-                    Log.e(TAG,"Impossible de recuperer l'ip local");
+                    Log.e(TAG, "Impossible de recuperer l'ip local");
                     e.printStackTrace();
-                } catch (Exception e) {
-                    Log.i(TAG,"Probleme inconnu");
+                } catch (FileNotFoundException e) {
+                    Log.i(TAG,"Fichier non trouve");
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    Log.i(TAG, "IOException");
                     e.printStackTrace();
                 }
 
