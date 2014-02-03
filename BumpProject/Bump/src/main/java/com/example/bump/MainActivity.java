@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -146,7 +148,7 @@ public class MainActivity extends ActionBarActivity {
                 Log.i(TAG,"Creation fiche perso");
                 ObjectOutputStream oos = null;
                 try {
-                    InetAddress address = InetAddress.getByName(InetAddress.getLocalHost().getHostAddress());
+                    InetAddress address = InetAddress.getByName(getIpAddr());
 
                     moi = new BumpFriend(texte,address);
 
@@ -249,6 +251,16 @@ public class MainActivity extends ActionBarActivity {
                         }).show();
             }
         }
+    }
+
+    public String getIpAddr() {
+        WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        int ip = wifiInfo.getIpAddress();
+
+        String ipString = String.format("%d.%d.%d.%d",(ip & 0xff),(ip >> 8 & 0xff),(ip >> 16 & 0xff),(ip >> 24 & 0xff));
+
+        return ipString;
     }
 
 }

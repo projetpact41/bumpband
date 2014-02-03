@@ -14,4 +14,5 @@ public class BumpFriendList {
     public static void add(BumpFriend bf) {
         l.add(bf);
     }
+
 }

@@ -54,7 +54,7 @@ public class Destinataire {
 
                         try{
                             Log.i(TAG,"Recuperation de l'objet");
-                            Thread.sleep(1000);
+                            //Thread.sleep(1000);
                             t = (Transmissible) in.readObject();
                             t2 = t.execute(context);
                             if (t2 != null) envoieObjet(t2,context);

@@ -90,8 +90,8 @@ public class BumpFriendAction extends ActionBarActivity {
 
                     Log.i(TAG,texte);
                     Destinataire destinataire = new Destinataire(bf.getAdresse(),PORT);
-                    Log.i(TAG,"Creation destinataire");
-                    destinataire.envoieObjet(new Message(texte,"Nouveau message"),BumpFriendAction.this);
+                    Log.i(TAG,"Creation destinataire"+bf.getAdresse());
+                    destinataire.envoieObjet(new Message(texte,bf.getName()),BumpFriendAction.this);
 
 
                 } catch (Exception e) {
