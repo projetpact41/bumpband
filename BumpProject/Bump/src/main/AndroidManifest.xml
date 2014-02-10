@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.bump"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.bump.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.bump.Reussie"
+            android:label="reussie" />
+
+        <service android:name="com.example.bump.serveur.Serveur" >
+        </service>
+
+        <activity
+            android:name="com.example.bump.SendClient"
+            android:label="@string/title_activity_send_client" >
+        </activity>
+        <activity
+            android:name="com.example.bump.MenuPrincipal"
+            android:label="@string/title_activity_menu_principal" >
+        </activity>
+        <activity
+            android:name="com.example.bump.BumpFriendListe"
+            android:label="@string/title_activity_bump_friend_liste" >
+        </activity>
+        <activity
+            android:name="com.example.bump.BumpFriendAction"
+            android:label="@string/title_activity_bump_friend_action" >
+        </activity>
+        <activity
+            android:name="com.example.bump.APropos"
+            android:label="@string/title_activity_apropos" >
+        </activity>
+        <activity
+            android:name="com.example.bump.SimuBump"
+            android:label="@string/title_activity_simu_bump" >
+        </activity>
+        <activity
+            android:name="com.example.bump.MessageActivity"
+            android:label="@string/title_activity_message"
+            android:parentActivityName="com.example.bump.MenuPrincipal">
+        </activity>
+    </application>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+
+</manifest>

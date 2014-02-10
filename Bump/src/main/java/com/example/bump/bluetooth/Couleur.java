@@ -1,4 +1,4 @@
-package com.example.bump.actions;
+package com.example.bump.bluetooth;
 
 /**
  * Created by Arturo on 13/01/14.
