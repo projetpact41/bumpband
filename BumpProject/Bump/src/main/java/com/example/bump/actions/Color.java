@@ -16,6 +16,18 @@ public class Color implements Serializable, Transmissible{
 		this.bleu = bleu;
 	}
 
+    public int getRouge() {
+        return rouge;
+    }
+
+    public int getVert() {
+        return vert;
+    }
+
+    public int getBleu() {
+        return bleu;
+    }
+
     @Override
     public Transmissible execute(Context context) {
         // TODO
