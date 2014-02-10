@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
@@ -91,7 +92,14 @@ public class BumpFriendAction extends ActionBarActivity {
                     Log.i(TAG,texte);
                     Destinataire destinataire = new Destinataire(bf.getAdresse(),PORT);
                     Log.i(TAG,"Creation destinataire"+bf.getAdresse());
-                    destinataire.envoieObjet(new Message(texte,bf.getName()),BumpFriendAction.this);
+                    ObjectInputStream ois = new ObjectInputStream(
+                            new BufferedInputStream(
+                                    new FileInputStream(
+                                            new File("fichePerso.txt")
+                                    )
+                            ));
+                    BumpFriend moi = (BumpFriend) ois.readObject();
+                    destinataire.envoieObjet(new Message(texte,moi.getName()),BumpFriendAction.this);
 
 
                 } catch (Exception e) {

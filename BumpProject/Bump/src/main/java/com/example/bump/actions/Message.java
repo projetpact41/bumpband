@@ -53,20 +53,6 @@ public class Message implements Serializable, Transmissible{
         resultIntent.putExtra("nom", expediteur);
         resultIntent.putExtra("message", message);
 
-        // The stack builder object will contain an artificial back stack for the
-        // started Activity.
-        // This ensures that navigating backward from the Activity leads out of
-        // your application to the Home screen.
-        //TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        // Adds the back stack for the Intent (but not the Intent itself)
-        //stackBuilder.addParentStack(MenuPrincipal.class);
-        // Adds the Intent that starts the Activity to the top of the stack
-        //stackBuilder.addNextIntent(resultIntent);
-        //PendingIntent resultPendingIntent =
-          //      stackBuilder.getPendingIntent(
-            //            0,
-                      //  PendingIntent.FLAG_UPDATE_CURRENT
-              //  );
 
 
         final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, resultIntent, 0);
@@ -74,7 +60,7 @@ public class Message implements Serializable, Transmissible{
 
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        // mId allows you to update the notification later on.
+
         mNotificationManager.notify(0, mBuilder.build());
 
         try {
