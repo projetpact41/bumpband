@@ -42,4 +42,26 @@ public class Transmission implements Serializable, Transmissible{
         }
         return null;
     }
+
+
+    public byte[] toBytes() {
+        String err = null;
+        if (erreur != null) {
+        err = erreur.toString();}
+        int n;
+        if (err != null) {
+            n = 2 + err.length();
+        }
+        else {
+            n = 2;
+        }
+        byte[] resultat = new byte[n];
+        resultat[0] = 4;
+        if (dialogueReussi) resultat[1] = 1;
+        else resultat[1] = 0;
+        for (int i = 0; i < n -2; i++ ) {
+            resultat[i+2] = (byte) err.charAt(i);
+        }
+        return resultat;
+    }
 }

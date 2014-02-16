@@ -16,7 +16,7 @@ import java.net.Socket;
 public class Serveur extends IntentService implements Runnable{
 
     private final int PORT = 4444;
-    private ServerSocket serveurSocket;
+    private ServerSocket serveurSocket = null;
     private Socket clientSocket;
     private static final String TAG = "SERVEUR";
 
@@ -61,7 +61,13 @@ public class Serveur extends IntentService implements Runnable{
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.i(TAG,"Lancement de l'intention");
-        Thread t = new Thread(this);
-        t.start();
+        if (serveurSocket == null) {
+            Thread t = new Thread(this);
+            t.start();
+            Log.i(TAG,"Lancement Serveur");
+        }
+        else {
+            Log.i(TAG,"Serveur deja lance");
+        }
     }
 }

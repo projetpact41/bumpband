@@ -5,26 +5,26 @@ import android.content.Context;
 import java.io.Serializable;
 
 public class Color implements Serializable, Transmissible{
-	private int rouge;
-	private int vert;
-	private int bleu;
+	private byte rouge;
+	private byte vert;
+	private byte bleu;
     private static final long serialVersionUID = -3487449280575641304L;
 	
-	public Color (int rouge, int vert, int bleu) {
+	public Color (byte rouge, byte vert, byte bleu) {
 		this.rouge = rouge;
 		this.vert = vert;
 		this.bleu = bleu;
 	}
 
-    public int getRouge() {
+    public byte getRouge() {
         return rouge;
     }
 
-    public int getVert() {
+    public byte getVert() {
         return vert;
     }
 
-    public int getBleu() {
+    public byte getBleu() {
         return bleu;
     }
 
@@ -32,5 +32,15 @@ public class Color implements Serializable, Transmissible{
     public Transmissible execute(Context context) {
         // TODO
         return null;
+    }
+
+
+    public byte[] toBytes() {
+        byte[] resultat = new byte[4];
+        resultat[0] = 1;
+        resultat[1]=rouge;
+        resultat[2]=vert;
+        resultat[3]=bleu;
+        return resultat;
     }
 }

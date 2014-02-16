@@ -21,20 +21,21 @@ import java.net.InetAddress;
 
 public class Connexion implements Serializable, Transmissible{ //Sert a etablir la premiere connexion
     private InetAddress adresse;
-	private int monSC; // Mon code de securite
-	private int tonSC; // Le code de securite de la cible
+	private byte monSC; // Mon code de securite
+	private byte tonSC; // Le code de securite de la cible
     private DataInputStream dis = null;
     private ObjectOutputStream oos = null;
     private ObjectInputStream ois = null;
     private static final long serialVersionUID = -3487449280575641304L;
+    private final String TAG = "ConnexionClass";
 	
-	public Connexion (int monSC, int tonSC, InetAddress adresse) {
+	public Connexion (byte monSC, byte tonSC, InetAddress adresse) {
 		this.monSC = monSC;
 		this.tonSC = tonSC;
         this.adresse = adresse;
 	}
 	
-	public boolean verifieCorrespond (int monSC, int tonSC) { 
+	public boolean verifieCorrespond (byte monSC, byte tonSC) {
 		// Verifie, apres la reception, que les codes de s�curite correspondent
 		return (monSC == this.tonSC && tonSC == this.monSC);
 	}
@@ -81,7 +82,10 @@ public class Connexion implements Serializable, Transmissible{ //Sert a etablir 
                             )
 
             );
-            return (BumpFriend) ois.readObject();
+
+            BumpFriend bfTemp = (BumpFriend) ois.readObject();
+            Log.i(TAG,bfTemp.getAdresse().toString());
+            return bfTemp;
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -101,5 +105,21 @@ public class Connexion implements Serializable, Transmissible{ //Sert a etablir 
             }
         }
         return new Transmission(ErreurTransmission.PROBLEMETRAITEMENT);
+    }
+
+    public byte[] toBytes() {
+        String addressIP = adresse.getHostAddress();
+        int n = 1 + addressIP.length()+4;
+        byte[] resultat = new byte[n];
+        int i = 0;
+        resultat[0] = 2;
+        i++;
+        for (;i<1+addressIP.length(); i++) {
+            resultat[i] = (byte) addressIP.charAt(i-1);
+        }
+        resultat[i] = '|';
+        resultat[i+1] = monSC;
+        resultat[i+2] = tonSC;
+        return resultat;
     }
 }

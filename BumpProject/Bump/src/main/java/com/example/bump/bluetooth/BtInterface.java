@@ -124,13 +124,13 @@ public class BtInterface {
                             for(int i=0;i<k;i++) //Recopie du bon nombre de caracteres.
                                 temp[i] = buffer[i];
 
-                            String data = new String(temp); //Attention, la chaine de caractere ne veut rien dire en soit, la reconvertir en byte[]
-                            Log.i(TAG,"Conversion des bytes en String");
+                            //String data = new String(temp); //Attention, la chaine de caractere ne veut rien dire en soit, la reconvertir en byte[]
+                            //Log.i(TAG,"Conversion des bytes en String");
 
                             Message msg = handler.obtainMessage();
                             Bundle b = new Bundle();
 
-                            b.putString("receivedData", data);
+                            b.putByteArray("receivedData",temp);
                             msg.setData(b);
                             handler.sendMessage(msg); //handler contiendra un bundle
                             Log.i(TAG,"Confirmation de la reception de donnees");

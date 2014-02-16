@@ -149,6 +149,8 @@ public class MainActivity extends ActionBarActivity {
                 ObjectOutputStream oos = null;
                 try {
                     InetAddress address = InetAddress.getByName(getIpAddr());
+                    Log.i(TAG,"Mon adresse : " + address.toString());
+                    Log.i(TAG,"Retour getIpAddr : "+getIpAddr());
 
                     moi = new BumpFriend(texte,address);
 

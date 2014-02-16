@@ -1,6 +1,8 @@
 package com.example.bump;
 
 import android.app.Activity;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -94,7 +96,7 @@ public class SimuBump extends Activity {
             dos.flush();
 
             Destinataire destinataire = new Destinataire(InetAddress.getByName(iptext.getText().toString()),PORT);
-            destinataire.envoieObjet(new Connexion(Integer.parseInt(monSC.getText().toString()),Integer.parseInt(tonSC.getText().toString()),InetAddress.getLocalHost()),SimuBump.this);
+            destinataire.envoieObjet(new Connexion(Byte.parseByte(monSC.getText().toString()),Byte.parseByte(tonSC.getText().toString()),InetAddress.getByName(getIpAddr())),SimuBump.this);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -148,6 +150,16 @@ public class SimuBump extends Activity {
             View rootView = inflater.inflate(R.layout.fragment_simubump, container, false);
             return rootView;
         }
+    }
+
+    public String getIpAddr() {
+        WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        int ip = wifiInfo.getIpAddress();
+
+        String ipString = String.format("%d.%d.%d.%d",(ip & 0xff),(ip >> 8 & 0xff),(ip >> 16 & 0xff),(ip >> 24 & 0xff));
+
+        return ipString;
     }
 
 }

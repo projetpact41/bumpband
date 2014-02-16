@@ -92,12 +92,19 @@ public class BumpFriendAction extends ActionBarActivity {
                     Log.i(TAG,texte);
                     Destinataire destinataire = new Destinataire(bf.getAdresse(),PORT);
                     Log.i(TAG,"Creation destinataire"+bf.getAdresse());
-                    ObjectInputStream ois = new ObjectInputStream(
+                    ObjectInputStream ois ;/*= new ObjectInputStream(
                             new BufferedInputStream(
                                     new FileInputStream(
                                             new File("fichePerso.txt")
                                     )
-                            ));
+                            ));*/
+                    ois = new ObjectInputStream(
+
+                            new FileInputStream(
+                                    new File(this.getFilesDir(),"fichePerso.txt")
+                            )
+
+                    );
                     BumpFriend moi = (BumpFriend) ois.readObject();
                     destinataire.envoieObjet(new Message(texte,moi.getName()),BumpFriendAction.this);
 
@@ -152,7 +159,9 @@ public class BumpFriendAction extends ActionBarActivity {
             e.printStackTrace();
         }
 */
-        for (BumpFriend bf : BumpFriendList.l) {
+        BFList bfList = new BFList("listeBF.txt",this);
+        ArrayList<BumpFriend> l = bfList.getBFliste();
+        for (BumpFriend bf : l) {
             if (bf.getName().equals(s)) return bf;
         }
         return null;

@@ -7,4 +7,5 @@ import android.content.Context;
  */
 public interface Transmissible {
     public Transmissible execute(Context context);
+    public byte[] toBytes();
 }

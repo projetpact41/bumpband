@@ -167,10 +167,15 @@ public class BumpFriendListe extends Activity {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }*/
-        int n = BumpFriendList.l.size();
+
+        BFList bfList = new BFList("listeBF.txt",this);
+        ArrayList<BumpFriend> l = bfList.getBFliste();
+
+        int n = l.size();
         String[] s = new String[n];
         for (int i = 0; i < n; i++) {
-            s[i] = BumpFriendList.l.get(i).getName();
+            s[i] = l.get(i).getName();
+            Log.i(TAG,l.get(i).getName());
         }
         return s;
     }
