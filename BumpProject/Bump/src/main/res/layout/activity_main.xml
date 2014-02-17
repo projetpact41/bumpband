@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame"
+    android:background="@drawable/pnggradHDrgba">
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,13 +21,13 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/pseudo"
-        android:layout_gravity="center" />
+        android:layout_gravity="center_horizontal|center" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Connexion"
         android:id="@+id/buttonConnexion"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:layout_width="142dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:text="Connexion" />
 
 </FrameLayout>
