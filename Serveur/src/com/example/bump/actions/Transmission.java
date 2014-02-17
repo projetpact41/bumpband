@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by jjuulliieenn on 01/01/14.
  */
-public class Transmission implements Serializable{
+public class Transmission implements Serializable, Transmissible{
 
     private boolean dialogueReussi; // Le message est-il bien transmis?
     private ErreurTransmission erreur = null;
@@ -30,4 +30,36 @@ public class Transmission implements Serializable{
         return erreur;
     }
 
+    public Transmissible execute() {
+        if (dialogueReussi) return null;
+        // TODO gerer les differents cas d'erreurs.
+        if (erreur == ErreurTransmission.IPNONRECONNUE) {
+
+        } else if (erreur == ErreurTransmission.PROBLEMETRAITEMENT) {
+
+        }
+        return null;
+    }
+
+
+    public byte[] toBytes() {
+        String err = null;
+        if (erreur != null) {
+        err = erreur.toString();}
+        int n;
+        if (err != null) {
+            n = 2 + err.length();
+        }
+        else {
+            n = 2;
+        }
+        byte[] resultat = new byte[n];
+        resultat[0] = 4;
+        if (dialogueReussi) resultat[1] = 1;
+        else resultat[1] = 0;
+        for (int i = 0; i < n -2; i++ ) {
+            resultat[i+2] = (byte) err.charAt(i);
+        }
+        return resultat;
+    }
 }

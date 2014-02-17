@@ -14,23 +14,28 @@ public class EcouteConnexion extends Thread{
 	}
 	
 	public void run () {
-		while (true) {
-			try {
-				serveurSocket = new ServerSocket(PORT);
-				System.out.println("YOpla");
-				clientSocket = serveurSocket.accept();
-				System.out.println("Connexion");
-				TraitementClient t = new TraitementClient(clientSocket);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					serveurSocket.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
+        try {
+            serveurSocket = new ServerSocket(PORT);
+            while (true) {
+                try {
+                   
+                    clientSocket = serveurSocket.accept();
+                    
+                    TraitementClient t = new TraitementClient(clientSocket);
+                } catch (Exception e) {
+                   
+                    e.printStackTrace();
+                }
+            }
+        } catch(Exception e) {
+            
+        } finally {
+            try {
+                serveurSocket.close();
+            } catch (Exception e) {
+                
+            }
+        }
+    }
 	
 }
