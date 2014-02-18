@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".MessageActivity"
     tools:ignore="MergeRootFrame" 
-    android:background="@drawable/pnggradHDrgba">
+    android:background="@drawable/pnggradhdrgba">
 
     <TextView
         android:layout_width="wrap_content"
