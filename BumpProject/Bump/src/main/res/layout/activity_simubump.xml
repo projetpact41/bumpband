@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:text="BUMP !"
         android:id="@+id/buttonBump"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/mubutton" />
 
 </LinearLayout>
