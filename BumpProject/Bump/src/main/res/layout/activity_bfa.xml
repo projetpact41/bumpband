@@ -4,8 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BumpFriendAction"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame"
+    android:background="@drawable/pnggradhdrgba" >
 
+            
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,10 +17,13 @@
         android:layout_gravity="center"
         android:layout_marginTop="95dp" />
 
+
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Envoyer"
         android:id="@+id/buttonEnvoi"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+		android:layout_gravity="center_horizontal|bottom"
+		android:text="Envoyer"
+		android:background="@drawable/mubutton" />
+
 </FrameLayout>

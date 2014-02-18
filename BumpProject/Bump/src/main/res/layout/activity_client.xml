@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SendClient"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame" 
+    android:background="@drawable/pnggradhdrgba" >
 
     <EditText
         android:layout_width="178dp"
@@ -17,5 +18,6 @@
         android:layout_height="wrap_content"
         android:text="Send"
         android:id="@+id/send"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:layout_gravity="center_horizontal|bottom"
+        android:background="@drawable/mubutton" />
 </FrameLayout>
