@@ -17,5 +17,6 @@
     <string name="title_activity_apropos">A Propos</string>
     <string name="title_activity_simu_bump">Simulation Bump</string>
     <string name="title_activity_message">Message</string>
+    <string name="title_activity_color_menu">ColorMenu</string>
 
 </resources>

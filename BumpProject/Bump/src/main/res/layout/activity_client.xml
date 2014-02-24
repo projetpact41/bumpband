@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".SendClient"
     tools:ignore="MergeRootFrame" 
-    android:background="@drawable/pnggradhdrgba" >
+    android:background="@drawable/noir" >
 
     <EditText
         android:layout_width="178dp"

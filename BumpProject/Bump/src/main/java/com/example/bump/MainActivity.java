@@ -24,8 +24,11 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.bump.actions.BumpFriend;
+import com.example.bump.bluetooth.BtParseur;
+import com.example.bump.bluetooth.GestionBt;
 import com.example.bump.serveur.Serveur;
 
 import java.io.BufferedOutputStream;
@@ -135,13 +138,14 @@ public class MainActivity extends ActionBarActivity {
                 Log.d(TAG, "L'interface de connexion active est du Wifi : " + wifi);
 
                 //On alerte l'utilisateur s'il n'est pas en wifi
-                if (!wifi) new AlertDialog.Builder(this).setTitle(R.string.avertissement).setMessage(R.string.non_wifi)
+                if (!wifi) /*new AlertDialog.Builder(this).setTitle(R.string.avertissement).setMessage(R.string.non_wifi)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
                             }
-                        }).show();
+                        }).show();*/
+                    Toast.makeText(this,R.string.non_wifi,1000);
 
                 //Fiche perso
                 BumpFriend moi = null;
@@ -224,6 +228,8 @@ public class MainActivity extends ActionBarActivity {
                     Intent i = new Intent(MainActivity.this,com.example.bump.serveur.Serveur.class);
 
                     startService(i); //Lancement du serveur
+
+                    BtParseur.sendIp(this);
 
                     //i = new Intent(MainActivity.this, SendClient.class);
                     i = new Intent(MainActivity.this, MenuPrincipal.class);

@@ -33,11 +33,13 @@ public class BtInterface {
         BluetoothDevice[] appareilsAppareilles = (BluetoothDevice[]) setAppareilsApparies.toArray(new BluetoothDevice[setAppareilsApparies.size()]);
 
         for(int i=0;i<appareilsAppareilles.length;i++) {
-            if(appareilsAppareilles[i].getName().contains("Bracelet")) {
+            if(appareilsAppareilles[i].getName().contains(/*"Bracelet"*/"RNBT-1ED2")) {//1ED2 1D8B
                 appareil = appareilsAppareilles[i];
                 try {
                     socket = appareil.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
                     Log.i(TAG,"Creation de la socket");
+                    socket.connect();
+                    Log.i(TAG, "Connexion a la socket");
                     is = socket.getInputStream();
                     os = socket.getOutputStream();
                     Log.i(TAG,"Recuperation des flux");
@@ -51,6 +53,7 @@ public class BtInterface {
         handler = handlerStatus;
 
         threadReception = new ThreadReception(h);
+        connect();
     }
 
 
@@ -68,9 +71,9 @@ public class BtInterface {
         new Thread() {
             @Override
             public void run() {
-                try {
-                    socket.connect();
-                    Log.i(TAG, "Connexion a la socket");
+                //try {
+                    //socket.connect();
+
 
                     Message msg = handler.obtainMessage();
                     msg.arg1 = 1; //On s'est bien connecte a la socket
@@ -80,10 +83,10 @@ public class BtInterface {
 
                     threadReception.start(); //Lorsqu'on se connecte, on lance le thread de reception
 
-                } catch (IOException e) {
-                    Log.i(TAG,"Echec de la connexion : "+e.getMessage());
-                    e.printStackTrace();
-                }
+                //} catch (IOException e) {
+                  //  Log.i(TAG,"Echec de la connexion : "+e.getMessage());
+                   // e.printStackTrace();
+                //}
             }
         }.start();
     }
@@ -117,7 +120,7 @@ public class BtInterface {
 
                         byte buffer[] = new byte[100];  //Limite de 100 bytes?
                         int k = is.read(buffer, 0, 100);
-                        Log.i(TAG,"Reception des donnees");
+                        Log.i(TAG,"Reception des donnees et k = " + k);
 
                         if(k > 0) { //On verifie que l'on a bien recu les donnees
                             byte temp[] = new byte[k];

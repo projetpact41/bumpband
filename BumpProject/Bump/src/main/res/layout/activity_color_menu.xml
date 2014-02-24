@@ -3,13 +3,13 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BumpFriendListe"
-    tools:ignore="MergeRootFrame" 
-    android:background="@drawable/noir">
+    tools:context="com.example.bump.ColorMenu"
+    tools:ignore="MergeRootFrame" >
 
-    <ListView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_gravity="center_horizontal|top" />
+        android:text="Color"
+        android:id="@+id/buttonColor"
+        android:layout_gravity="center" />
 </FrameLayout>

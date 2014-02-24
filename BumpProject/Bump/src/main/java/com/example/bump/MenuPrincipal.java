@@ -18,6 +18,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.bump.bluetooth.GestionBt;
+
 public class MenuPrincipal extends Activity {
 
     private ListView listView;
@@ -35,7 +37,8 @@ public class MenuPrincipal extends Activity {
         String[] cases = {"Liste de BumpFriend",
                             "Choix couleur",
                             "Simulation Bump",
-                            "A propos"};
+                            "A propos"/*,
+                            "Test BT"*/};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, cases);
         listView.setAdapter(adapter);
@@ -57,6 +60,8 @@ public class MenuPrincipal extends Activity {
                     Log.i(TAG,itemValue);
                 } else if (itemValue.equals("Choix couleur")) {
                     //A faire en temps voulu
+                    Intent i = new Intent (MenuPrincipal.this,ColorMenu.class);
+                    startActivity(i);
                     Log.i(TAG,itemValue);
                 } else if (itemValue.equals("Simulation Bump")) {
                     Intent i = new Intent (MenuPrincipal.this,SimuBump.class);
@@ -66,7 +71,27 @@ public class MenuPrincipal extends Activity {
                     Intent i = new Intent (MenuPrincipal.this,APropos.class);
                     startActivity(i);
                     Log.i(TAG,itemValue);
-                }
+                } /*else if (itemValue.equals("Test BT")) {
+                    Intent i = new Intent (MenuPrincipal.this, GestionBt.class);
+                    byte[] b = new byte[1];
+                    b[0] = (byte) 0;
+                    i.putExtra("message",b);
+                    startService(i);
+                    Log.i(TAG,itemValue);
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    i = new Intent (MenuPrincipal.this, GestionBt.class);
+                    b = new byte[1];
+                    b[0] = (byte) 1;
+                    i.putExtra("message",b);
+                    startService(i);
+                    Log.i(TAG,itemValue);
+                }*/
 
             }
 

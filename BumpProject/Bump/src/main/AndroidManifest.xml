@@ -28,7 +28,7 @@
 
         <service android:name="com.example.bump.serveur.Serveur" >
         </service>
-        <service android:name=".bluetooth.GestionBt" />
+        <service android:name="com.example.bump.bluetooth.GestionBt" />
 
         <activity
             android:name="com.example.bump.SendClient"
@@ -57,7 +57,11 @@
         <activity
             android:name="com.example.bump.MessageActivity"
             android:label="@string/title_activity_message"
-            android:parentActivityName="com.example.bump.MenuPrincipal">
+            android:parentActivityName="com.example.bump.MenuPrincipal" >
+        </activity>
+        <activity
+            android:name="com.example.bump.ColorMenu"
+            android:label="@string/title_activity_color_menu" >
         </activity>
     </application>
 
@@ -66,7 +70,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 </manifest>

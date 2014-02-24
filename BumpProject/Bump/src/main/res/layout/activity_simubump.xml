@@ -31,6 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="BUMP !"
+        android:textColor="#097899"
+        android:textStyle="bold"
         android:id="@+id/buttonBump"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/mubutton" />

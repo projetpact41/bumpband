@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     tools:ignore="MergeRootFrame"
-    android:background="@drawable/pnggradhdrgba">
+    android:background="@drawable/noir">
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,9 +26,8 @@
     <Button
         android:id="@+id/buttonConnexion"
         android:layout_width="142dp"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal|bottom"
-        android:text="Connexion"
-        android:background="@drawable/mubutton" />
+        android:background="@drawable/bfneonbutton" />
 
 </FrameLayout>
