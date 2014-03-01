@@ -1,25 +1,17 @@
 package com.example.bump.actions;
 
 
-import android.content.Context;
-import android.util.Log;
-
-import com.example.bump.BFList;
-import com.example.bump.BumpFriendList;
-
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.io.StreamCorruptedException;
 import java.net.InetAddress;
-import java.util.ArrayList;
+
+import client.Destinataire;
 
 /**
  * Created by jjuulliieenn on 01/01/14.
@@ -50,8 +42,7 @@ public class BumpFriend implements Serializable, Transmissible {
         return adresse;
     }
 
-    public Transmissible execute (Context context) {
-        Log.i("BF","BF recu");
+    public Transmissible execute () {
         ObjectInputStream ois = null;
         //ObjectOutputStream oos = null;
         try {
@@ -61,51 +52,21 @@ public class BumpFriend implements Serializable, Transmissible {
             ois = new ObjectInputStream(
                     new BufferedInputStream(
                             new FileInputStream(
-                                    new File(context.getFilesDir(),"enCours.txt")
+                                    new File("enCours.txt")
                             )
                     )
             );
 
             InetAddress testAdresse = (InetAddress) ois.readObject();
-            Log.e("BF","Ici" + testAdresse.getHostAddress());
-            Log.e("BF",adresse.getHostAddress());
             if (testAdresse.equals(adresse)) {
-                Log.e("BF","Ici");
-
-                /*ArrayList<BumpFriend> l = new ArrayList<BumpFriend>();
-                FileInputStream fis = new FileInputStream(
-                        new File(context.getFilesDir(),"BFList.txt")
-                );
-                ObjectInputStream ois2 = new ObjectInputStream(
-                        new BufferedInputStream(
-                                fis
-                        )
-                );
-                ArrayList<BumpFriend> bf=new ArrayList<BumpFriend>();
-                Log.i("BF","Debut de la lecture des bf");
-                try {
-                    bf = (ArrayList<BumpFriend>) ois.readObject();
-                } catch (IOException e) {
-                    Log.i("BF","FIN des BF");
-                }
-
-                Log.i("BF", "Taille " + l.size());
-
-                oos = new ObjectOutputStream(
-                        new BufferedOutputStream(
-                                new FileOutputStream(
-                                        new File(context.getFilesDir(),"BFList.txt")
-                                )
-                        )
-                );
-                l.add(this);
-                oos.writeObject(l);
-                oos.flush();*/
-                BFList bfList = new BFList("listeBF.txt",context);
+                
+                BFList bfList = new BFList("listeBF.txt");
                 bfList.ajoutBF(this);
 
                 //BumpFriendList.add(this);
-
+                int identifiant = HashList.add(this);
+                Destinataire destinataire = new Destinataire(this.adresse, 4444);
+                destinataire.envoieObjet(new Identifiant(identifiant));
                 return new Transmission (true);
             } else return new Transmission(ErreurTransmission.IPNONRECONNUE);
         } catch (InterruptedException e) {
@@ -152,5 +113,6 @@ public class BumpFriend implements Serializable, Transmissible {
         return resultat;
     }
 
-    public String toString(){return name+"Âµ"+adresse.getHostAddress();}//Âµ = transition
+    public String toString(){return name+"µ"+adresse.getHostAddress();}//µ = transition
+    
 }
