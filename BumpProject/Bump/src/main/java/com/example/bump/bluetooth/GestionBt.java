@@ -25,6 +25,7 @@ import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 /**
  * Created by jjuulliieenn on 16/02/14.
@@ -65,7 +66,7 @@ public class GestionBt extends Service {
                 Bundle b = msg.getData();
                 byte[] recu = b.getByteArray("receivedData");
                 try {
-                    Log.i(TAG, new String(recu,"US-ASCII"));
+                    Log.i(TAG, Arrays.toString(recu));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -86,6 +87,7 @@ public class GestionBt extends Service {
             Log.i(TAG, "Bug");
         }
         byte[] b = intent.getByteArrayExtra("message");
+        Log.i(TAG,"Avant envoie "+Arrays.toString(b));
         if (b != null)  btInterface.sendData(b);
         return super.onStartCommand(intent, flags, startId);
     }
@@ -107,26 +109,28 @@ public class GestionBt extends Service {
 
     private void receiveBump(byte[] s) {
         if (s.length != 7) {
-            Log.d(TAG,"Message de mauvaise longueur "+ new String(s));
+            Log.d(TAG,"Message de mauvaise longueur ");
             return;
         }
         else {
             Log.d(TAG,"Traitement BUMP");
             StringBuilder str = new StringBuilder();
-            str.append((char)s[1]);
+            str.append(s[1] & 0xff);
             str.append('.');
-            str.append((char)s[2]);
+            str.append(s[2] & 0xff);
             str.append('.');
-            str.append((char)s[3]);
+            str.append(s[3] & 0xff);
             str.append('.');
-            str.append((char)s[4]);
+            str.append(s[4] & 0xff);
             ip = str.toString();
+            Log.i(TAG,ip);
             str = new StringBuilder();
-            str.append((char) s[5]);
+            str.append(s[5] & 0xff);
             monSC = str.toString();
+            Log.i(TAG,"Mon SC :" + monSC);
             str = new StringBuilder();
-            str.append((char) s[6]);
-            monSC = str.toString();
+            str.append(s[6] & 0xff);
+            tonSC = str.toString();
             envoieBF();
         }
 

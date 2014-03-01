@@ -113,13 +113,15 @@ public class BtInterface {
 
         @Override
         public void run() {
+            int k;
             while(true) {
                 try {
-                    if(is.available() > 0) {
+                    byte buffer[] = new byte[100];
+                    if(/*is.available() > 0*/(k = is.read(buffer, 0, 100))>0) {
                         Log.i(TAG,"Debut de la lecture du stream");
 
-                        byte buffer[] = new byte[100];  //Limite de 100 bytes?
-                        int k = is.read(buffer, 0, 100);
+                        //byte buffer[] = new byte[100];  //Limite de 100 bytes?
+                        //k = is.read(buffer, 0, 100);
                         Log.i(TAG,"Reception des donnees et k = " + k);
 
                         if(k > 0) { //On verifie que l'on a bien recu les donnees

@@ -230,6 +230,7 @@ public class MainActivity extends ActionBarActivity {
                     startService(i); //Lancement du serveur
 
                     BtParseur.sendIp(this);
+                    //BtParseur.clignote((byte)1,(byte)2,this);
 
                     //i = new Intent(MainActivity.this, SendClient.class);
                     i = new Intent(MainActivity.this, MenuPrincipal.class);

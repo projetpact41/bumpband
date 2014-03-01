@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 
 import com.example.bump.actions.Color;
@@ -81,7 +82,9 @@ public class BtParseur {
         b[3] = (byte) (ip >> 16 & 0xff);
         b[4] = (byte) (ip >> 24 & 0xff);
 
-        send(b,context);
+        Log.i("GestionBt", Arrays.toString(b));
+
+        send(b, context);
 
     }
 
