@@ -51,6 +51,6 @@ public class SMSReceiver extends BroadcastReceiver {
             editor.commit();
 
         }
-        throw new UnsupportedOperationException("Not yet implemented");
+        else throw new UnsupportedOperationException("Pas implemente");
     }
 }
