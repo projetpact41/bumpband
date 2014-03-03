@@ -80,6 +80,11 @@
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name="com.example.bump.MenuPrincipal2"
+            android:label="@string/title_activity_menu_principal2" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

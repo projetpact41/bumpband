@@ -5,13 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".MessageActivity"
     tools:ignore="MergeRootFrame" 
-    android:background="@drawable/noir">
+    android:background="@drawable/fondnoir">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/expedi"
+        android:textColor="#FFFF"
         android:layout_gravity="center_horizontal|top" />
 
     <TextView
@@ -19,5 +20,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/messagerie"
+        android:textColor="#FFFF"
         android:layout_gravity="center" />
 </FrameLayout>

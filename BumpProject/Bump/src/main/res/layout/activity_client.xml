@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".SendClient"
     tools:ignore="MergeRootFrame" 
-    android:background="@drawable/noir" >
+    android:background="@drawable/fondnoir" >
 
     <EditText
         android:layout_width="178dp"
@@ -14,10 +14,10 @@
         android:layout_gravity="center" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send"
+        android:layout_width="96dp"
+        android:layout_height="90dp"
         android:id="@+id/send"
+        android:layout_marginBottom="25dp"
         android:layout_gravity="center_horizontal|bottom"
-        android:background="@drawable/mubutton" />
+        android:background="@drawable/sendbutton" />
 </FrameLayout>

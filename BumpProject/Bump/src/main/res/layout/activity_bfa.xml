@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".BumpFriendAction"
     tools:ignore="MergeRootFrame"
-    android:background="@drawable/noir" >
+    android:background="@drawable/fondnoir" >
 
             
     <EditText
@@ -20,10 +20,9 @@
 
     <Button
         android:id="@+id/buttonEnvoi"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_width="109dp"
+        android:layout_height="94dp"
 		android:layout_gravity="center_horizontal|bottom"
-		android:text="Envoyer"
-		android:background="@drawable/mubutton" />
+		android:background="@drawable/sendbutton" />
 
 </FrameLayout>

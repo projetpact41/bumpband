@@ -6,7 +6,6 @@ public class Identifiant implements Transmissible {
 	private int id;
     public Identifiant(int id) {
     	this.id=id;
-    	
     }
 	@Override
 	public Transmissible execute() {
@@ -15,7 +14,8 @@ public class Identifiant implements Transmissible {
 	}
 	@Override
 	public byte[] toBytes() {
-		ByteBuffer b = ByteBuffer.allocate(4);
+		ByteBuffer b = ByteBuffer.allocate(5);
+		b.put((byte) 5);
 	    b.putInt(id);
 	    byte[] bytes = b.array();
 		return bytes;

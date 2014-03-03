@@ -34,13 +34,37 @@ public class ColorMenu extends ActionBarActivity {
                     .commit();
         }
 
-        send = (Button) findViewById(R.id.buttonColor);
+        Button button_red = (Button) findViewById(R.id.button_red);
+        Button button_blue = (Button) findViewById(R.id.button_blue);
+        Button button_green = (Button) findViewById(R.id.button_green);
+        Button button_clign = (Button) findViewById(R.id.button_clign);
 
         //Ecoute du bouton
-        send.setOnClickListener(new View.OnClickListener() {
+        button_red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BtParseur.sendColor(new Color((byte) 127,(byte) 127,(byte) 127), context);
+                BtParseur.sendColor(new Color((byte) 255,(byte) 0,(byte) 0), context);
+            }
+        });
+
+        button_green.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BtParseur.sendColor(new Color((byte) 0,(byte) 255,(byte) 0), context);
+            }
+        });
+
+        button_blue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BtParseur.sendColor(new Color((byte) 0,(byte) 0,(byte) 255), context);
+            }
+        });
+
+        button_clign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BtParseur.clignote((byte) 4,(byte) 10, context);
             }
         });
 

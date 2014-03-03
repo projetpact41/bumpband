@@ -20,7 +20,7 @@ import android.widget.ListView;
 
 import com.example.bump.bluetooth.GestionBt;
 
-public class MenuPrincipal extends Activity {
+public class MenuPrincipal extends Activity {//CE n'est PAS LE LE MENU. Voir menuprincipal2
 
     private ListView listView;
     private final String TAG = "MenuPrincipal";

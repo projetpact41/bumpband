@@ -63,6 +63,7 @@ public class BFList {
         return i;
     }
 
+
     public Boolean isBF(BumpFriend bf){
         int i = this.index(bf);
         if (i<0) {return false;}
@@ -78,8 +79,9 @@ public class BFList {
             while (line!=null) {
                 int i = line.indexOf("µ");
                 String name = line.substring(0,i);
-                InetAddress adresse = InetAddress.getByName(line.substring(i+1));
+                InetAddress adresse = InetAddress.getByName(line.substring(i+1,i+4));
                 BumpFriend bf = new BumpFriend(name,adresse);
+                bf.setId(new Integer(line.substring(i+5)));
                 array.add(bf);
                 line = readfile.readLine();
             }
@@ -109,6 +111,44 @@ public class BFList {
                     bwriter.write(line);
                 }
                 j++;
+                line = breader.readLine();
+            }
+            temp.renameTo(liste);
+            this.liste = temp;
+            bwriter.close();
+            breader.close();
+            writer.close();
+            reader.close();
+        }
+        catch(Exception e){
+            System.err.println("Exception catched:");
+            e.printStackTrace();
+        }
+    }
+
+    public void changerId(int id, String ip){
+        File temp = new File("EMPLACEMENTTEMP.txt");
+        try {
+            FileReader reader = new FileReader(liste);
+            FileWriter writer = new FileWriter(temp,true);
+            BufferedReader breader = new BufferedReader(reader);
+            BufferedWriter bwriter = new BufferedWriter(writer);
+
+            String line = breader.readLine();
+            while(line != null) {
+
+                int i = line.indexOf("µ");
+                String name = line.substring(0,i);
+                InetAddress adresse = InetAddress.getByName(line.substring(i+1,i+4));
+                BumpFriend bf = new BumpFriend(name,adresse);
+                bf.setId(new Integer(line.substring(i+5)));
+
+                if (bf.getId() == id) {
+                    bf.setAdresse(InetAddress.getByName(ip));
+                }
+
+                bwriter.write(bf.toString());
+
                 line = breader.readLine();
             }
             temp.renameTo(liste);

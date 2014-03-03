@@ -5,13 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".APropos"
     tools:ignore="MergeRootFrame" 
-    android:background="@drawable/pnggradhdrgba">
+    android:background="@drawable/fondnoir">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Application concue par PACT41"
+        android:text="Application concue par PACT 4.1\nPour Télécom Paristech\nRemerciements à Jean Lefeuvre"
+        android:textColor="#FFFF"
         android:id="@+id/textView"
         android:layout_gravity="center" />
 </FrameLayout>

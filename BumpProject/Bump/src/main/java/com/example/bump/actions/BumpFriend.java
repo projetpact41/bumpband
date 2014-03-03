@@ -28,7 +28,7 @@ public class BumpFriend implements Serializable, Transmissible {
 
     private InetAddress adresse; //Adresse du BF
     private String name;
-    private String id;
+    private int id;
     private static final long serialVersionUID = -5929515104076961259L;
 
     public BumpFriend (String name, InetAddress adresse) {
@@ -36,7 +36,7 @@ public class BumpFriend implements Serializable, Transmissible {
         this.name = name;
     }
 
-    public BumpFriend (String name, String id) {
+    public BumpFriend (String name, int id) {
         this.name = name;
         this.id = id;
         //this.address = toAdresse(id);
@@ -48,6 +48,18 @@ public class BumpFriend implements Serializable, Transmissible {
 
     public InetAddress getAdresse() {
         return adresse;
+    }
+
+    public void setAdresse(InetAddress adresse) {
+        this.adresse = adresse;
+    }
+
+    public void setId (int id) {
+        this.id=id;
+    }
+
+    public int getId (){
+        return this.id;
     }
 
     public Transmissible execute (Context context) {
@@ -152,5 +164,5 @@ public class BumpFriend implements Serializable, Transmissible {
         return resultat;
     }
 
-    public String toString(){return name+"µ"+adresse.getHostAddress();}//µ = transition
+    public String toString(){return name+"µ"+adresse.getHostAddress()+"µ"+id;}//µ = transition
 }

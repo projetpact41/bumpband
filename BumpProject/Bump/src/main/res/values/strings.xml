@@ -18,5 +18,6 @@
     <string name="title_activity_simu_bump">Simulation Bump</string>
     <string name="title_activity_message">Message</string>
     <string name="title_activity_color_menu">ColorMenu</string>
+    <string name="title_activity_menu_principal2">MenuPrincipal2</string>
 
 </resources>

@@ -1,0 +1,34 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.bump.MenuPrincipal2"
+    tools:ignore="MergeRootFrame"
+    android:background="@drawable/fondnoir">
+
+    <Button
+        android:layout_width="440dp"
+        android:layout_height="81dp"
+        android:id="@+id/button_bfl"
+        android:layout_x="10dp"
+        android:layout_y="40dp"
+        android:background="@drawable/bumpfriendsbutton"/>
+
+    <Button
+        android:layout_width="440dp"
+        android:layout_height="81dp"
+        android:id="@+id/button_color"
+        android:layout_x="10dp"
+        android:layout_y="140dp"
+        android:background="@drawable/colorsbutton"/>
+
+    <Button
+        android:layout_width="440dp"
+        android:layout_height="81dp"
+        android:id="@+id/button_about"
+        android:layout_x="10dp"
+        android:layout_y="240dp"
+        android:background="@drawable/aboutbutton"
+        android:layout_gravity="left|top" />
+</AbsoluteLayout>

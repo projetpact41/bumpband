@@ -6,12 +6,15 @@ import com.example.bump.actions.BumpFriend;
 import com.example.bump.actions.Color;
 import com.example.bump.actions.Connexion;
 import com.example.bump.actions.ErreurTransmission;
+import com.example.bump.actions.Identifiant;
+import com.example.bump.actions.IdentifiantAnswer;
 import com.example.bump.actions.Message;
 import com.example.bump.actions.Transmissible;
 import com.example.bump.actions.Transmission;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
 
 /**
  * Created by jjuulliieenn on 17/02/14.
@@ -31,9 +34,24 @@ public class Parseur {
 
             case 4 : return lireTransmission(recu);
 
+            case 5 : return lireIdentifiant(recu);
+
+            case 6 : return lireIdentifiantAnswer(recu);
+
             default : Log.i(TAG, "Classe recue non reconnue.");
                 return null;
         }
+    }
+
+    private static Transmissible lireIdentifiantAnswer(byte[] recu) {
+        ByteBuffer b = ByteBuffer.wrap(recu);
+        if (b.get() != (byte) 6) return null;
+        int id = b.getInt();
+        StringBuilder ip = new StringBuilder();
+        for (int i = 5; i < recu.length; i++) {
+            ip.append((char) recu[i]);
+        }
+        return new IdentifiantAnswer(id, ip.toString());
     }
 
     private static Transmissible lireBF(byte[] recu) {
@@ -106,5 +124,31 @@ public class Parseur {
             return new Transmission(ErreurTransmission.valueOf(str.toString()));
         }
         else return new Transmission(dialogueReussi);
+    }
+
+    private static Transmissible lireIdentifiant (byte[] recu) {
+        int n = recu.length;
+        if (n != 5) {
+            Log.i(TAG,"Probleme longueur identifiant");
+            return null;
+        }
+        else {
+            Log.i(TAG, "Message Identifiant");
+            Identifiant identifiant = new Identifiant(bytesToInt(recu));
+            return identifiant;
+        }
+    }
+
+    protected static int bytesToInt(byte[] bytes)
+    {
+        int value = 0;
+
+        for(int i=1; i<bytes.length; i++)
+        {
+            value = value << 8;
+            value += bytes[i] & 0xff;
+        }
+
+        return value;
     }
 }
