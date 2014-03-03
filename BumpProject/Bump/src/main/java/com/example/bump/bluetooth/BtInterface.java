@@ -113,21 +113,24 @@ public class BtInterface {
 
         @Override
         public void run() {
-            int k;
+            byte[] k = new byte[1];
             while(true) {
                 try {
-                    byte buffer[] = new byte[100];
-                    if(/*is.available() > 0*/(k = is.read(buffer, 0, 100))>0) {
+                    //byte buffer[] = new byte[100];
+                    is.read(k);
+                    if(/*is.available() > 0(k = is.read(buffer, 0, 100))>0*/k[0]>0) {
                         Log.i(TAG,"Debut de la lecture du stream");
 
                         //byte buffer[] = new byte[100];  //Limite de 100 bytes?
                         //k = is.read(buffer, 0, 100);
-                        Log.i(TAG,"Reception des donnees et k = " + k);
+                        Log.i(TAG,"Reception des donnees et k = " + k[0]);
+                        byte[] buffer = new byte[k[0]];
+                        is.read(buffer,0,k[0]);
 
-                        if(k > 0) { //On verifie que l'on a bien recu les donnees
+                        /*if(k > 0) { //On verifie que l'on a bien recu les donnees
                             byte temp[] = new byte[k];
                             for(int i=0;i<k;i++) //Recopie du bon nombre de caracteres.
-                                temp[i] = buffer[i];
+                                temp[i] = buffer[i];*/
 
                             //String data = new String(temp); //Attention, la chaine de caractere ne veut rien dire en soit, la reconvertir en byte[]
                             //Log.i(TAG,"Conversion des bytes en String");
@@ -135,17 +138,15 @@ public class BtInterface {
                             Message msg = handler.obtainMessage();
                             Bundle b = new Bundle();
 
-                            b.putByteArray("receivedData",temp);
+                            b.putByteArray("receivedData",/*temp*/buffer);
                             msg.setData(b);
                             handler.sendMessage(msg); //handler contiendra un bundle
                             Log.i(TAG,"Confirmation de la reception de donnees");
-                        }
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                        e.printStackTrace();
                 }
             }
         }
     }
-
 }

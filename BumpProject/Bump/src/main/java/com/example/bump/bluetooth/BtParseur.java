@@ -29,7 +29,10 @@ import com.example.bump.client.Destinataire;
 public class BtParseur {
 
     public static void sendMessage(String message,byte duree,Context context) {
-        ByteBuffer b = ByteBuffer.allocate(message.length()+2);
+        int n = message.length()+2+1;
+        ByteBuffer b = ByteBuffer.allocate(message.length()+2+1);
+        if (n>255) return; //Messages pas trop longs
+        b.put((byte) n);
         b.put((byte) 0);
         for (int i = 0; i<message.length(); i++) {
             b.putChar(message.charAt(i));
@@ -41,7 +44,8 @@ public class BtParseur {
 
 
     public static void  vibre(byte duree,Context context) {
-        ByteBuffer b = ByteBuffer.allocate(2);
+        ByteBuffer b = ByteBuffer.allocate(3);
+        b.put((byte)3);
         b.put((byte)1);
         b.put(duree);
         byte[] bytes = b.array();
@@ -50,7 +54,8 @@ public class BtParseur {
     }
 
     public static void sendColor(/*byte numeroCanal,*/Color color,Context context) {
-        ByteBuffer b = ByteBuffer.allocate(4);
+        ByteBuffer b = ByteBuffer.allocate(5);
+        b.put((byte)5);
         b.put((byte) 2);
         //b.put(numeroCanal);
         b.put((byte)color.getRouge());
@@ -62,6 +67,7 @@ public class BtParseur {
 
     public static void clignote(byte frequence, byte duree, Context context) {
         ByteBuffer b = ByteBuffer.allocate(3);
+        b.put((byte) 3);
         b.put((byte)3);
         b.put(frequence);
         b.put(duree);
@@ -70,17 +76,18 @@ public class BtParseur {
     }
 
     public static void sendIp(Context context) {
-        byte[] b = new byte[5];
-        b[0] = 4;
+        byte[] b = new byte[6];
+        b[0] = 6;
+        b[1] = 4;
 
         WifiManager wifiManager;
         wifiManager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         int ip = wifiInfo.getIpAddress();
-        b[1] = (byte) (ip & 0xff);
-        b[2] = (byte) (ip >> 8 & 0xff);
-        b[3] = (byte) (ip >> 16 & 0xff);
-        b[4] = (byte) (ip >> 24 & 0xff);
+        b[2] = (byte) (ip & 0xff);
+        b[3] = (byte) (ip >> 8 & 0xff);
+        b[4] = (byte) (ip >> 16 & 0xff);
+        b[5] = (byte) (ip >> 24 & 0xff);
 
         Log.i("GestionBt", Arrays.toString(b));
 
