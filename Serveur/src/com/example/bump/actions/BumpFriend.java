@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.io.StreamCorruptedException;
 import java.net.InetAddress;
 
+import client.Destinataire;
+
 /**
  * Created by jjuulliieenn on 01/01/14.
  */
@@ -62,7 +64,9 @@ public class BumpFriend implements Serializable, Transmissible {
                 bfList.ajoutBF(this);
 
                 //BumpFriendList.add(this);
-
+                int identifiant = HashList.add(this);
+                Destinataire destinataire = new Destinataire(this.adresse, 4444);
+                destinataire.envoieObjet(new Identifiant(identifiant));
                 return new Transmission (true);
             } else return new Transmission(ErreurTransmission.IPNONRECONNUE);
         } catch (InterruptedException e) {
