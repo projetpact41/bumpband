@@ -140,33 +140,6 @@ public class BumpFriendListe extends Activity {
     }
 
     private String[] lectureBF () {
-        /*ArrayList<String> l = new ArrayList<String>();
-        try {
-            FileInputStream fis = new FileInputStream(
-                    new File(this.getFilesDir(),"BFList.txt")
-            );
-            ObjectInputStream ois = new ObjectInputStream(
-                    new BufferedInputStream(
-                            fis
-                    )
-            );
-            BumpFriend bf;
-            Log.i(TAG,"Debut de la lecture des bf");
-            try {
-            while (true) {
-                bf = (BumpFriend) ois.readObject();
-                Log.i(TAG,"BF");
-                l.add(bf.getName());
-            }
-            } catch (IOException e) {
-                Log.i(TAG,"FIN des BF");
-            }
-            Log.i(TAG,"Fin de la lecture");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }*/
 
         BFList bfList = new BFList("listeBF.txt",this);
         ArrayList<BumpFriend> l = bfList.getBFliste();

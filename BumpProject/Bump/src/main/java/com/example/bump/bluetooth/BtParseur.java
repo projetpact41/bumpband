@@ -32,7 +32,7 @@ public class BtParseur {
         int n = message.length()+2+1;
         ByteBuffer b = ByteBuffer.allocate(message.length()+2+1);
         if (n>255) return; //Messages pas trop longs
-        b.put((byte) n);
+        b.put((byte) (n-1));
         b.put((byte) 0);
         for (int i = 0; i<message.length(); i++) {
             b.putChar(message.charAt(i));
@@ -45,7 +45,7 @@ public class BtParseur {
 
     public static void  vibre(byte duree,Context context) {
         ByteBuffer b = ByteBuffer.allocate(3);
-        b.put((byte)3);
+        b.put((byte)2);
         b.put((byte)1);
         b.put(duree);
         byte[] bytes = b.array();
@@ -55,7 +55,7 @@ public class BtParseur {
 
     public static void sendColor(/*byte numeroCanal,*/Color color,Context context) {
         ByteBuffer b = ByteBuffer.allocate(5);
-        b.put((byte)5);
+        b.put((byte)4);
         b.put((byte) 2);
         //b.put(numeroCanal);
         b.put((byte)color.getRouge());
@@ -65,8 +65,9 @@ public class BtParseur {
         send(bytes, context);
     }
 
+    //frequence correspond au temps allume
     public static void clignote(byte frequence, byte duree, Context context) {
-        ByteBuffer b = ByteBuffer.allocate(3);
+        ByteBuffer b = ByteBuffer.allocate(4);
         b.put((byte) 3);
         b.put((byte)3);
         b.put(frequence);
@@ -77,7 +78,7 @@ public class BtParseur {
 
     public static void sendIp(Context context) {
         byte[] b = new byte[6];
-        b[0] = 6;
+        b[0] = 5;
         b[1] = 4;
 
         WifiManager wifiManager;

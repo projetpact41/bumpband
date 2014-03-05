@@ -64,7 +64,7 @@ public class ColorMenu extends ActionBarActivity {
         button_clign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BtParseur.clignote((byte) 4,(byte) 10, context);
+                BtParseur.clignote((byte) 1,(byte) 10, context);
             }
         });
 

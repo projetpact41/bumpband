@@ -43,7 +43,7 @@ public class Destinataire {
     }
 
     public void envoieObjet (final Transmissible obj,final Context context) {
-        Log.i(TAG,"Envoi Objet");
+        Log.i(TAG,"Envoi Objet "+ obj.getClass().getName());
         new Thread(new Runnable() {
             @Override
             public void run() {

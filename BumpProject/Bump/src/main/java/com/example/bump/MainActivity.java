@@ -233,7 +233,7 @@ public class MainActivity extends ActionBarActivity {
                     //BtParseur.clignote((byte)1,(byte)2,this);
 
                     //i = new Intent(MainActivity.this, SendClient.class);
-                    i = new Intent(MainActivity.this, MenuPrincipal2.class);
+                    i = new Intent(MainActivity.this, MenuPrincipal.class);
                     startActivity(i);
                     Log.i(TAG,"Lancement de l'autre activite");
 

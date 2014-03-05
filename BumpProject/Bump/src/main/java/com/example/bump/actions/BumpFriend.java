@@ -84,35 +84,6 @@ public class BumpFriend implements Serializable, Transmissible {
             if (testAdresse.equals(adresse)) {
                 Log.e("BF","Ici");
 
-                /*ArrayList<BumpFriend> l = new ArrayList<BumpFriend>();
-                FileInputStream fis = new FileInputStream(
-                        new File(context.getFilesDir(),"BFList.txt")
-                );
-                ObjectInputStream ois2 = new ObjectInputStream(
-                        new BufferedInputStream(
-                                fis
-                        )
-                );
-                ArrayList<BumpFriend> bf=new ArrayList<BumpFriend>();
-                Log.i("BF","Debut de la lecture des bf");
-                try {
-                    bf = (ArrayList<BumpFriend>) ois.readObject();
-                } catch (IOException e) {
-                    Log.i("BF","FIN des BF");
-                }
-
-                Log.i("BF", "Taille " + l.size());
-
-                oos = new ObjectOutputStream(
-                        new BufferedOutputStream(
-                                new FileOutputStream(
-                                        new File(context.getFilesDir(),"BFList.txt")
-                                )
-                        )
-                );
-                l.add(this);
-                oos.writeObject(l);
-                oos.flush();*/
                 BFList bfList = new BFList("listeBF.txt",context);
                 bfList.ajoutBF(this);
 
@@ -164,5 +135,5 @@ public class BumpFriend implements Serializable, Transmissible {
         return resultat;
     }
 
-    public String toString(){return name+"µ"+adresse.getHostAddress()+"µ"+id;}//µ = transition
+    public String toString(){return name+"µ"+adresse.getHostAddress();}//µ = transition
 }

@@ -28,7 +28,7 @@ public class IdentifiantAnswer implements Transmissible {
     @Override
     public Transmissible execute(Context context) {
         BFList bfList = new BFList("listeBF.txt",context);
-        bfList.changerId(id,ip);
+        //bfList.changerId(id,ip);
         return new Transmission(true);
     }
 
