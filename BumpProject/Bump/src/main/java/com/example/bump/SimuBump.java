@@ -62,6 +62,8 @@ public class SimuBump extends Activity {
 
     private void envoieBF() {
         Log.i(TAG,"Debut protocole");
+        if(iptext.getText()==null || monSC.getText()==null || tonSC.getText()==null) return;
+
         DataOutputStream dos = null;
         ObjectOutputStream oos = null;
         try {

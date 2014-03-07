@@ -86,4 +86,10 @@ public class MessageActivity extends ActionBarActivity {
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        onDestroy();
+    }
+
 }

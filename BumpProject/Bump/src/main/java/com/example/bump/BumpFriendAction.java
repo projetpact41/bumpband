@@ -92,12 +92,7 @@ public class BumpFriendAction extends ActionBarActivity {
                     Log.i(TAG,texte);
                     Destinataire destinataire = new Destinataire(bf.getAdresse(),PORT);
                     Log.i(TAG,"Creation destinataire"+bf.getAdresse());
-                    ObjectInputStream ois ;/*= new ObjectInputStream(
-                            new BufferedInputStream(
-                                    new FileInputStream(
-                                            new File("fichePerso.txt")
-                                    )
-                            ));*/
+                    ObjectInputStream ois ;
                     ois = new ObjectInputStream(
 
                             new FileInputStream(
@@ -131,34 +126,7 @@ public class BumpFriendAction extends ActionBarActivity {
     }
 
     private BumpFriend lectureBF (String s) {
-        /*try {
 
-            ObjectInputStream ois = new ObjectInputStream(
-                    new BufferedInputStream(
-                            new FileInputStream(
-                                    new File(this.getFilesDir(),"BFList.txt")
-                            )
-                    )
-            );
-            Log.i(TAG,"Debut de la lecture des bf");
-            BumpFriend bf;
-
-            try {
-                while (true) {
-                    bf = (BumpFriend) ois.readObject();
-                    if(bf.getName().equals(s)) return bf;
-
-                }
-            } catch (IOException e) {
-                Log.i(TAG,"FIN des BF");
-            }
-            Log.i(TAG,"Fin de la lecture");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-*/
         BFList bfList = new BFList("listeBF.txt",this);
         ArrayList<BumpFriend> l = bfList.getBFliste();
         for (BumpFriend bf : l) {

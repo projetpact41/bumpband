@@ -39,7 +39,7 @@ public class Destinataire {
     public Destinataire (InetAddress hostname, int port) {
         this.hostname = hostname;
         this.port = port;
-        Log.i(TAG,"Creation du destinataire");
+        Log.i(TAG,"Creation du destinataire "+hostname.toString());
     }
 
     public void envoieObjet (final Transmissible obj,final Context context) {
@@ -85,6 +85,11 @@ public class Destinataire {
                             in.read(b);
 
                             t = (Transmissible) Parseur.parser(b);
+
+                            if (t.getClass().getName().equals((BumpFriend.class).getName()))
+                            {
+                                Log.i(TAG,((BumpFriend) t).getName());
+                            }
                             t2 = t.execute(context);
                             if (t2 != null) envoieObjet(t2,context);
 

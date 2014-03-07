@@ -22,7 +22,7 @@ public class BFList {
     }
 
     public void ajoutBF(BumpFriend bf){
-        //this.initialiser();
+        this.initialiser();
         if(this.isBF(bf)) {return;}
         try {
             Log.i(TAG,"Ajout !");

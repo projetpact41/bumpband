@@ -91,7 +91,8 @@ public class TraitementClient extends Thread{
                     Log.i(TAG,"Lecture de l'objet");
                 }
             }
-            if (obj != null && t != null) t.execute(context); //On fini la conversation avec une transmission
+            if (obj != null && t != null && (t instanceof Transmission)) t.execute(context); //On fini la conversation avec une transmission
+            if (obj != null && t != null && (obj instanceof Transmission)) obj.execute(context); //On fini la conversation avec une transmission
             Log.i(TAG,"FIN TRAITEMENT");
             Thread.sleep(1000); // On ne ferme pas la socket trop tot
 

@@ -51,7 +51,7 @@ public class MyPhoneStateListener extends PhoneStateListener {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                BtParseur.clignote((byte) 2,(byte) 5,context);
+                //BtParseur.clignote((byte) 2,(byte) 5,context);
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
