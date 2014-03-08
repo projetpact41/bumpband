@@ -1,8 +1,5 @@
 package com.example.bump;
 
-import android.content.Context;
-import android.os.Environment;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,22 +19,22 @@ import java.io.File;
 public class TestBFList {
 
     private BFList bfList;
-    private MainActivity activity;
+    private MainActivity activity2;
 
     @Before
 
-    public void setup() {
-        activity = Robolectric.buildActivity(MainActivity.class).create().get();
-        bfList = new BFList("listeBF.txt",activity.getApplicationContext());
+    public void setup2() {
+        activity2 = Robolectric.buildActivity(MainActivity.class).create().get();
+        bfList = new BFList("listeBF.txt",activity2);
     }
 
     @Test
 
-    public void test(){
+    public void test2(){
         Assert.assertNotNull(bfList);
-        ShadowContext shadowContext = (ShadowContext) Robolectric.shadowOf(activity.getApplicationContext());
+        ShadowContext shadowContext = (ShadowContext) Robolectric.shadowOf(activity2);
 
-        File file = new File(shadowContext.getFilesDir(),"listeBF.txt");
+        File file = new File(activity2.getFilesDir(),"listeBF.txt");
         org.junit.Assert.assertTrue(file.exists());
 
 

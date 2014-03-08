@@ -1,15 +1,9 @@
 package com.example.bump.client;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.example.bump.actions.BumpFriend;
-import com.example.bump.actions.Color;
-import com.example.bump.actions.Connexion;
-import com.example.bump.actions.ErreurTransmission;
-import com.example.bump.actions.Message;
 import com.example.bump.actions.Transmissible;
 import com.example.bump.actions.Transmission;
 import com.example.bump.serveur.Parseur;
@@ -17,11 +11,8 @@ import com.example.bump.serveur.Parseur;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 /**
  * Created by jjuulliieenn on 01/01/14.

@@ -1,7 +1,6 @@
 package com.example.bump.bluetooth;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -11,7 +10,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 
-import com.example.bump.actions.Color;
 import com.example.bump.actions.Connexion;
 import com.example.bump.client.Destinataire;
 
@@ -22,9 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
-import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 /**

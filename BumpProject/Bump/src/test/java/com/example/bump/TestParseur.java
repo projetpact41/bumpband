@@ -14,14 +14,18 @@ import com.example.bump.serveur.Parseur;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
-import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.util.Arrays;
 
 /**
  * Created by jjuulliieenn on 07/03/14.
  */
+
+@RunWith(RobolectricTestRunner.class)
+
 public class TestParseur {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)

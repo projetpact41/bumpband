@@ -16,23 +16,26 @@ import org.robolectric.RobolectricTestRunner;
  */
 
 @RunWith(RobolectricTestRunner.class)
+
 public class TestSimuBump {
 
-    private SimuBump activity;
+    private SimuBump activity7;
 
     @Before
 
     public void setup () {
-        activity = Robolectric.buildActivity(SimuBump.class).create().get();
+        activity7 = Robolectric.buildActivity(SimuBump.class).create().get();
     }
 
     @Test
 
     public void testInitialisation() {
-        EditText iptext = (EditText) activity.findViewById(R.id.iptext);
-        EditText monSC = (EditText) activity.findViewById(R.id.monSC);
-        EditText tonSC = (EditText) activity.findViewById(R.id.tonSC);
-        Button bouton = (Button) activity.findViewById(R.id.buttonBump);
+        Assert.assertNotNull(activity7);
+
+        EditText iptext = (EditText) activity7.findViewById(R.id.iptext);
+        EditText monSC = (EditText) activity7.findViewById(R.id.monSC);
+        EditText tonSC = (EditText) activity7.findViewById(R.id.tonSC);
+        Button bouton = (Button) activity7.findViewById(R.id.buttonBump);
 
         Assert.assertNotNull(iptext);
         org.junit.Assert.assertNotNull(monSC);

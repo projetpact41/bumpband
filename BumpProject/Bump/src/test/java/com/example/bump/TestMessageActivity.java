@@ -24,24 +24,24 @@ import java.net.InetAddress;
 
 public class TestMessageActivity {
 
-    private MessageActivity activity;
-    private ShadowActivity shadowActivity;
+    private MessageActivity activity6;
+    private ShadowActivity shadowActivity6;
 
     @Before
 
-    public void setup () {
-        activity = new MessageActivity();
-        activity.onCreate(null);
-        shadowActivity = Robolectric.shadowOf(activity);
+    public void setup6 () {
+        activity6 = new MessageActivity();
+        activity6.onCreate(null);
+        shadowActivity6 = Robolectric.shadowOf(activity6);
 
-        BumpFriend bf = new BumpFriend("Bob", InetAddress.getLoopbackAddress());
-        shadowActivity.startActivity(new Intent().putExtra("nom", "Bob").putExtra("message","Salut"));
     }
 
     @Test
     public void testInitialisation(){
-        TextView expediteur = (TextView) activity.findViewById(R.id.expedi);
-        TextView message = (TextView) activity.findViewById(R.id.messagerie);
+        BumpFriend bf = new BumpFriend("Bob", InetAddress.getLoopbackAddress());
+        shadowActivity6.startActivity(new Intent().putExtra("nom", "Bob").putExtra("message","Salut"));
+        TextView expediteur = (TextView) activity6.findViewById(R.id.expedi);
+        TextView message = (TextView) activity6.findViewById(R.id.messagerie);
         Assert.assertNotNull(expediteur);
         Assert.assertNotNull(message);
         Assert.assertTrue(expediteur.getText().equals("Bob"));

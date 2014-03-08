@@ -1,10 +1,7 @@
 package com.example.bump.serveur;
 
 import android.app.IntentService;
-import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.os.IBinder;
 import android.util.Log;
 
 import java.net.ServerSocket;

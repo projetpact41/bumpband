@@ -3,10 +3,15 @@ package com.example.bump;
 import android.content.Context;
 import android.util.Log;
 
-import java.io.*;
-import java.net.InetAddress;
-import java.util.*;
 import com.example.bump.actions.BumpFriend;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.net.InetAddress;
+import java.util.ArrayList;
 /**
  * Created by Félix on 10/02/14.
  */

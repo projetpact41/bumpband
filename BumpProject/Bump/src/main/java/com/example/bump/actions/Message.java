@@ -1,27 +1,15 @@
 package com.example.bump.actions;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
-import android.widget.TextView;
 
-import com.example.bump.MainActivity;
-import com.example.bump.MenuPrincipal;
 import com.example.bump.MessageActivity;
 import com.example.bump.R;
-import com.example.bump.client.Destinataire;
 
 import java.io.Serializable;
-import java.net.InetAddress;
 
 /**
  * Created by jjuulliieenn on 18/01/14.

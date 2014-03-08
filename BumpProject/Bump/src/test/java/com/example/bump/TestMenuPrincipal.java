@@ -1,11 +1,8 @@
 package com.example.bump;
 
 import android.content.Intent;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
-import com.example.bump.serveur.Serveur;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -24,17 +21,17 @@ import static org.junit.Assert.assertEquals;
 
 public class TestMenuPrincipal {
 
-    private MenuPrincipal activity;
+    private MenuPrincipal activity5;
 
     @Before
 
-    public void setup () {
-        activity = Robolectric.buildActivity(MenuPrincipal.class).create().get();
+    public void setup5 () {
+        activity5 = Robolectric.buildActivity(MenuPrincipal.class).create().get();
     }
 
     @Test
-    public void testInitialisation() {
-        ListView listView = (ListView) activity.findViewById(R.id.list);
+    public void testInitialisation5() {
+        ListView listView = (ListView) activity5.findViewById(R.id.list);
         Assert.assertNotNull(listView);
         ListAdapter adapter = listView.getAdapter();
         Assert.assertNotNull(adapter);
@@ -44,7 +41,7 @@ public class TestMenuPrincipal {
                 1,
                 listView.getAdapter().getItemId(1));
 
-        ShadowActivity shadowActivity = Robolectric.shadowOf(activity);
+        ShadowActivity shadowActivity = Robolectric.shadowOf(activity5);
         Intent intent = shadowActivity.peekNextStartedActivity();
         assertEquals(BumpFriendListe.class.getCanonicalName(), intent.getComponent().getClassName());
 
@@ -53,7 +50,7 @@ public class TestMenuPrincipal {
                 2,
                 listView.getAdapter().getItemId(2));
 
-        shadowActivity = Robolectric.shadowOf(activity);
+        shadowActivity = Robolectric.shadowOf(activity5);
         intent = shadowActivity.peekNextStartedActivity();
         assertEquals(ColorMenu.class.getCanonicalName(), intent.getComponent().getClassName());
 
@@ -62,7 +59,7 @@ public class TestMenuPrincipal {
                 3,
                 listView.getAdapter().getItemId(3));
 
-        shadowActivity = Robolectric.shadowOf(activity);
+        shadowActivity = Robolectric.shadowOf(activity5);
         intent = shadowActivity.peekNextStartedActivity();
         assertEquals(SimuBump.class.getCanonicalName(), intent.getComponent().getClassName());
 
@@ -71,7 +68,7 @@ public class TestMenuPrincipal {
                 4,
                 listView.getAdapter().getItemId(4));
 
-        shadowActivity = Robolectric.shadowOf(activity);
+        shadowActivity = Robolectric.shadowOf(activity5);
         intent = shadowActivity.peekNextStartedActivity();
         assertEquals(APropos.class.getCanonicalName(), intent.getComponent().getClassName());
 

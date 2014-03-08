@@ -27,39 +27,39 @@ import java.net.InetAddress;
 
 public class TestBumpFriendAction {
 
-    private BumpFriendAction activity;
-    private ShadowActivity shadowMyActivity;
+    private BumpFriendAction activity3;
+    private ShadowActivity shadowMyActivity3;
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Before
 
-    public void setup() {
-        activity = new BumpFriendAction();
-        activity.onCreate(null);
-        shadowMyActivity = Robolectric.shadowOf(activity);
+    public void setup3() {
+        activity3 = new BumpFriendAction();
+        activity3.onCreate(null);
+        shadowMyActivity3 = Robolectric.shadowOf(activity3);
 
         BumpFriend bf = new BumpFriend("Bob", InetAddress.getLoopbackAddress());
-        shadowMyActivity.startActivity(new Intent().putExtra("nom", bf.getName()));
+        shadowMyActivity3.startActivity(new Intent().putExtra("nom", bf.getName()));
 
     }
 
     @Test
-    public void testInitialisation(){
+    public void testInitialisation3(){
 
-        Assert.assertNotNull(activity);
-        Assert.assertNotNull(shadowMyActivity);
+        Assert.assertNotNull(activity3);
+        Assert.assertNotNull(shadowMyActivity3);
 
-        EditText message = (EditText) activity.findViewById(R.id.message);
-        Button envoyer = (Button) activity.findViewById(R.id.buttonEnvoi);
+        EditText message = (EditText) activity3.findViewById(R.id.message);
+        Button envoyer = (Button) activity3.findViewById(R.id.buttonEnvoi);
 
         Assert.assertNotNull(message);
         Assert.assertNotNull(envoyer);
     }
 
     @Test
-    public void testEnvoie() {
-        EditText message = (EditText) activity.findViewById(R.id.message);
-        Button envoyer = (Button) activity.findViewById(R.id.buttonEnvoi);
+    public void testEnvoie3() {
+        EditText message = (EditText) activity3.findViewById(R.id.message);
+        Button envoyer = (Button) activity3.findViewById(R.id.buttonEnvoi);
         message.setText("Salut");
         envoyer.performClick();
         Assert.assertTrue(true);

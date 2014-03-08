@@ -16,18 +16,18 @@ import org.robolectric.RobolectricTestRunner;
 
 public class TestAPropos {
 
-    private APropos activity;
+    private APropos activity1;
 
 
     @Before
 
-    public void setup () {
-        activity = Robolectric.buildActivity(APropos.class).create().get();
+    public void setup1 () {
+        activity1 = Robolectric.buildActivity(APropos.class).create().get();
     }
 
     @Test
 
-    public void testInitialisation(){
-        Assert.assertNotNull(activity);
+    public void testInitialisation1(){
+        Assert.assertNotNull(activity1);
     }
 }

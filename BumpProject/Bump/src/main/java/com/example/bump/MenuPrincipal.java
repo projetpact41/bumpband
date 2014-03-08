@@ -1,24 +1,18 @@
 package com.example.bump;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import com.example.bump.bluetooth.GestionBt;
 
 public class MenuPrincipal extends Activity {//CE n'est PAS LE LE MENU. Voir menuprincipal2
 
