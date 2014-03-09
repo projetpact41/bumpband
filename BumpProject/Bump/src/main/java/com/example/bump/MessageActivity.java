@@ -34,9 +34,9 @@ public class MessageActivity extends ActionBarActivity {
 
     @Override
 
-    protected void onStart (){
+    protected void onResume (){
         super.onStart();
-        Log.i(TAG, "Debut onStart");
+        Log.i(TAG, "Debut onResume");
 
         Bundle extra = getIntent().getExtras();
         String nom = extra.getString("nom");
@@ -81,12 +81,6 @@ public class MessageActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_message, container, false);
             return rootView;
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        onDestroy();
     }
 
 }

@@ -2,6 +2,8 @@ package com.example.bump.actions;
 
 
 import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.util.Log;
 
 import com.example.bump.BFList;
@@ -58,6 +60,7 @@ public class BumpFriend implements Serializable, Transmissible {
     }
 
     public Transmissible execute (Context context) {
+        if (adresse.equals(getIpAddr(context))) return new Transmission(ErreurTransmission.PROBLEMETRAITEMENT);
         Log.i("BF","BF recu");
         ObjectInputStream ois = null;
         //ObjectOutputStream oos = null;
@@ -131,4 +134,14 @@ public class BumpFriend implements Serializable, Transmissible {
     }
 
     public String toString(){return name+"µ"+adresse.getHostAddress();}//µ = transition
+
+    public String getIpAddr(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        int ip = wifiInfo.getIpAddress();
+
+        String ipString = String.format("%d.%d.%d.%d",(ip & 0xff),(ip >> 8 & 0xff),(ip >> 16 & 0xff),(ip >> 24 & 0xff));
+
+        return ipString;
+    }
 }

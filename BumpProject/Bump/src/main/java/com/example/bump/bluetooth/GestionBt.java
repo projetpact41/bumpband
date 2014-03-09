@@ -82,7 +82,7 @@ public class GestionBt extends Service {
             //this.onCreate();
             Log.i(TAG, "Bug");
         }
-        byte[] b = intent.getByteArrayExtra("message");
+        byte[] b = intent.getByteArrayExtra("message"); //PP
         Log.i(TAG,"Avant envoie "+Arrays.toString(b));
         if (b != null)  btInterface.sendData(b);
         return super.onStartCommand(intent, flags, startId);

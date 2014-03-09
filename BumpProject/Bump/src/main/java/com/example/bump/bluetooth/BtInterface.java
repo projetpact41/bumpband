@@ -117,6 +117,11 @@ public class BtInterface {
             while(true) {
                 try {
                     //byte buffer[] = new byte[100];
+                    if (is == null) {
+                        is = socket.getInputStream();
+                        os = socket.getOutputStream();
+                        continue;
+                    }
                     is.read(k);
                     if(/*is.available() > 0(k = is.read(buffer, 0, 100))>0*/k[0]>0) {
                         Log.i(TAG,"Debut de la lecture du stream");

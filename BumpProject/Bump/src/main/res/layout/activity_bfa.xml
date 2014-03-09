@@ -15,7 +15,8 @@
         android:ems="10"
         android:id="@+id/message"
         android:layout_gravity="center"
-        android:layout_marginTop="95dp" />
+        android:layout_marginTop="95dp"
+        android:textColor="#FFFF"/>
 
 
     <Button
