@@ -35,7 +35,7 @@ public class BFList {
         }
     }
 
-    public int index(BumpFriend bf) {
+    private int index(BumpFriend bf) {
         String line_bf = bf.toString();
         int i = -1;
         try {
@@ -73,7 +73,7 @@ public class BFList {
             BufferedReader readfile=new BufferedReader(reader);
             String line = readfile.readLine();
             while (line!=null) {
-                int i = line.indexOf("Âµ");
+                int i = line.indexOf("µ");
                 String name = line.substring(0,i);
                 InetAddress adresse = InetAddress.getByName(line.substring(i+1));
                 BumpFriend bf = new BumpFriend(name,adresse);
@@ -92,47 +92,28 @@ public class BFList {
 
     public void effacerBF(BumpFriend bf){
         int i = this.index(bf);
-        this.effacerBF(i);
-    }
-    
-    public void effacerBF(int i) {
         if (i<0) {return;}
         File temp = new File("EMPLACEMENTTEMP.txt");
         try {
             FileReader reader = new FileReader(liste);
-            FileWriter writer = new FileWriter(temp);
+            FileWriter writer = new FileWriter(temp,true);
             BufferedReader breader = new BufferedReader(reader);
             BufferedWriter bwriter = new BufferedWriter(writer);
             int j = 0;
             String line = breader.readLine();
             while(line != null) {
                 if (j!=i) {
-                    bwriter.write(line+"\n");
+                    bwriter.write(line);
                 }
                 j++;
                 line = breader.readLine();
             }
+            temp.renameTo(liste);
+            this.liste = temp;
             bwriter.close();
             breader.close();
             writer.close();
             reader.close();
-            System.out.println(liste.delete());
-            System.out.println(liste.createNewFile());
-            reader = new FileReader(temp);
-            writer = new FileWriter(liste,true);
-            breader = new BufferedReader(reader);
-            bwriter = new BufferedWriter(writer);
-            line = breader.readLine();
-            while(line != null) {
-            	System.out.println(line);
-                bwriter.write(line+"\n");
-                line = breader.readLine();
-            }
-            bwriter.close();
-            breader.close();
-            writer.close();
-            reader.close();
-            temp.delete();
         }
         catch(Exception e){
             System.err.println("Exception catched:");
@@ -140,7 +121,7 @@ public class BFList {
         }
     }
 
-    /*public void initialiser(){
+    public void initialiser(){
         liste.delete();
         try {
             liste.createNewFile();
@@ -149,7 +130,7 @@ public class BFList {
             System.err.println("Exception catched:");
             e.printStackTrace();
         }
-    }*/
+    }
 
 
 }

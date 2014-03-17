@@ -77,9 +77,7 @@ public class TraitementClient extends Thread {
                     
                 }
             }
-            if (obj != null && t != null && (t instanceof Transmission)) t.execute(); //On fini la conversation avec une transmission
-            if (obj != null && t != null && (obj instanceof Transmission)) obj.execute(); //On fini la conversation avec une transmission
-            
+            if (obj != null && t != null) t.execute(); //On fini la conversation avec une transmission
             Thread.sleep(1000); // On ne ferme pas la socket trop tot
 
         } catch (Exception e) {

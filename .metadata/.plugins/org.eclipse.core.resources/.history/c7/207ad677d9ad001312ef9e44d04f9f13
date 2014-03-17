@@ -100,7 +100,7 @@ public class BFList {
         File temp = new File("EMPLACEMENTTEMP.txt");
         try {
             FileReader reader = new FileReader(liste);
-            FileWriter writer = new FileWriter(temp);
+            FileWriter writer = new FileWriter(temp,true);
             BufferedReader breader = new BufferedReader(reader);
             BufferedWriter bwriter = new BufferedWriter(writer);
             int j = 0;
