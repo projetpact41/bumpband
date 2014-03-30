@@ -226,11 +226,18 @@ public class MainActivity extends ActionBarActivity {
 
                     startService(i); //Lancement du serveur
 
-                    BtParseur.sendIp(this);
+                    //BtParseur.sendIp(this);
                     //BtParseur.clignote((byte)1,(byte)2,this);
 
                     //i = new Intent(MainActivity.this, SendClient.class);
-                    i = new Intent(MainActivity.this, MenuPrincipal2.class);
+
+                    BFList bfList = new BFList("listeBF.txt",this); //On remet a zero la liste des BFs
+                    bfList.initialiser();
+
+                    bfList = new BFList("admin.txt",this);
+                    bfList.initialiser();
+
+                    i = new Intent(MainActivity.this, BluetoothConnexion.class);
                     startActivity(i);
                     Log.i(TAG,"Lancement de l'autre activite");
 

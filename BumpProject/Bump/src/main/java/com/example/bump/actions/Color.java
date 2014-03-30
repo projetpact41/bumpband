@@ -3,6 +3,7 @@ package com.example.bump.actions;
 import android.content.Context;
 
 import java.io.Serializable;
+import java.net.InetAddress;
 
 public class Color implements Serializable, Transmissible{
 	private byte rouge;
@@ -29,7 +30,7 @@ public class Color implements Serializable, Transmissible{
     }
 
     @Override
-    public Transmissible execute(Context context) {
+    public Transmissible execute(Context context, InetAddress address) {
         // TODO
         return null;
     }

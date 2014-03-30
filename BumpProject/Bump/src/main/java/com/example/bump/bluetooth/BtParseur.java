@@ -86,11 +86,7 @@ public class BtParseur {
     }
 
 
-    public static void send(byte[] bytes,Context context) { // pour l'instant test
-        /*for (byte by : bytes) {
-            System.out.format("%x ", by);
-        }*/
-
+    public static void send(byte[] bytes,Context context) {
         Intent i = new Intent(context,GestionBt.class);
         i.putExtra("message",bytes);
         context.startService(i);

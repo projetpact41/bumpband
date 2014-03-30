@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.example.bump.BFList;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -12,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.nio.ByteBuffer;
 
 /**
@@ -25,9 +28,14 @@ public class Identifiant implements Transmissible{
 
     }
 
-    public Transmissible execute(Context context)
+    public Transmissible execute(Context context, InetAddress address)
     {
         //@TODO Faire la verification d'administrateur
+        BFList bfList = new BFList("admin.txt",context);
+
+        if (!bfList.isBF(address.getHostAddress()))
+            return new Transmission(ErreurTransmission.IPNONRECONNUE);
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("ID",id);

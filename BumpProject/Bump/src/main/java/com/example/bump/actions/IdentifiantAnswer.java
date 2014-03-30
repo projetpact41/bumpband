@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.bump.BFList;
 
+import java.net.InetAddress;
 import java.nio.ByteBuffer;
 
 /**
@@ -20,8 +21,14 @@ public class IdentifiantAnswer implements Transmissible {
     }
 
     @Override
-    public Transmissible execute(Context context) {
-        BFList bfList = new BFList("listeBF.txt",context);
+    public Transmissible execute(Context context,InetAddress address) {
+
+        BFList bfList = new BFList("admin.txt",context);
+
+        if (!bfList.isBF(address.getHostAddress()))
+            return new Transmission(ErreurTransmission.IPNONRECONNUE);
+
+        bfList = new BFList("listeBF.txt",context);
         //bfList.changerId(id,ip);
         return new Transmission(true);
     }

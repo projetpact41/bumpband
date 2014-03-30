@@ -1,6 +1,6 @@
 
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:id="@+id/container"
 android:layout_width="match_parent"
@@ -10,34 +10,38 @@ tools:ignore="MergeRootFrame"
 android:background="@drawable/fondnoir">
 
     <Button
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:id="@+id/button_blue"
-        android:layout_marginTop="70dp"
-        android:layout_marginLeft="30dp"
-        android:background="@drawable/bluebutton"/>
-
-    <Button
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="537dp"
+        android:layout_height="393dp"
         android:id="@+id/button_clign"
         android:background="@drawable/clignbutton"
-        android:layout_gravity="center" />
+        android:layout_gravity="center_horizontal|top"
+        android:layout_x="551dp"
+        android:layout_y="-67dp"/>
 
-    <Button
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:id="@+id/button_green"
-        android:layout_marginTop="70dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/greenbutton"
-        android:layout_gravity="right|top" />
+    <SeekBar
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBarRed"
+        android:layout_x="70dp"
+        android:layout_y="100dp"
+        android:max="255"
+        android:background="@drawable/rouge"/>
 
-    <Button
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:id="@+id/button_red"
-        android:layout_marginTop="70dp"
-        android:background="@drawable/redbutton"
-        android:layout_gravity="center_horizontal|top" />
-</FrameLayout>
+    <SeekBar
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBarGreen"
+        android:layout_x="70dp"
+        android:layout_y="200dp"
+        android:max="255"
+        android:background="@drawable/vert"/>
+
+    <SeekBar
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBarBlue"
+        android:layout_x="70dp"
+        android:layout_y="300dp"
+        android:max="255"
+        android:background="@drawable/bleu"/>
+</AbsoluteLayout>

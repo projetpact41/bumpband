@@ -35,7 +35,7 @@ public class MessageActivity extends ActionBarActivity {
     @Override
 
     protected void onResume (){
-        super.onStart();
+        super.onResume();
         Log.i(TAG, "Debut onResume");
 
         Bundle extra = getIntent().getExtras();

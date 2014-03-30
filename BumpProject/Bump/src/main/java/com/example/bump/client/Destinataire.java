@@ -81,7 +81,7 @@ public class Destinataire {
                             {
                                 Log.i(TAG,((BumpFriend) t).getName());
                             }
-                            t2 = t.execute(context);
+                            t2 = t.execute(context, hostname);
                             if (t2 != null) envoieObjet(t2,context);
 
                        } catch (NullPointerException e) {

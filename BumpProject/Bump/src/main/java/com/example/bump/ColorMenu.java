@@ -10,20 +10,33 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
 
 import com.example.bump.actions.Color;
 import com.example.bump.bluetooth.BtParseur;
 
-public class ColorMenu extends ActionBarActivity {
+public class ColorMenu extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener{
 
     private Button send;
     private String TAG = "ColorMenu";
     private Context context = this;
 
+    SeekBar rsb, gsb, bsb;
+    int red, green, blue;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color_menu);
+
+        rsb = (SeekBar)findViewById(R.id.seekBarRed);
+        gsb = (SeekBar)findViewById(R.id.seekBarGreen);
+        bsb = (SeekBar)findViewById(R.id.seekBarBlue);
+
+        rsb.setOnSeekBarChangeListener(this);
+        gsb.setOnSeekBarChangeListener(this);
+        bsb.setOnSeekBarChangeListener(this);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -31,7 +44,9 @@ public class ColorMenu extends ActionBarActivity {
                     .commit();
         }
 
-        Button button_red = (Button) findViewById(R.id.button_red);
+
+
+        /*Button button_red = (Button) findViewById(R.id.button_red);
         Button button_blue = (Button) findViewById(R.id.button_blue);
         Button button_green = (Button) findViewById(R.id.button_green);
         Button button_clign = (Button) findViewById(R.id.button_clign);
@@ -63,8 +78,15 @@ public class ColorMenu extends ActionBarActivity {
             public void onClick(View view) {
                 BtParseur.clignote((byte) 1,(byte) 10, context);
             }
-        });
+        });*/
 
+    }
+
+    private void updateLED(){
+        red = rsb.getProgress();
+        green = gsb.getProgress();
+        blue = bsb.getProgress();
+        BtParseur.sendColor(new Color((byte) red,(byte) green,(byte) blue), context);
     }
 
 
@@ -86,6 +108,21 @@ public class ColorMenu extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        updateLED();
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 
     /**

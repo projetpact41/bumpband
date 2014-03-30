@@ -20,6 +20,11 @@ public class MenuPrincipal2 extends Activity {//VRAI MENU PRINCIPAL
     private final String TAG = "MenuPrincipal2";
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG,"Debut ListView");
         super.onCreate(savedInstanceState);

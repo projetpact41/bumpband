@@ -2,11 +2,14 @@ package com.example.bump.actions;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.bump.BFList;
+import com.example.bump.Verrous;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -24,8 +27,8 @@ import java.net.InetAddress;
 public class BumpFriend implements Serializable, Transmissible {
 
     private InetAddress adresse; //Adresse du BF
-    private String name;
-    private int id;
+    private String name; // Nom du BF
+    private int id; //Identifiant du BF
     private static final long serialVersionUID = -5929515104076961259L;
 
     public BumpFriend (String name, InetAddress adresse) {
@@ -59,8 +62,8 @@ public class BumpFriend implements Serializable, Transmissible {
         return this.id;
     }
 
-    public Transmissible execute (Context context) {
-        if (adresse.equals(getIpAddr(context))) return new Transmission(ErreurTransmission.PROBLEMETRAITEMENT);
+    public Transmissible execute (Context context, InetAddress address) {
+        if (adresse.equals(getIpAddr(context))) return new Transmission(ErreurTransmission.PROBLEMETRAITEMENT); //Empeche de s'auto-ajouter
         Log.i("BF","BF recu");
         ObjectInputStream ois = null;
         //ObjectOutputStream oos = null;
@@ -76,15 +79,23 @@ public class BumpFriend implements Serializable, Transmissible {
                     )
             );
 
-            InetAddress testAdresse = (InetAddress) ois.readObject();
+            InetAddress testAdresse = (InetAddress) ois.readObject(); //On verifie que l'ajout se fait avec la bonne personne
+            Verrous.enCours.unlock(); // On deblogue la possibilite de faire un bump
             Log.e("BF","Ici" + testAdresse.getHostAddress());
             Log.e("BF",adresse.getHostAddress());
             if (testAdresse.equals(adresse)) {
                 Log.e("BF","Ici");
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                SharedPreferences.Editor editor = preferences.edit();
 
-                BFList bfList = new BFList("listeBF.txt",context);
-                bfList.ajoutBF(this);
-
+                Boolean admin = preferences.getBoolean("Admin",false);
+                if (admin) {
+                    BFList bfList = new BFList("admin.txt",context);
+                    bfList.ajoutBF(this);
+                }else {
+                    BFList bfList = new BFList("listeBF.txt", context);
+                    bfList.ajoutBF(this);
+                }
                 //BumpFriendList.add(this);
 
                 return new Transmission (true);

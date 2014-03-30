@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
+import com.example.bump.BFList;
 import com.example.bump.MessageActivity;
 import com.example.bump.R;
 
 import java.io.Serializable;
+import java.net.InetAddress;
 
 /**
  * Created by jjuulliieenn on 18/01/14.
@@ -29,7 +31,12 @@ public class Message implements Serializable, Transmissible{
     }
 
     @Override
-    public Transmissible execute(Context context) {
+    public Transmissible execute(Context context, InetAddress address) {
+        BFList bfList = new BFList("listeBF.txt",context);
+
+        if (!bfList.isBF(address.getHostAddress()))
+            return new Transmission(ErreurTransmission.IPNONRECONNUE);
+
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.notification_icon)
@@ -40,6 +47,7 @@ public class Message implements Serializable, Transmissible{
         Intent resultIntent = new Intent(context, MessageActivity.class);
         resultIntent.putExtra("nom", expediteur);
         resultIntent.putExtra("message", message);
+        resultIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
 
 

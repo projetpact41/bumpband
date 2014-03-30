@@ -19,5 +19,7 @@
     <string name="title_activity_message">Message</string>
     <string name="title_activity_color_menu">ColorMenu</string>
     <string name="title_activity_menu_principal2">MenuPrincipal2</string>
+    <string name="title_activity_bluetooth_connexion">BluetoothConnexion</string>
+    <string name="title_activity_synchronisation_admin">Synchronisation Admin</string>
 
 </resources>

@@ -10,6 +10,9 @@ import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 
+import com.example.bump.BluetoothConnexion;
+import com.example.bump.MenuPrincipal2;
+import com.example.bump.Verrous;
 import com.example.bump.actions.Connexion;
 import com.example.bump.client.Destinataire;
 
@@ -70,7 +73,10 @@ public class GestionBt extends Service {
             }
         };
 
-        btInterface = new BtInterface(handlerStatut,reception);
+        btInterface = new BtInterface(handlerStatut,reception,this);
+        Intent i = new Intent(GestionBt.this, MenuPrincipal2.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
         //btInterface.connect();
 
     }
@@ -85,6 +91,11 @@ public class GestionBt extends Service {
         byte[] b = intent.getByteArrayExtra("message"); //PP
         Log.i(TAG,"Avant envoie "+Arrays.toString(b));
         if (b != null)  btInterface.sendData(b);
+        if (b[0] == 5 && b[1] == 4) {
+            Intent i = new Intent(GestionBt.this, MenuPrincipal2.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -138,6 +149,7 @@ public class GestionBt extends Service {
         DataOutputStream dos = null;
         ObjectOutputStream oos = null;
         try {
+            Verrous.enCours.lock();
             oos = new ObjectOutputStream(
                     new BufferedOutputStream(
                             new FileOutputStream(
@@ -147,6 +159,7 @@ public class GestionBt extends Service {
             );
             oos.writeObject(InetAddress.getByName(ip));
             oos.flush();
+            Verrous.monSC.lock();
             dos = new DataOutputStream(
                     new BufferedOutputStream(
                             new FileOutputStream(
@@ -158,6 +171,7 @@ public class GestionBt extends Service {
             dos.flush();
             dos.close();
 
+            Verrous.tonSC.lock();
             dos = new DataOutputStream(
                     new BufferedOutputStream(
                             new FileOutputStream(

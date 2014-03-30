@@ -1,13 +1,20 @@
 package com.example.bump.bluetooth;
 
 
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+
+import com.example.bump.BluetoothConnexion;
+import com.example.bump.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,8 +33,10 @@ public class BtInterface {
     private ThreadReception threadReception;
 
     private Handler handler;
+    private Context contexte;
 
-    public BtInterface(Handler handlerStatus, Handler h) { //Les handlers permettent de savoir ce qu'il ce passe dans les threads.
+    public BtInterface(Handler handlerStatus, Handler h, Context context) { //Les handlers permettent de savoir ce qu'il ce passe dans les threads.
+        contexte =  context;
         Set<BluetoothDevice> setAppareilsApparies = BluetoothAdapter.getDefaultAdapter().getBondedDevices();
         Log.i(TAG,"Recuperation des devices bluetooth");
         BluetoothDevice[] appareilsAppareilles = (BluetoothDevice[]) setAppareilsApparies.toArray(new BluetoothDevice[setAppareilsApparies.size()]);
@@ -44,7 +53,12 @@ public class BtInterface {
                     os = socket.getOutputStream();
                     Log.i(TAG,"Recuperation des flux");
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Intent intent = new Intent(contexte, BluetoothConnexion.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    contexte.startActivity(intent);
+
+                    Log.e(TAG,"Initialisation " + e.getMessage());
+                    //e.printStackTrace();
                 }
                 break;
             }
@@ -59,12 +73,20 @@ public class BtInterface {
 
     public void sendData(byte[] data) {
         try {
+            if (os == null) {
+                os = socket.getOutputStream();
+            }
             os.write(data);
             os.flush();
             Log.i(TAG,"Ecriture dans le flux de sortie");
         } catch (IOException e) {
-            e.printStackTrace();
+            Intent intent = new Intent(contexte, BluetoothConnexion.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            contexte.startActivity(intent);
+            Log.e(TAG,"Send " + e.getMessage());
+            //e.printStackTrace();
         }
+
     }
 
     public void connect() {
@@ -149,7 +171,24 @@ public class BtInterface {
                             Log.i(TAG,"Confirmation de la reception de donnees");
                     }
                 } catch (IOException e) {
-                        e.printStackTrace();
+                    Log.e(TAG,"Reception : " + appareil.getName() + " " + e.getMessage()  );
+                    try {
+                        socket = appareil.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+                        Log.i(TAG,"Creation de la socket");
+                        socket.connect();
+                        Log.i(TAG, "Connexion a la socket");
+                        is = socket.getInputStream();
+                        os = socket.getOutputStream();
+                        Log.i(TAG,"Recuperation des flux");
+                    } catch (IOException e2) {
+                        Intent intent = new Intent(contexte, BluetoothConnexion.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        contexte.startActivity(intent);
+
+                        Log.e(TAG,"Reception2 " + e2.getMessage());
+                        //e.printStackTrace();
+                    }
+                        //e.printStackTrace();
                 }
             }
         }

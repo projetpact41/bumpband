@@ -31,9 +31,10 @@ android {
 }
 
 dependencies {
+    compile 'com.android.support:appcompat-v7:+'
     testCompile 'junit:junit:4.10'
     instrumentTestCompile 'junit:junit:4.10'
-    compile 'com.android.support:appcompat-v7:+'
+    
     testCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
     testCompile 'com.squareup:fest-android:1.0.+'
     instrumentTestCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'

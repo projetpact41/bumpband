@@ -57,6 +57,7 @@
         <activity
             android:name="com.example.bump.MessageActivity"
             android:label="@string/title_activity_message"
+            android:launchMode="singleTop"
             android:parentActivityName="com.example.bump.MenuPrincipal" >
         </activity>
         <activity
@@ -85,6 +86,14 @@
             android:name="com.example.bump.MenuPrincipal2"
             android:label="@string/title_activity_menu_principal2" >
         </activity>
+        <activity
+            android:name="com.example.bump.BluetoothConnexion"
+            android:label="@string/title_activity_bluetooth_connexion" >
+        </activity>
+        <activity
+            android:name="com.example.bump.SynchronisationAdmin"
+            android:label="@string/title_activity_synchronisation_admin" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -95,6 +104,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"></uses-permission>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
 </manifest>

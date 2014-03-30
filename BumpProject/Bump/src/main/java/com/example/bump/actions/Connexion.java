@@ -3,6 +3,8 @@ package com.example.bump.actions;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.bump.Verrous;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -38,9 +40,9 @@ public class Connexion implements Serializable, Transmissible{ //Sert a etablir 
 	}
 
     @Override
-    public Transmissible execute(Context context) {
+    public Transmissible execute(Context context, InetAddress address) {
         try {
-            Thread.sleep(5000); //Le temps de se scynchroniser.
+            Thread.sleep(1000); //Le temps de se scynchroniser.
             //Verification des security codes
             dis = new DataInputStream(
                                   new BufferedInputStream(
@@ -48,16 +50,18 @@ public class Connexion implements Serializable, Transmissible{ //Sert a etablir 
                                       new File(context.getFilesDir(),"monSC.txt"))));
             int sC = dis.readInt();
             dis.close();
+            Verrous.monSC.unlock();
             if (sC != monSC) return new Transmission(ErreurTransmission.SCINCORRECT);
             dis = new DataInputStream(
                     new BufferedInputStream(
                             new FileInputStream(
                                     new File(context.getFilesDir(),"tonSC.txt"))));
             sC = dis.readInt();
+            Verrous.tonSC.unlock();
             if (sC != tonSC) return new Transmission(ErreurTransmission.SCINCORRECT);
 
-            //On met ce client dans la liste d'attente
-
+            /*On met ce client dans la liste d'attente
+            Verrous.enCours.lock();
             oos = new ObjectOutputStream(
                     new BufferedOutputStream(
                             new FileOutputStream(
@@ -67,7 +71,7 @@ public class Connexion implements Serializable, Transmissible{ //Sert a etablir 
             );
 
             oos.writeObject(adresse);
-            oos.flush();
+            oos.flush();*/
 
             //On envoie alors sa fiche bumpfriend perso
 
