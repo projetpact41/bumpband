@@ -181,9 +181,9 @@ public class BtInterface {
                         os = socket.getOutputStream();
                         Log.i(TAG,"Recuperation des flux");
                     } catch (IOException e2) {
-                        Intent intent = new Intent(contexte, BluetoothConnexion.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        contexte.startActivity(intent);
+                        //Intent intent = new Intent(contexte, BluetoothConnexion.class);
+                        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        //contexte.startActivity(intent);
 
                         Log.e(TAG,"Reception2 " + e2.getMessage());
                         //e.printStackTrace();
