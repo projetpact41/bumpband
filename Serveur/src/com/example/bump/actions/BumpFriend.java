@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.io.StreamCorruptedException;
 import java.net.InetAddress;
 
+import admin.Banque;
+import bracelet.Verrous;
 import client.Destinataire;
 
 /**
@@ -18,19 +20,22 @@ import client.Destinataire;
  */
 public class BumpFriend implements Serializable, Transmissible {
 
-    private InetAddress adresse; //Adresse du BF
+	private InetAddress adresse; //Adresse du BF
     private String name;
     private String id;
+    private Color groupe;
     private static final long serialVersionUID = -5929515104076961259L;
 
     public BumpFriend (String name, InetAddress adresse) {
         this.adresse = adresse;
         this.name = name;
+        this.groupe = Color.Blanc;
     }
 
     public BumpFriend (String name, String id) {
         this.name = name;
         this.id = id;
+        this.groupe = Color.Blanc;
         //this.address = toAdresse(id);
     }
 
@@ -42,13 +47,18 @@ public class BumpFriend implements Serializable, Transmissible {
         return adresse;
     }
 
-    public Transmissible execute () {
+    public Color getGroupe() { return groupe; }
+
+    public void setGroupe(Color c) { groupe = c ;}
+
+    public Transmissible execute (InetAddress address) {
         ObjectInputStream ois = null;
         //ObjectOutputStream oos = null;
         try {
             //On verifie que le BF est bien en liste d'attente.
-            //On commence par attendre 2 secondes que le serveur traite le client, au cas ou
-            Thread.sleep(2000);
+            //Rendez vous
+        	Verrous.sync4.release();
+            Verrous.sync3.acquire();
             ois = new ObjectInputStream(
                     new BufferedInputStream(
                             new FileInputStream(
@@ -67,6 +77,8 @@ public class BumpFriend implements Serializable, Transmissible {
                 int identifiant = HashList.add(this);
                 Destinataire destinataire = new Destinataire(this.adresse, 4444);
                 destinataire.envoieObjet(new Identifiant(identifiant));
+                Verrous.enCours.unlock(); // On deblogue la possibilite de faire un bump
+                Banque.create(adresse.getCanonicalHostName());
                 return new Transmission (true);
             } else return new Transmission(ErreurTransmission.IPNONRECONNUE);
         } catch (InterruptedException e) {
@@ -80,6 +92,7 @@ public class BumpFriend implements Serializable, Transmissible {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
+        	Verrous.enCours.unlock();
             try {
                 //oos.close();
                 ois.close();

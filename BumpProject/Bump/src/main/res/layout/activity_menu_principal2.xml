@@ -1,4 +1,4 @@
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -11,25 +11,50 @@
         android:layout_width="440dp"
         android:layout_height="81dp"
         android:id="@+id/button_bfl"
-        android:layout_x="10dp"
-        android:layout_y="40dp"
-        android:background="@drawable/bumpfriendsbutton"/>
+        android:layout_x="14dp"
+        android:layout_y="7dp"
+        android:background="@drawable/bumpfriendsbutton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="440dp"
         android:layout_height="81dp"
         android:id="@+id/button_color"
-        android:layout_x="10dp"
-        android:layout_y="140dp"
-        android:background="@drawable/colorsbutton"/>
+        android:layout_x="16dp"
+        android:layout_y="94dp"
+        android:background="@drawable/colorsbutton"
+        android:layout_below="@+id/button_bfl"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="440dp"
         android:layout_height="81dp"
         android:id="@+id/button_about"
-        android:layout_x="10dp"
-        android:layout_y="240dp"
+        android:layout_x="26dp"
+        android:layout_y="171dp"
         android:background="@drawable/aboutbutton"
-        android:layout_gravity="left|top" />
+        android:layout_gravity="left|top"
+        android:layout_below="@+id/button_color"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-</AbsoluteLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Informations"
+        android:id="@+id/info"
+        android:layout_below="@+id/button_about"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Commande"
+        android:id="@+id/commande"
+        android:layout_below="@+id/info"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

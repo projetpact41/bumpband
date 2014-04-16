@@ -6,12 +6,10 @@ import android.util.Log;
 import com.example.bump.Verrous;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -26,24 +24,21 @@ public class Connexion implements Serializable, Transmissible{ //Sert a etablir 
     private ObjectOutputStream oos = null;
     private ObjectInputStream ois = null;
     private static final long serialVersionUID = -3487449280575641304L;
-    private final String TAG = "ConnexionClass";
-	
-	public Connexion (byte monSC, byte tonSC, InetAddress adresse) {
+
+    public Connexion (byte monSC, byte tonSC, InetAddress adresse) {
 		this.monSC = monSC;
 		this.tonSC = tonSC;
         this.adresse = adresse;
-	}
-	
-	public boolean verifieCorrespond (byte monSC, byte tonSC) {
-		// Verifie, apres la reception, que les codes de s�curite correspondent
-		return (monSC == this.tonSC && tonSC == this.monSC);
 	}
 
     @Override
     public Transmissible execute(Context context, InetAddress address) {
         try {
-            Thread.sleep(1000); //Le temps de se scynchroniser.
+            //Thread.sleep(1000); //Le temps de se scynchroniser.
             //Verification des security codes
+            Verrous.sync2.release();
+            Verrous.sync1.acquire();
+
             dis = new DataInputStream(
                                   new BufferedInputStream(
                                     new FileInputStream(
@@ -60,22 +55,9 @@ public class Connexion implements Serializable, Transmissible{ //Sert a etablir 
             Verrous.tonSC.unlock();
             if (sC != tonSC) return new Transmission(ErreurTransmission.SCINCORRECT);
 
-            /*On met ce client dans la liste d'attente
-            Verrous.enCours.lock();
-            oos = new ObjectOutputStream(
-                    new BufferedOutputStream(
-                            new FileOutputStream(
-                                    new File(context.getFilesDir(),"enCours.txt")
-                            )
-                    )
-            );
-
-            oos.writeObject(adresse);
-            oos.flush();*/
-
             //On envoie alors sa fiche bumpfriend perso
 
-            Log.i("Connexion",context.getFilesDir().toString());
+            Log.i("Connexion", context.getFilesDir().toString());
             ois = new ObjectInputStream(
 
                             new FileInputStream(
@@ -85,7 +67,8 @@ public class Connexion implements Serializable, Transmissible{ //Sert a etablir 
             );
 
             BumpFriend bfTemp = (BumpFriend) ois.readObject();
-            Log.i(TAG,bfTemp.getAdresse().toString());
+            String TAG = "ConnexionClass";
+            Log.i(TAG, bfTemp.getAdresse().toString());
             return bfTemp;
 
         } catch (FileNotFoundException e) {

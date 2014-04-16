@@ -1,0 +1,18 @@
+package admin;
+
+import java.util.HashMap;
+
+public class Vestiaire {
+	private static HashMap<String,Integer> table;
+	
+	public static void TraitementVestiaire (String ip) {
+		if (table.containsKey(ip)) {
+			int ticket = table.get(ip);
+			//Afficher le ticket a l'ecran
+			table.remove(ip);
+			
+		} else {
+			
+		}
+	}
+}

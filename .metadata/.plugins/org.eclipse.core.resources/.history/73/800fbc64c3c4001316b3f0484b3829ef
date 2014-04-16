@@ -1,0 +1,40 @@
+package admin;
+
+import com.example.bump.actions.Color;
+
+/**
+ * Created by Arturo on 07/04/2014.
+ */
+public class Boisson {
+    private byte prix ;
+    private Color code ;
+    private byte degre ;
+
+    public Boisson(byte prix, Color code, byte degre) {
+        this.prix = prix ;
+        this.code = code ;
+        this.degre = degre ;
+    }
+
+    public byte getPrix() {
+        return prix;
+    }
+
+    public Color getCode() {
+        return code;
+    }
+
+    public byte getDegre() {
+        return degre;
+    }
+
+    public byte[] toBytes(){
+        byte[] b =new byte[5];
+        b[0]=prix;
+        b[1]=code.getRouge();
+        b[2]=code.getVert();
+        b[3]=code.getBleu();
+        b[4]=degre;
+        return b;
+    }
+}

@@ -1,12 +1,10 @@
 package com.example.bump.bluetooth;
 
 
-import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +12,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.example.bump.BluetoothConnexion;
-import com.example.bump.R;
+import com.example.bump.Verrous;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +40,7 @@ public class BtInterface {
         BluetoothDevice[] appareilsAppareilles = (BluetoothDevice[]) setAppareilsApparies.toArray(new BluetoothDevice[setAppareilsApparies.size()]);
 
         for(int i=0;i<appareilsAppareilles.length;i++) {
-            if(appareilsAppareilles[i].getName().contains(/*"Bracelet"*/"RNBT-1ED2")) {//1ED2 1D8B
+            if(appareilsAppareilles[i].getName().contains(/*"Bracelet"*/"RNBT-1D8B")) {//1ED2 1D8B
                 appareil = appareilsAppareilles[i];
                 try {
                     socket = appareil.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
@@ -70,27 +68,45 @@ public class BtInterface {
         connect();
     }
 
+    public boolean estConnecte() {
+        return (os != null && is!= null && socket != null && appareil != null);
+    }
+
 
     public void sendData(byte[] data) {
         try {
-            if (os == null) {
-                os = socket.getOutputStream();
+            if (socket == null) {
+                Intent intent = new Intent(contexte, BluetoothConnexion.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                contexte.startActivity(intent);
+            } else {
+                if (os == null) {
+                    os = socket.getOutputStream();
+                }
+                os.write(data);
+                os.flush();
+                Log.i(TAG, "Ecriture dans le flux de sortie");
             }
-            os.write(data);
-            os.flush();
-            Log.i(TAG,"Ecriture dans le flux de sortie");
         } catch (IOException e) {
+
+            if (Verrous.sms) {
+                Verrous.sms = false;
+                return;
+            }
+            if (Verrous.phone) {
+                Verrous.phone = false;
+                return;
+            }
             Intent intent = new Intent(contexte, BluetoothConnexion.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             contexte.startActivity(intent);
             Log.e(TAG,"Send " + e.getMessage());
-            //e.printStackTrace();
         }
 
     }
 
     public void connect() {
-        new Thread() {
+       new Thread() {
             @Override
             public void run() {
                 //try {
@@ -139,6 +155,20 @@ public class BtInterface {
             while(true) {
                 try {
                     //byte buffer[] = new byte[100];
+                    if (appareil == null) {
+                        setAppareil();
+                        continue;
+                    }
+                    if (socket == null) {
+                        socket = appareil.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+                        Log.i(TAG,"Creation de la socket");
+                        socket.connect();
+                        Log.i(TAG, "Connexion a la socket");
+                        is = socket.getInputStream();
+                        os = socket.getOutputStream();
+                        Log.i(TAG,"Recuperation des flux");
+                        continue;
+                    }
                     if (is == null) {
                         is = socket.getInputStream();
                         os = socket.getOutputStream();
@@ -181,15 +211,37 @@ public class BtInterface {
                         os = socket.getOutputStream();
                         Log.i(TAG,"Recuperation des flux");
                     } catch (IOException e2) {
-                        //Intent intent = new Intent(contexte, BluetoothConnexion.class);
-                        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        //contexte.startActivity(intent);
-
                         Log.e(TAG,"Reception2 " + e2.getMessage());
-                        //e.printStackTrace();
                     }
-                        //e.printStackTrace();
                 }
+            }
+        }
+    }
+
+    public void setAppareil() {
+        Set<BluetoothDevice> setAppareilsApparies = BluetoothAdapter.getDefaultAdapter().getBondedDevices();
+        Log.i(TAG,"Recuperation des devices bluetooth");
+        BluetoothDevice[] appareilsAppareilles = (BluetoothDevice[]) setAppareilsApparies.toArray(new BluetoothDevice[setAppareilsApparies.size()]);
+
+        for(int i=0;i<appareilsAppareilles.length;i++) {
+            if(appareilsAppareilles[i].getName().contains(/*"Bracelet"*/"RNBT-1ED2")) {//1ED2 1D8B
+                appareil = appareilsAppareilles[i];
+                try {
+                    socket = appareil.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+                    Log.i(TAG,"Creation de la socket");
+                    socket.connect();
+                    Log.i(TAG, "Connexion a la socket");
+                    is = socket.getInputStream();
+                    os = socket.getOutputStream();
+                    Log.i(TAG,"Recuperation des flux");
+                } catch (IOException e) {
+                    Intent intent = new Intent(contexte, BluetoothConnexion.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    contexte.startActivity(intent);
+
+                    Log.e(TAG,"Initialisation " + e.getMessage());
+                }
+                break;
             }
         }
     }

@@ -2,13 +2,18 @@ package com.example.bump.serveur;
 
 import android.util.Log;
 
+import com.example.bump.actions.Boisson;
 import com.example.bump.actions.BumpFriend;
 import com.example.bump.actions.Color;
 import com.example.bump.actions.Connexion;
 import com.example.bump.actions.ErreurTransmission;
+import com.example.bump.actions.FMConfirmation;
 import com.example.bump.actions.Identifiant;
 import com.example.bump.actions.IdentifiantAnswer;
+import com.example.bump.actions.Menu;
 import com.example.bump.actions.Message;
+import com.example.bump.actions.Money;
+import com.example.bump.actions.RequestMoney;
 import com.example.bump.actions.Transmissible;
 import com.example.bump.actions.Transmission;
 
@@ -38,9 +43,75 @@ public class Parseur {
 
             case 6 : return lireIdentifiantAnswer(recu);
 
+            case 7 : return lireMenu(recu);
+
+            case 8 : return lireBoisson(recu);
+
+            case 9 : return lireRequestMoney(recu);
+
+            case 10 : return lireMoney(recu);
+
+            case 11 : return lireFMConfirmation(recu);
+
             default : Log.i(TAG, "Classe recue non reconnue.");
                 return null;
         }
+    }
+
+    private static Transmissible lireFMConfirmation(byte[] recu) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 1; i < recu.length; i++) {
+            stringBuilder.append((char) recu[i]);
+        }
+        try {
+            return new FMConfirmation(InetAddress.getByName(stringBuilder.toString()));
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            return new Transmission(false);
+        }
+    }
+
+    private static Transmissible lireMoney(byte[] recu) {
+        return (Transmissible) (new Money(recu[1]));
+    }
+
+    private static Transmissible lireRequestMoney(byte[] recu) {
+        return (Transmissible) (new RequestMoney());
+    }
+
+    private static Transmissible lireBoisson(byte[] recu) {
+        byte prix = recu[1];
+        byte rouge = recu[2];
+        byte vert = recu[3];
+        byte bleu = recu[4];
+        byte degre = recu[5];
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 6; i < 6+recu.length ; i++) {
+            stringBuilder.append(recu[i]);
+        }
+        return new Boisson(stringBuilder.toString(),prix,new Color(rouge,vert,bleu),degre);
+    }
+
+    private static Transmissible lireMenu(byte[] recu) {
+        int n = recu.length-1;
+        Menu menu = new Menu();
+        for (int i=0;i<n;){
+            byte prix = recu[i];
+            byte rouge = recu[i+1];
+            byte vert = recu[i+2];
+            byte bleu = recu[i+3];
+            byte degre = recu[i+4];
+            i += 5;
+            StringBuilder stringBuilder = new StringBuilder();
+            while (recu[i] != (byte)'|'){
+                stringBuilder.append((char) recu[i]);
+                i++;
+            }
+            i++;
+            Boisson boisson = new Boisson(stringBuilder.toString(),prix, new Color(rouge,vert,bleu),degre);
+            menu.ajouteBoisson(boisson);
+        }
+        return menu;
     }
 
     private static Transmissible lireIdentifiantAnswer(byte[] recu) {

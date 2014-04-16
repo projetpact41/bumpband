@@ -22,6 +22,9 @@ public class SMSReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED"))
         {
+
+            Verrous.sms = true;
+
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             Color temp = new Color((byte)preferences.getInt(ROUGE,0),(byte)preferences.getInt(VERT,0),(byte)preferences.getInt(BLEU,0));
 

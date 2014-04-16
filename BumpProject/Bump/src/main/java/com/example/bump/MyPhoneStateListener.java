@@ -35,6 +35,9 @@ public class MyPhoneStateListener extends PhoneStateListener {
                 break;
             case TelephonyManager.CALL_STATE_RINGING:
                 Log.d("DEBUG", "Sonne");
+
+                Verrous.phone = true;
+
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
                 Color temp = new Color((byte)preferences.getInt(ROUGE,0),(byte)preferences.getInt(VERT,0),(byte)preferences.getInt(BLEU,0));
 

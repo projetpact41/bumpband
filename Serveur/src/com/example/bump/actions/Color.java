@@ -1,6 +1,7 @@
 package com.example.bump.actions;
 
 import java.io.Serializable;
+import java.net.InetAddress;
 
 public class Color implements Serializable, Transmissible{
 	private byte rouge;
@@ -27,7 +28,7 @@ public class Color implements Serializable, Transmissible{
     }
 
     @Override
-    public Transmissible execute() {
+    public Transmissible execute(InetAddress address) {
         // TODO
         return null;
     }
@@ -41,4 +42,7 @@ public class Color implements Serializable, Transmissible{
         resultat[3]=bleu;
         return resultat;
     }
+    
+    public static Color Blanc = new Color((byte)255,(byte)255,(byte)255);
+
 }

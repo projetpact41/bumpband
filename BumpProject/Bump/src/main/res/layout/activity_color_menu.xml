@@ -1,6 +1,6 @@
 
 
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:id="@+id/container"
 android:layout_width="match_parent"
@@ -9,15 +9,6 @@ tools:context="com.example.bump.ColorMenu"
 tools:ignore="MergeRootFrame"
 android:background="@drawable/fondnoir">
 
-    <Button
-        android:layout_width="537dp"
-        android:layout_height="393dp"
-        android:id="@+id/button_clign"
-        android:background="@drawable/clignbutton"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_x="551dp"
-        android:layout_y="-67dp"/>
-
     <SeekBar
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -25,7 +16,10 @@ android:background="@drawable/fondnoir">
         android:layout_x="70dp"
         android:layout_y="100dp"
         android:max="255"
-        android:background="@drawable/rouge"/>
+        android:background="@drawable/rouge"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/seekBarGreen"
+        android:layout_alignStart="@+id/seekBarGreen" />
 
     <SeekBar
         android:layout_width="250dp"
@@ -34,7 +28,10 @@ android:background="@drawable/fondnoir">
         android:layout_x="70dp"
         android:layout_y="200dp"
         android:max="255"
-        android:background="@drawable/vert"/>
+        android:background="@drawable/vert"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/seekBarBlue"
+        android:layout_alignStart="@+id/seekBarBlue" />
 
     <SeekBar
         android:layout_width="250dp"
@@ -43,5 +40,7 @@ android:background="@drawable/fondnoir">
         android:layout_x="70dp"
         android:layout_y="300dp"
         android:max="255"
-        android:background="@drawable/bleu"/>
-</AbsoluteLayout>
+        android:background="@drawable/bleu"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

@@ -1,0 +1,25 @@
+package admin;
+
+import com.example.bump.actions.BumpFriend;
+
+import java.util.Hashtable;
+
+
+/**
+ * Created by Arturo on 07/04/2014.
+ */
+public class Banque {
+
+        private Hashtable<BumpFriend,Integer> htab;
+
+        public void add(BumpFriend ami) {
+
+            htab.put(ami,20);
+
+        }
+
+        public void remove(BumpFriend ami) {
+            htab.remove(ami);
+        }
+    }
+}

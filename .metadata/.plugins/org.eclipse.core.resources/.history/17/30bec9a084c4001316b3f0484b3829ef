@@ -1,0 +1,44 @@
+package admin;
+
+import com.example.bump.actions.BumpFriend;
+import com.example.bump.actions.Transmissible;
+
+
+/**
+ * Created by Arturo on 07/04/2014.
+ */
+public class Commande implements Transmissible{
+    private BumpFriend client;
+    private Boisson commande;
+    private int age;
+    private String statut;
+
+    public Commande(BumpFriend client, Boisson commande){
+        this.commande=commande;
+        this.client = client;
+        this.age=300;
+    }
+
+    @Override
+    public byte[] toBytes() {
+        byte[] bf = client.toBytes();
+        int n=bf.length;
+        byte[] b = new byte[5+n];
+        b[0]=8;
+        for(int i=1;i<=n;i++){
+            b[i]=bf[i];
+        }
+        b[n+1]=commande.getPrix();
+        b[n+2]=commande.getCode().getRouge();
+        b[n+3]=commande.getCode().getVert();
+        b[n+4]=commande.getCode().getBleu();
+        b[n+5]=commande.getDegre();
+        
+        return bf;
+    }
+
+    @Override
+    public Transmissible execute() {
+        return null;
+    }
+}

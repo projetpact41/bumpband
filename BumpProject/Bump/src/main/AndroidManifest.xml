@@ -94,6 +94,14 @@
             android:name="com.example.bump.SynchronisationAdmin"
             android:label="@string/title_activity_synchronisation_admin" >
         </activity>
+        <activity
+            android:name="com.example.bump.Informations"
+            android:label="@string/title_activity_informations" >
+        </activity>
+        <activity
+            android:name="com.example.bump.CommandeActivity"
+            android:label="@string/title_activity_commande" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

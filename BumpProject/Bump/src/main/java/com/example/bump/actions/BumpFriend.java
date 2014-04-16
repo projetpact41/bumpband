@@ -2,6 +2,7 @@ package com.example.bump.actions;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -9,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.bump.BFList;
+import com.example.bump.MenuPrincipal2;
 import com.example.bump.Verrous;
 
 import java.io.BufferedInputStream;
@@ -21,9 +23,6 @@ import java.io.Serializable;
 import java.io.StreamCorruptedException;
 import java.net.InetAddress;
 
-/**
- * Created by jjuulliieenn on 01/01/14.
- */
 public class BumpFriend implements Serializable, Transmissible {
 
     private InetAddress adresse; //Adresse du BF
@@ -44,15 +43,11 @@ public class BumpFriend implements Serializable, Transmissible {
 
     public String getName() {
         return name;
-    }
+    } //Retourne le nom du bf
 
     public InetAddress getAdresse() {
         return adresse;
-    }
-
-    public void setAdresse(InetAddress adresse) {
-        this.adresse = adresse;
-    }
+    } // Retourne  l'adresse ip du bf
 
     public void setId (int id) {
         this.id=id;
@@ -63,45 +58,50 @@ public class BumpFriend implements Serializable, Transmissible {
     }
 
     public Transmissible execute (Context context, InetAddress address) {
-        if (adresse.equals(getIpAddr(context))) return new Transmission(ErreurTransmission.PROBLEMETRAITEMENT); //Empeche de s'auto-ajouter
+        if (adresse.equals(getIpAddr(context))) {
+            return new Transmission(ErreurTransmission.PROBLEMETRAITEMENT); //Empeche de s'auto-ajouter
+        }
         Log.i("BF","BF recu");
         ObjectInputStream ois = null;
-        //ObjectOutputStream oos = null;
         try {
             //On verifie que le BF est bien en liste d'attente.
             //On commence par attendre 2 secondes que le serveur traite le client, au cas ou
-            Thread.sleep(2000);
+            //Thread.sleep(2000);
+            //Rendez vous
+            Verrous.sync4.release();
+            Verrous.sync3.acquire();
+
             ois = new ObjectInputStream(
                     new BufferedInputStream(
                             new FileInputStream(
                                     new File(context.getFilesDir(),"enCours.txt")
                             )
                     )
-            );
+            ); //Contient le bf en cours de synchro
 
             InetAddress testAdresse = (InetAddress) ois.readObject(); //On verifie que l'ajout se fait avec la bonne personne
-            Verrous.enCours.unlock(); // On deblogue la possibilite de faire un bump
             Log.e("BF","Ici" + testAdresse.getHostAddress());
             Log.e("BF",adresse.getHostAddress());
             if (testAdresse.equals(adresse)) {
                 Log.e("BF","Ici");
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                SharedPreferences.Editor editor = preferences.edit();
+                SharedPreferences.Editor editor = preferences.edit(); // On ouvre un preference pour savoir si l'on synchronise avec l'admin
 
                 Boolean admin = preferences.getBoolean("Admin",false);
                 if (admin) {
-                    BFList bfList = new BFList("admin.txt",context);
+                    BFList bfList = new BFList("admin.txt",context); //Selon que l'on synchro avec l'admin ou non, on enregistre dans differents fichiers
                     bfList.ajoutBF(this);
-                }else {
+                    editor.putBoolean("Admin",false); //On ne synchro plus avec l'admin
+                    editor.commit();
+                    Intent intent = new Intent(context,MenuPrincipal2.class);
+                    context.startActivity(intent);
+                } else {
                     BFList bfList = new BFList("listeBF.txt", context);
                     bfList.ajoutBF(this);
                 }
-                //BumpFriendList.add(this);
-
+                Verrous.enCours.unlock(); // On deblogue la possibilite de faire un bump
                 return new Transmission (true);
             } else return new Transmission(ErreurTransmission.IPNONRECONNUE);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (StreamCorruptedException e) {
@@ -110,10 +110,14 @@ public class BumpFriend implements Serializable, Transmissible {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } finally {
             try {
-                //oos.close();
-                ois.close();
+                Verrous.enCours.unlock();
+                if (ois != null) {
+                    ois.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (NullPointerException e){
@@ -130,29 +134,27 @@ public class BumpFriend implements Serializable, Transmissible {
         int n = 1 + name.length()+1+ad.length();
         byte[] resultat = new byte[n];
         int i = 0;
-        resultat[i] = 0;
+        resultat[i] = 0; // Numero fonction
         i++;
         for (; i < 1 + name.length(); i++) {
-            resultat[i] = (byte) name.charAt(i-1);
+            resultat[i] = (byte) name.charAt(i-1); //copie nom bf
         }
-        resultat[i] = '|';
+        resultat[i] = '|'; //separateur
         i++;
         int t = i;
         for(;i< n;i++){
-            resultat[i] = (byte) ad.charAt(i-t);
+            resultat[i] = (byte) ad.charAt(i-t); //copie ip
         }
         return resultat;
     }
 
-    public String toString(){return name+"µ"+adresse.getHostAddress();}//µ = transition
+    public String toString(){return name+"µ"+adresse.getHostAddress();} //µ = transition
 
-    public String getIpAddr(Context context) {
-        WifiManager wifiManager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
+    public String getIpAddr(Context context) { //Obtient ip de l'appareil
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         int ip = wifiInfo.getIpAddress();
 
-        String ipString = String.format("%d.%d.%d.%d",(ip & 0xff),(ip >> 8 & 0xff),(ip >> 16 & 0xff),(ip >> 24 & 0xff));
-
-        return ipString;
+        return String.format("%d.%d.%d.%d",(ip & 0xff),(ip >> 8 & 0xff),(ip >> 16 & 0xff),(ip >> 24 & 0xff));
     }
 }

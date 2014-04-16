@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -14,7 +14,9 @@
         android:text="CONFIGURATION"
         android:textColor="#FFFF"
         android:id="@+id/titreConfiguration"
-        android:layout_gravity="center_horizontal|top" />
+        android:layout_gravity="center_horizontal|top"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -23,14 +25,17 @@
         android:ems="10"
         android:background="#FFFF"
         android:id="@+id/pseudo"
-        android:layout_gravity="center_horizontal|center" />
+        android:layout_gravity="center_horizontal|center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/buttonConnexion"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="75dp"
-		android:layout_gravity="center_horizontal|bottom"
-        android:background="@drawable/connectionbutton" />
+        android:layout_gravity="center_horizontal|bottom"
+        android:background="@drawable/connectionbutton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
-</FrameLayout>
+</RelativeLayout>

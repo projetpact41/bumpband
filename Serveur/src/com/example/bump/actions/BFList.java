@@ -65,6 +65,27 @@ public class BFList {
         if (i<0) {return false;}
         return true;
     }
+    
+    public Boolean isBF(String ip) {
+        int i = -1;
+        try {
+            FileReader reader= new FileReader(liste);
+            BufferedReader readfile = new BufferedReader(reader);
+            String line = readfile.readLine();
+            while(line!=null) {
+                int k = line.indexOf(ip);
+                if(k != -1) return true;
+                line = readfile.readLine();
+            }
+            readfile.close() ;
+            reader.close();
+        }
+        catch(Exception e){
+            System.err.println("Exception catched:");
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public ArrayList<BumpFriend> getBFliste(){
         ArrayList<BumpFriend> array = new ArrayList<BumpFriend>();

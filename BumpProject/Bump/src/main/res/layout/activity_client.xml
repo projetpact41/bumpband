@@ -11,7 +11,9 @@
         android:layout_width="178dp"
         android:layout_height="wrap_content"
         android:id="@+id/ip"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:background="#FFFF"
+        android:textColor="#0000"/>
 
     <Button
         android:layout_width="96dp"

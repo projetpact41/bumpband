@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -15,8 +15,11 @@
         android:ems="10"
         android:id="@+id/message"
         android:layout_gravity="center"
-        android:layout_marginTop="95dp"
-        android:textColor="#FFFF"/>
+        android:textColor="#0000"
+        android:background="#FFFF"
+        android:layout_marginTop="101dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 
     <Button
@@ -24,6 +27,9 @@
         android:layout_width="109dp"
         android:layout_height="94dp"
 		android:layout_gravity="center_horizontal|bottom"
-		android:background="@drawable/sendbutton" />
+		android:background="@drawable/sendbutton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="49dp" />
 
-</FrameLayout>
+</RelativeLayout>

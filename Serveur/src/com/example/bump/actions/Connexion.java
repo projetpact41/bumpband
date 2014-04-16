@@ -13,6 +13,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
 
+import bracelet.Verrous;
+
 public class Connexion implements Serializable, Transmissible{ //Sert a etablir la premiere connexion
     private InetAddress adresse;
 	private byte monSC; // Mon code de securite
@@ -35,22 +37,26 @@ public class Connexion implements Serializable, Transmissible{ //Sert a etablir 
 	}
 
     @Override
-    public Transmissible execute() {
+    public Transmissible execute(InetAddress address) {
         try {
-            Thread.sleep(5000); //Le temps de se scynchroniser.
+            //Thread.sleep(5000); //Le temps de se scynchroniser.
             //Verification des security codes
+        	Verrous.sync2.release();
+            Verrous.sync1.acquire();
             dis = new DataInputStream(
                                   new BufferedInputStream(
                                     new FileInputStream(
                                       new File("monSC.txt"))));
             int sC = dis.readInt();
             dis.close();
+            Verrous.monSC.unlock();
             if (sC != monSC) return new Transmission(ErreurTransmission.SCINCORRECT);
             dis = new DataInputStream(
                     new BufferedInputStream(
                             new FileInputStream(
                                     new File("tonSC.txt"))));
             sC = dis.readInt();
+            Verrous.tonSC.unlock();
             if (sC != tonSC) return new Transmission(ErreurTransmission.SCINCORRECT);
 
             //On met ce client dans la liste d'attente

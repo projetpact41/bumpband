@@ -1,6 +1,7 @@
 package com.example.bump.actions;
 
 import java.io.Serializable;
+import java.net.InetAddress;
 
 /**
  * Created by jjuulliieenn on 01/01/14.
@@ -30,7 +31,7 @@ public class Transmission implements Serializable, Transmissible{
         return erreur;
     }
 
-    public Transmissible execute() {
+    public Transmissible execute(InetAddress address) {
         if (dialogueReussi) return null;
         // TODO gerer les differents cas d'erreurs.
         if (erreur == ErreurTransmission.IPNONRECONNUE) {

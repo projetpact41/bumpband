@@ -7,9 +7,7 @@ import com.example.bump.BFList;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 
-/**
- * Created by jjuulliieenn on 03/03/14.
- */
+
 public class IdentifiantAnswer implements Transmissible {
 
     private int id;
@@ -30,6 +28,7 @@ public class IdentifiantAnswer implements Transmissible {
 
         bfList = new BFList("listeBF.txt",context);
         //bfList.changerId(id,ip);
+
         return new Transmission(true);
     }
 

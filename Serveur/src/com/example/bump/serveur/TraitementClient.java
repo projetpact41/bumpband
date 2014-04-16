@@ -38,7 +38,7 @@ public class TraitementClient extends Thread {
 
             while (obj != null && !(obj instanceof Transmission) ) { // On lance la bonne action en fonction de ce que l'on recoit
                 try {
-                    t = obj.execute();
+                    t = obj.execute(clientSocket.getInetAddress());
                     if (t != null) {
                     b = t.toBytes().clone();
                     byte n = (byte) b.length;
@@ -77,8 +77,8 @@ public class TraitementClient extends Thread {
                     
                 }
             }
-            if (obj != null && t != null && (t instanceof Transmission)) t.execute(); //On fini la conversation avec une transmission
-            if (obj != null && t != null && (obj instanceof Transmission)) obj.execute(); //On fini la conversation avec une transmission
+            if (obj != null && t != null && (t instanceof Transmission)) t.execute(clientSocket.getInetAddress()); //On fini la conversation avec une transmission
+            if (obj != null && t != null && (obj instanceof Transmission)) obj.execute(clientSocket.getInetAddress()); //On fini la conversation avec une transmission
             
             Thread.sleep(1000); // On ne ferme pas la socket trop tot
 

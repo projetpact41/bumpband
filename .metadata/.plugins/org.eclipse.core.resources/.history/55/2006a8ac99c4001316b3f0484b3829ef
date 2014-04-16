@@ -1,0 +1,36 @@
+package admin;
+
+import com.example.bump.actions.BumpFriend;
+
+import java.util.Hashtable;
+
+
+/**
+ * Created by Arturo on 07/04/2014.
+ */
+public class Banque {
+
+        private static Hashtable<String,Integer> htab;
+
+        public static void create(String ip) {
+            htab.put(ip,20); //On attribue 20 credits au debut
+        }
+
+        public static void remove(String ip) {
+            htab.remove(ip);
+        }
+        
+        public static int getMoney (String ip) {
+        	return htab.get(ip);
+        }
+        
+        public static void addMoney (String ip, int ajout) {
+        	Integer credit = getMoney(ip);
+        	htab.put(ip, credit+ajout);
+        }
+        
+        public static void removeMoney (String ip, int retrait) {
+        	Integer credit = getMoney(ip);
+        	htab.put(ip,credit-retrait);
+        }
+    }

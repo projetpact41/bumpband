@@ -21,5 +21,7 @@
     <string name="title_activity_menu_principal2">MenuPrincipal2</string>
     <string name="title_activity_bluetooth_connexion">BluetoothConnexion</string>
     <string name="title_activity_synchronisation_admin">Synchronisation Admin</string>
+    <string name="title_activity_informations">Informations</string>
+    <string name="title_activity_commande">CommandeActivity</string>
 
 </resources>

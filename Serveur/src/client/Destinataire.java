@@ -64,7 +64,7 @@ public class Destinataire {
                             in.read(b);
 
                             t = (Transmissible) Parseur.parser(b);
-                            t2 = t.execute();
+                            t2 = t.execute(hostname);
                             if (t2 != null) envoieObjet(t2);
 
                        } catch (NullPointerException e) {

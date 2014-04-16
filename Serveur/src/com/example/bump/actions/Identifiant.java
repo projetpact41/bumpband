@@ -1,5 +1,6 @@
 package com.example.bump.actions;
 
+import java.net.InetAddress;
 import java.nio.ByteBuffer;
 
 public class Identifiant implements Transmissible {
@@ -8,7 +9,7 @@ public class Identifiant implements Transmissible {
     	this.id=id;
     }
 	@Override
-	public Transmissible execute() {
+	public Transmissible execute(InetAddress address) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -17,9 +17,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 
-/**
- * Created by jjuulliieenn on 03/03/14.
- */
+
 public class Identifiant implements Transmissible{
 
     private int id;
@@ -30,10 +28,9 @@ public class Identifiant implements Transmissible{
 
     public Transmissible execute(Context context, InetAddress address)
     {
-        //@TODO Faire la verification d'administrateur
         BFList bfList = new BFList("admin.txt",context);
 
-        if (!bfList.isBF(address.getHostAddress()))
+        if (!bfList.isBF(address.getHostAddress())) //On verifie que l'on parle bien avec l'admin
             return new Transmission(ErreurTransmission.IPNONRECONNUE);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -73,8 +70,12 @@ public class Identifiant implements Transmissible{
             e.printStackTrace();
         } finally {
             try{
-                oos.close();
-                ois.close();
+                if (oos != null) {
+                    oos.close();
+                }
+                if (ois != null) {
+                    ois.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -86,7 +87,6 @@ public class Identifiant implements Transmissible{
         ByteBuffer b = ByteBuffer.allocate(4);
         b.put((byte) 5);
         b.putInt(id);
-        byte[] bytes = b.array();
-        return bytes;
+        return b.array();
     }
 }

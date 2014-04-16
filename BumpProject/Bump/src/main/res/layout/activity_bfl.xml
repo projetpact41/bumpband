@@ -5,11 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".BumpFriendListe"
     tools:ignore="MergeRootFrame" 
-    android:background="@drawable/noir">
+    android:background="@drawable/fondnoir"
+    style="Dark">
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_gravity="center_horizontal|top" />
+        android:layout_gravity="center_horizontal|top"
+        style="Dark"/>
 </FrameLayout>

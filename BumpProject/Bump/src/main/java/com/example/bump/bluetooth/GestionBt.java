@@ -10,7 +10,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 
-import com.example.bump.BluetoothConnexion;
+import com.example.bump.BFList;
 import com.example.bump.MenuPrincipal2;
 import com.example.bump.Verrous;
 import com.example.bump.actions.Connexion;
@@ -91,7 +91,7 @@ public class GestionBt extends Service {
         byte[] b = intent.getByteArrayExtra("message"); //PP
         Log.i(TAG,"Avant envoie "+Arrays.toString(b));
         if (b != null)  btInterface.sendData(b);
-        if (b[0] == 5 && b[1] == 4) {
+        if (b[0] == 5 && b[1] == 4 && btInterface.estConnecte()) {
             Intent i = new Intent(GestionBt.this, MenuPrincipal2.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
@@ -145,6 +145,14 @@ public class GestionBt extends Service {
 
 
     private void envoieBF() {
+
+        BFList bfList = new BFList("admin.txt",this);
+
+        if (bfList.isBF(ip)) { //c'est l'admin avec qui on a déjà bumpe
+            //TODO Cas des boissons au bar
+            return;
+        }
+
         Log.i(TAG, "Debut protocole");
         DataOutputStream dos = null;
         ObjectOutputStream oos = null;
@@ -185,9 +193,17 @@ public class GestionBt extends Service {
             Destinataire destinataire = new Destinataire(InetAddress.getByName(ip),PORT);
             destinataire.envoieObjet(new Connexion(Byte.parseByte(monSC),Byte.parseByte(tonSC),InetAddress.getByName(getIpAddr())),GestionBt.this);
 
+            Verrous.sync1.release();
+            Verrous.sync2.acquire();
+            Verrous.sync3.release();
+            Verrous.sync4.acquire();
+
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
             try {

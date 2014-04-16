@@ -1,6 +1,7 @@
 package com.example.bump.actions;
 
 import java.io.Serializable;
+import java.net.InetAddress;
 
 import javax.naming.Context;
 
@@ -19,7 +20,7 @@ public class Message implements Serializable, Transmissible{
     }
 
     @Override
-    public Transmissible execute() {
+    public Transmissible execute(InetAddress address) {
         
         return new Transmission(true);
     }
