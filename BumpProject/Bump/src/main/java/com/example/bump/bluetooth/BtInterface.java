@@ -201,8 +201,9 @@ public class BtInterface {
                             Log.i(TAG,"Confirmation de la reception de donnees");
                     }
                 } catch (IOException e) {
-                    Log.e(TAG,"Reception : " + appareil.getName() + " " + e.getMessage()  );
-                    try {
+                    if (appareil != null)
+                        Log.e(TAG,"Reception : " + appareil.getName() + " " + e.getMessage()  );
+                     try {
                         socket = appareil.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
                         Log.i(TAG,"Creation de la socket");
                         socket.connect();

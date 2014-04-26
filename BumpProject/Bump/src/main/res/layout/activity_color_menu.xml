@@ -18,8 +18,7 @@ android:background="@drawable/fondnoir">
         android:max="255"
         android:background="@drawable/rouge"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/seekBarGreen"
-        android:layout_alignStart="@+id/seekBarGreen" />
+        android:layout_centerHorizontal="true" />
 
     <SeekBar
         android:layout_width="250dp"
@@ -29,9 +28,10 @@ android:background="@drawable/fondnoir">
         android:layout_y="200dp"
         android:max="255"
         android:background="@drawable/vert"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/seekBarBlue"
-        android:layout_alignStart="@+id/seekBarBlue" />
+        android:layout_marginTop="41dp"
+        android:layout_below="@+id/seekBarRed"
+        android:layout_alignLeft="@+id/seekBarRed"
+        android:layout_alignStart="@+id/seekBarRed" />
 
     <SeekBar
         android:layout_width="250dp"
@@ -41,6 +41,31 @@ android:background="@drawable/fondnoir">
         android:layout_y="300dp"
         android:max="255"
         android:background="@drawable/bleu"
+        android:layout_below="@+id/seekBarGreen"
+        android:layout_alignLeft="@+id/seekBarGreen"
+        android:layout_alignStart="@+id/seekBarGreen"
+        android:layout_marginTop="52dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="clignote"
+        android:id="@+id/clignote"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignLeft="@+id/seekBarBlue"
+        android:layout_alignStart="@+id/seekBarBlue"
+        android:layout_marginBottom="52dp"
+        android:textColor="#FFFFFF"
+        android:background="#ffcc00"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vibre"
+        android:id="@+id/vibre"
+        android:layout_alignTop="@+id/clignote"
+        android:layout_alignRight="@+id/seekBarBlue"
+        android:layout_alignEnd="@+id/seekBarBlue"
+        android:textColor="#FFFFFF"
+        android:background="#fd5ea8"/>
 </RelativeLayout>

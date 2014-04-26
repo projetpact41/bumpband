@@ -9,52 +9,62 @@
 
     <Button
         android:layout_width="440dp"
-        android:layout_height="81dp"
+        android:layout_height="50dp"
         android:id="@+id/button_bfl"
         android:layout_x="14dp"
         android:layout_y="7dp"
-        android:background="@drawable/bumpfriendsbutton"
+        android:background="#ee6e1a"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="#FFFFFF"
+        android:text="Bump Friends"/>
 
     <Button
         android:layout_width="440dp"
-        android:layout_height="81dp"
+        android:layout_height="50dp"
         android:id="@+id/button_color"
         android:layout_x="16dp"
         android:layout_y="94dp"
-        android:background="@drawable/colorsbutton"
+        android:background="#FF0038"
+        android:textColor="#FFFFFF"
+        android:text="Colors"
         android:layout_below="@+id/button_bfl"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="440dp"
-        android:layout_height="81dp"
+        android:layout_height="50dp"
         android:id="@+id/button_about"
         android:layout_x="26dp"
         android:layout_y="171dp"
-        android:background="@drawable/aboutbutton"
+        android:background="#108070"
         android:layout_gravity="left|top"
+        android:textColor="#FFFFFF"
+        android:text="About us"
         android:layout_below="@+id/button_color"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="440dp"
+        android:layout_height="50dp"
         android:text="Informations"
+        android:textColor="#FFFFFF"
         android:id="@+id/info"
-        android:layout_below="@+id/button_about"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#c124af"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="440dp"
+        android:layout_height="50dp"
         android:text="Commande"
+        android:textColor="#FFFFFF"
         android:id="@+id/commande"
-        android:layout_below="@+id/info"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/info"
+        android:background="#0c1dee"/>
 
 </RelativeLayout>

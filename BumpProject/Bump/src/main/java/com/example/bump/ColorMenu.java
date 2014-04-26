@@ -17,7 +17,7 @@ import com.example.bump.bluetooth.BtParseur;
 
 public class ColorMenu extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener{
 
-    private Button send;
+    private Button send,clignote,vibre;
     private String TAG = "ColorMenu";
     private Context context = this;
 
@@ -33,10 +33,26 @@ public class ColorMenu extends ActionBarActivity implements SeekBar.OnSeekBarCha
         rsb = (SeekBar)findViewById(R.id.seekBarRed);
         gsb = (SeekBar)findViewById(R.id.seekBarGreen);
         bsb = (SeekBar)findViewById(R.id.seekBarBlue);
+        clignote = (Button) findViewById(R.id.clignote);
+        vibre = (Button) findViewById(R.id.vibre);
 
         rsb.setOnSeekBarChangeListener(this);
         gsb.setOnSeekBarChangeListener(this);
         bsb.setOnSeekBarChangeListener(this);
+
+        clignote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BtParseur.clignote((byte) 200, (byte) 15,context);
+            }
+        });
+
+        vibre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BtParseur.vibre((byte) 2,context);
+            }
+        });
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

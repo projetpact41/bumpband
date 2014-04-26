@@ -44,10 +44,12 @@ public class Informations extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 BFList bfList = new BFList("admin.txt",context);
-                BumpFriend bf = bfList.getBFliste().get(0);
-                Destinataire destinataire = new Destinataire(bf.getAdresse(), 4444);
-                destinataire.envoieObjet((Transmissible)(new RequestMoney()),context);
-                actualiser();
+                if (bfList.getBFliste().size() != 0) {
+                    BumpFriend bf = bfList.getBFliste().get(0);
+                    Destinataire destinataire = new Destinataire(bf.getAdresse(), 4444);
+                    destinataire.envoieObjet((Transmissible) (new RequestMoney()), context);
+                    actualiser();
+                }
             }
         });
     }

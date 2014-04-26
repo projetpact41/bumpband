@@ -1,3 +1,25 @@
+//The MIT License (MIT)
+//
+//Copyright (c) 2014 Julien ROMERO
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+
 package com.example.bump.actions;
 
 import java.io.BufferedInputStream;
@@ -39,10 +61,12 @@ public class Connexion implements Serializable, Transmissible{ //Sert a etablir 
     @Override
     public Transmissible execute(InetAddress address) {
         try {
-            //Thread.sleep(5000); //Le temps de se scynchroniser.
-            //Verification des security codes
+        	
+        	//Point de rendez-vous
         	Verrous.sync2.release();
             Verrous.sync1.acquire();
+
+            //Verification des security codes
             dis = new DataInputStream(
                                   new BufferedInputStream(
                                     new FileInputStream(
@@ -59,22 +83,8 @@ public class Connexion implements Serializable, Transmissible{ //Sert a etablir 
             Verrous.tonSC.unlock();
             if (sC != tonSC) return new Transmission(ErreurTransmission.SCINCORRECT);
 
-            //On met ce client dans la liste d'attente
-
-            oos = new ObjectOutputStream(
-                    new BufferedOutputStream(
-                            new FileOutputStream(
-                                    new File("enCours.txt")
-                            )
-                    )
-            );
-
-            oos.writeObject(adresse);
-            oos.flush();
-
             //On envoie alors sa fiche bumpfriend perso
-
-            
+ 
             ois = new ObjectInputStream(
 
                             new FileInputStream(
