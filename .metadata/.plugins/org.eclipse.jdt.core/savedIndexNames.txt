@@ -14,7 +14,6 @@ INDEX VERSION 1.126+/Users/jjuulliieenn/Documents/ProjetPact/.metadata/.plugins/
 2286151582.index
 3321539481.index
 1833648217.index
-1617500887.index
 4238209716.index
 3569674952.index
 1395310843.index
