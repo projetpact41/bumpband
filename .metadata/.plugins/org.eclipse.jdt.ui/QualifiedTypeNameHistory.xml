@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.net.UnknownHostException"/>
-<fullyQualifiedTypeName name="com.example.bump.actions.Color"/>
 <fullyQualifiedTypeName name="java.io.DataInputStream"/>
 <fullyQualifiedTypeName name="com.example.bump.actions.BFList"/>
 <fullyQualifiedTypeName name="com.example.bump.actions.BumpFriend"/>
 <fullyQualifiedTypeName name="java.io.DataOutputStream"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="client.Destinataire"/>
-<fullyQualifiedTypeName name="admin.Menu"/>
 <fullyQualifiedTypeName name="javax.naming.Context"/>
 <fullyQualifiedTypeName name="com.example.bump.actions.Transmission"/>
-<fullyQualifiedTypeName name="admin.Commande"/>
-<fullyQualifiedTypeName name="admin.Vestiaire"/>
 <fullyQualifiedTypeName name="com.example.bump.actions.Transmissible"/>
 <fullyQualifiedTypeName name="java.net.InetAddress"/>
 <fullyQualifiedTypeName name="admin.FlashMob"/>
 <fullyQualifiedTypeName name="admin.Banque"/>
+<fullyQualifiedTypeName name="admin.Vestiaire"/>
+<fullyQualifiedTypeName name="admin.Commande"/>
+<fullyQualifiedTypeName name="com.example.bump.actions.Color"/>
+<fullyQualifiedTypeName name="admin.Menu"/>
 </qualifiedTypeNameHistroy>

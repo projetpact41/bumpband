@@ -51,6 +51,7 @@ public class Commande{
 	public static void remove (String ip) { //retire une commande
 		//On recupere la boisson avant de la supprimer
 		Boisson boisson = correspondance.get(ip);
+		if (boisson == null) return;
 		listeCommande.remove(ip); //On supprime des deux informations liées à une ip et la commande
 		correspondance.remove(ip); 
 		etat.remove(ip);

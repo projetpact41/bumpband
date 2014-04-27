@@ -35,8 +35,12 @@ import com.example.bump.actions.Transmissible;
  * Created by Arturo on 07/04/2014.
  */
 public class Menu implements Transmissible{
-    private static ArrayList<Boisson> menu ; // Contient la liste des boissons dans le menu
+    private static ArrayList<Boisson> menu = new ArrayList<Boisson>(); // Contient la liste des boissons dans le menu
 
+    public Menu () {
+    	
+    }
+    
     public static void ajouteBoisson(Boisson b){
         menu.add(b);
         maj();
@@ -50,7 +54,7 @@ public class Menu implements Transmissible{
     @Override
     public byte[] toBytes() {
         int n=menu.size();
-        int taille = 0;
+        int taille = 1;
 
         for (int i = 0; i<n; i++) {
             taille += 5+menu.get(i).getNom().length()+1;

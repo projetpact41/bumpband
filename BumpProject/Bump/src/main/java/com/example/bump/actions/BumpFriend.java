@@ -1,3 +1,25 @@
+//The MIT License (MIT)
+//
+//Copyright (c) 2014 Julien ROMERO
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+
 package com.example.bump.actions;
 
 
@@ -64,6 +86,20 @@ public class BumpFriend implements Serializable, Transmissible {
         Log.i("BF","BF recu");
         ObjectInputStream ois = null;
         try {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences.Editor editor = preferences.edit(); // On ouvre un preference pour savoir si l'on synchronise avec l'admin
+
+            Boolean admin = preferences.getBoolean("Admin",false);
+            if (admin) {
+                BFList bfList = new BFList("admin.txt",context); //Selon que l'on synchro avec l'admin ou non, on enregistre dans differents fichiers
+                bfList.ajoutBF(this);
+                editor.putBoolean("Admin",false); //On ne synchro plus avec l'admin
+                editor.commit();
+                Intent intent = new Intent(context,MenuPrincipal2.class);
+                context.startActivity(intent);
+                return new Transmission(true);
+            }
+
             //On verifie que le BF est bien en liste d'attente.
             //On commence par attendre 2 secondes que le serveur traite le client, au cas ou
             //Thread.sleep(2000);
@@ -84,21 +120,9 @@ public class BumpFriend implements Serializable, Transmissible {
             Log.e("BF",adresse.getHostAddress());
             if (testAdresse.equals(adresse)) {
                 Log.e("BF","Ici");
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                SharedPreferences.Editor editor = preferences.edit(); // On ouvre un preference pour savoir si l'on synchronise avec l'admin
-
-                Boolean admin = preferences.getBoolean("Admin",false);
-                if (admin) {
-                    BFList bfList = new BFList("admin.txt",context); //Selon que l'on synchro avec l'admin ou non, on enregistre dans differents fichiers
-                    bfList.ajoutBF(this);
-                    editor.putBoolean("Admin",false); //On ne synchro plus avec l'admin
-                    editor.commit();
-                    Intent intent = new Intent(context,MenuPrincipal2.class);
-                    context.startActivity(intent);
-                } else {
                     BFList bfList = new BFList("listeBF.txt", context);
                     bfList.ajoutBF(this);
-                }
+
                 Verrous.enCours.unlock(); // On deblogue la possibilite de faire un bump
                 return new Transmission (true);
             } else return new Transmission(ErreurTransmission.IPNONRECONNUE);

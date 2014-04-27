@@ -1,6 +1,31 @@
+//The MIT License (MIT)
+//
+//Copyright (c) 2014 Julien ROMERO
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+
+
 package com.example.bump;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -14,7 +39,7 @@ import android.widget.TextView;
 public class MessageActivity extends ActionBarActivity {
 
     private final String TAG = "Messagerie";
-    private TextView expediteur;
+    //private TextView expediteur;
     private TextView message;
 
     @Override
@@ -22,7 +47,7 @@ public class MessageActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
-        expediteur = (TextView) findViewById(R.id.expedi);
+        //expediteur = (TextView) findViewById(R.id.expedi);
         message = (TextView) findViewById(R.id.messagerie);
 
         if (savedInstanceState == null) {
@@ -37,12 +62,14 @@ public class MessageActivity extends ActionBarActivity {
     protected void onResume (){
         super.onResume();
         Log.i(TAG, "Debut onResume");
-
+        /*
         Bundle extra = getIntent().getExtras();
         String nom = extra.getString("nom");
         String messagerie = extra.getString("message");
-
-        expediteur.setText(nom);
+*/
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String messagerie = preferences.getString("messagerie","");
+        //expediteur.setText("Messagerie");
         message.setText(messagerie);
 
     }

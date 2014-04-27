@@ -25,6 +25,7 @@ package com.example.bump.actions;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -75,9 +76,11 @@ public class BFList {
             readfile.close() ;
             reader.close();
         }
-        catch(Exception e){
-            System.err.println("Exception catched:");
-            e.printStackTrace();
+        catch (FileNotFoundException e)
+        {
+        	
+        } catch (IOException e) {
+        	e.printStackTrace();
         }
         return i;
     }
@@ -101,9 +104,11 @@ public class BFList {
                 line = readfile.readLine();
             }
         }
-        catch(Exception e){
-            System.err.println("Exception catched:");
-            e.printStackTrace();
+        catch (FileNotFoundException e)
+        {
+        	
+        } catch (IOException e) {
+        	e.printStackTrace();
         }
         finally {
         	try {
@@ -133,10 +138,12 @@ public class BFList {
             }
             readfile.close() ;
             reader.close();
-        }
-        catch(Exception e){
-            System.err.println("Exception catched:");
-            e.printStackTrace();
+        
+        } catch (FileNotFoundException e)
+        {
+        	
+        } catch (IOException e) {
+        	e.printStackTrace();
         }
         return array;
     }
@@ -191,4 +198,15 @@ public class BFList {
         }
     }
 
+    public void initialiser(){
+        liste.delete();
+        try {
+            liste.createNewFile();
+        }
+        catch (Exception e) {
+            System.err.println("Exception catched:");
+            e.printStackTrace();
+        }
+    }
+    
 }

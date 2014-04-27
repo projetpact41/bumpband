@@ -1,3 +1,25 @@
+//The MIT License (MIT)
+//
+//Copyright (c) 2014 Julien ROMERO
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+
 package com.example.bump.serveur;
 
 import java.io.BufferedInputStream;
@@ -12,12 +34,12 @@ import com.example.bump.actions.Transmission;
 public class TraitementClient extends Thread {
 
 	private Socket clientSocket;
-	private DataOutputStream out;
-	private DataInputStream in;
+	private DataOutputStream out; //Flux d'output
+	private DataInputStream in; //Flux d'input
 	
 	public TraitementClient (Socket clientSocket) {
 		this.clientSocket = clientSocket;
-		this.start();
+		this.start(); //On lance le traitement
 	}
 	
 	public void run () {
@@ -74,7 +96,7 @@ public class TraitementClient extends Thread {
                     in.read(b);
 
                     obj = (Transmissible) Parseur.parser(b);
-                    
+                    System.out.println(obj.getClass().getCanonicalName());
                 }
             }
             if (obj != null && t != null && (t instanceof Transmission)) t.execute(clientSocket.getInetAddress()); //On fini la conversation avec une transmission

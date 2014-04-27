@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Connexion au Bluetooth"
+        android:text="Choisir le bracelet"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -24,11 +24,9 @@
         android:text="Connexion"
         android:id="@+id/connexionblue"
         android:background="@drawable/rectbleu"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:layout_marginTop="62dp"
-        android:textColor="#FFFF"/>
+        android:textColor="#FFFF"
+        android:layout_above="@+id/passerblue"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -39,4 +37,14 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/rectrose"
         android:textColor="#FFFF"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/perif"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="129dp"
+        android:spinnerMode="dropdown"
+        android:background="#FFFF"/>
 </RelativeLayout>

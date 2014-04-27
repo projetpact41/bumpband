@@ -28,4 +28,21 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/rectrose"
         android:textColor="#FFFF"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ipAdmin"
+        android:text="Ip de l'admin"
+        android:background="#ffffff"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Synchroniser"
+        android:id="@+id/synchro"
+        android:layout_above="@+id/passeradmin"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

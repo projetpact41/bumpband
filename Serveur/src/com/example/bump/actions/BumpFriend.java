@@ -75,32 +75,48 @@ public class BumpFriend implements Serializable, Transmissible {
         try {
             //On verifie que le BF est bien en liste d'attente.
             //Rendez vous
-        	Verrous.sync4.release();
-            Verrous.sync3.acquire();
-            ois = new ObjectInputStream(
-                    new BufferedInputStream(
-                            new FileInputStream(
-                                    new File("enCours.txt")
-                            )
-                    )
-            );
+        	//Verrous.sync4.release();
+            //Verrous.sync3.acquire();
+            //ois = new ObjectInputStream(
+             //       new BufferedInputStream(
+               //             new FileInputStream(
+                 //                   new File("enCours.txt")
+                   //         )
+                   // )
+            //);
 
-            InetAddress testAdresse = (InetAddress) ois.readObject();
-            if (testAdresse.equals(adresse)) {
+            /*InetAddress testAdresse = (InetAddress) ois.readObject();
+            if (testAdresse.equals(adresse)) {*/
                 
+        		System.out.println("BF recu");
+        		
                 BFList bfList = new BFList("listeBF.txt");
                 bfList.ajoutBF(this);
 
-                int identifiant = HashList.add(this);
+                //int identifiant = HashList.add(this);
+                
                 Destinataire destinataire = new Destinataire(this.adresse, 4444);
-                destinataire.envoieObjet(new Identifiant(identifiant));
-                Verrous.enCours.unlock(); // On deblogue la possibilite de faire un bump
+                //destinataire.envoieObjet(new Identifiant(identifiant));
+               
+               // destinataire = new Destinataire(this.adresse, 4444);
+                ois = new ObjectInputStream(
+
+                        new FileInputStream(
+                                new File("fichePerso.txt")
+                        )
+
+        );
+                System.out.println("Envoi fiche perso...");
+                BumpFriend bfTemp = (BumpFriend) ois.readObject();
+                destinataire.envoieObjet(bfTemp);
+                System.out.println("Fiche Perso envoyee");
+                
+                
+                //Verrous.enCours.unlock(); // On deblogue la possibilite de faire un bump
                 Banque.create(adresse.getCanonicalHostName());
                 
                 return new Menu();
-            } else return new Transmission(ErreurTransmission.IPNONRECONNUE);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            /*} else return new Transmission(ErreurTransmission.IPNONRECONNUE);*/
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (StreamCorruptedException e) {

@@ -1,0 +1,20 @@
+package com.example.bump.actions;
+
+import java.net.InetAddress;
+
+public class Vestiaire_ajout implements Transmissible{
+
+	@Override
+	public Transmissible execute(InetAddress address) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] toBytes() {
+		byte[] b = new byte[1];
+		b[0] = 12;
+		return b;
+	}
+
+}

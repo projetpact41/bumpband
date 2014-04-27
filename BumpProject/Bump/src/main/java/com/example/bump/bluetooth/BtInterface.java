@@ -1,3 +1,26 @@
+//The MIT License (MIT)
+//
+//Copyright (c) 2014 Julien ROMERO
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+
+
 package com.example.bump.bluetooth;
 
 
@@ -6,9 +29,11 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.bump.BluetoothConnexion;
@@ -28,6 +53,7 @@ public class BtInterface {
     private OutputStream os = null;
     private final String TAG = "BT_INTERFACE";
 
+
     private ThreadReception threadReception;
 
     private Handler handler;
@@ -39,8 +65,11 @@ public class BtInterface {
         Log.i(TAG,"Recuperation des devices bluetooth");
         BluetoothDevice[] appareilsAppareilles = (BluetoothDevice[]) setAppareilsApparies.toArray(new BluetoothDevice[setAppareilsApparies.size()]);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String nombt = preferences.getString("bluetooth","XXXXXXX");
+
         for(int i=0;i<appareilsAppareilles.length;i++) {
-            if(appareilsAppareilles[i].getName().contains(/*"Bracelet"*/"RNBT-1D8B")) {//1ED2 1D8B
+            if(appareilsAppareilles[i].getName().contains(/*"Bracelet"*/"RNBT-1ED2"/*nombt*/)) {//1ED2 1D8B
                 appareil = appareilsAppareilles[i];
                 try {
                     socket = appareil.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
@@ -220,12 +249,15 @@ public class BtInterface {
     }
 
     public void setAppareil() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(contexte);
+        String nombt = preferences.getString("bluetooth","XXXXXXX");
+
         Set<BluetoothDevice> setAppareilsApparies = BluetoothAdapter.getDefaultAdapter().getBondedDevices();
         Log.i(TAG,"Recuperation des devices bluetooth");
         BluetoothDevice[] appareilsAppareilles = (BluetoothDevice[]) setAppareilsApparies.toArray(new BluetoothDevice[setAppareilsApparies.size()]);
 
         for(int i=0;i<appareilsAppareilles.length;i++) {
-            if(appareilsAppareilles[i].getName().contains(/*"Bracelet"*/"RNBT-1ED2")) {//1ED2 1D8B
+            if(appareilsAppareilles[i].getName().contains(/*"Bracelet"*/"RNBT-1ED2"/*nombt*/)) {//1ED2 1D8B
                 appareil = appareilsAppareilles[i];
                 try {
                     socket = appareil.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));

@@ -1,3 +1,25 @@
+//The MIT License (MIT)
+//
+//Copyright (c) 2014 Julien ROMERO
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+
 package com.example.bump.serveur;
 
 import java.net.InetAddress;
@@ -35,6 +57,12 @@ public class Parseur {
             case 10 : return lireMoney(recu);
 
             case 11 : return lireFMConfirmation(recu);
+            
+            case 12 : return new Vestiaire_ajout();
+            		
+            case 13 : return new Vestiaire_retrait();
+            
+            case 14 : return new RetirerBoisson();
             
             default : System.out.println("Classe recue non reconnue.");
                 return null;
@@ -77,7 +105,6 @@ public class Parseur {
 
 	private static Transmissible lireMenu(byte[] recu) {
         int n = recu.length-1;
-        Menu menu = new Menu();
         for (int i=0;i<n;){
             byte prix = recu[i];
             byte rouge = recu[i+1];
@@ -92,9 +119,9 @@ public class Parseur {
             }
             i++;
             Boisson boisson = new Boisson(stringBuilder.toString(),prix, new Color(rouge,vert,bleu),degre);
-            menu.ajouteBoisson(boisson);
+            Menu.ajouteBoisson(boisson);
         }
-        return menu;
+        return new Menu();
     }
 
     private static Transmissible lireIdentifiantAnswer(byte[] recu) {
@@ -109,7 +136,7 @@ public class Parseur {
     }
 
 	private static Transmissible lireIdentifiant(byte[] recu) {
-		// TODO Auto-generated method stub
+		// Rien pour l'instant
 		return null;
 	}
 
