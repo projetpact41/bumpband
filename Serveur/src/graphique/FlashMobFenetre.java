@@ -1,8 +1,18 @@
 package graphique;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import admin.FlashMob;
+
+import com.example.bump.actions.FMConfirmation;
 
 /**
  * Created by Arturo on 27/04/2014.
@@ -54,6 +64,9 @@ public class FlashMobFenetre extends JFrame{
         }
 
         public void actionPerformed(ActionEvent e) {
+        	
+        	FMConfirmation.setMoney(Byte.parseByte(field1.getText()));
+        	FlashMob.initialiser();
             //!#@@#! Action lors du clic sur le bouton
         }
     }

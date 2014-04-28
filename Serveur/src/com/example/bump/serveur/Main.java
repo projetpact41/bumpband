@@ -22,6 +22,11 @@
 
 package com.example.bump.serveur;
 
+import graphique.FenetreBar;
+import graphique.FenetreMessage;
+import graphique.FenetreTableau;
+import graphique.FlashMobFenetre;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,6 +35,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
+import javax.swing.SwingUtilities;
 
 import admin.Boisson;
 import admin.Menu;
@@ -40,6 +47,9 @@ import com.example.bump.actions.Color;
 
 public class Main {
 
+	public static FenetreTableau fenetreTableau;
+	public static FenetreBar fenetreBar;
+	
 	public static void main(String[] args) {
 		EcouteConnexion eC = new EcouteConnexion(4444);
 		eC.start();
@@ -88,6 +98,21 @@ public class Main {
 		
 		new Menu();
 		Menu.ajouteBoisson(boisson);
+		
+		//Initialisation des graphiques
+		
+		fenetreBar = new FenetreBar();
+		fenetreBar.setVisible(true);
+		new FenetreMessage().setVisible(true);
+		fenetreTableau = new FenetreTableau();
+		fenetreTableau.setVisible(true);
+		SwingUtilities.invokeLater(new Runnable(){
+            public void run(){
+                FlashMobFenetre fenetre = new FlashMobFenetre();
+                fenetre.setVisible(true);
+            }
+        });
+		
 	}
 	
 	private static String getIpAddr() { //Retourne l'ip de l'ordinateur

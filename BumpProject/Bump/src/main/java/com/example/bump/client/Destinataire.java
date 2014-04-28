@@ -34,6 +34,7 @@ import com.example.bump.serveur.Parseur;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 
@@ -118,6 +119,8 @@ public class Destinataire {
 
                     Thread.sleep(5000);
 
+                } catch (ConnectException e) {
+                    Log.i(TAG,"Probleme de connexion");
                 } catch (IOException e) {
                     Log.i(TAG,"Erreur");
                     e.printStackTrace();

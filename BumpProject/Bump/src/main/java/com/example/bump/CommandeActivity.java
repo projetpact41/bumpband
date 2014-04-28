@@ -26,6 +26,7 @@ package com.example.bump;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,6 +68,7 @@ public class CommandeActivity extends ActionBarActivity {
         ajout_vest = (Button) findViewById(R.id.ajout_vest);
         retrait_vest = (Button) findViewById(R.id.restirer_vest);
 
+        context = this;
         retirer_boisson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +114,7 @@ public class CommandeActivity extends ActionBarActivity {
         try {
             File file = new File(this.getFilesDir(),"menu.txt");
             if (file.exists()) {
+                Log.i("admin","menu.txt existe");
                 ois = new ObjectInputStream(
                         new BufferedInputStream(
                                 new FileInputStream(
@@ -135,9 +138,15 @@ public class CommandeActivity extends ActionBarActivity {
                 }
             }
         }
+
+
+        Log.i("admin","Apres lecture menu");
+
         if (menu != null) {
             int n = menu.size();
+            Log.i("admin", "Menu non null");
             for (int i = 0; i < n; i++) {
+                Log.i("admin", "Taille non null");
                 Boisson boisson = menu.get(i);
                 adapter.add(new StringBuilder().append(boisson.getNom()).append(" - ").append(boisson.getPrix()).append(" credit(s)").toString());
             }
@@ -149,7 +158,8 @@ public class CommandeActivity extends ActionBarActivity {
         commander.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int off = spinner.getBaseline(); //distance a la premiere ligne
+                //int off = spinner.getBaseline(); //distance a la premiere ligne
+                int off = spinner.getSelectedItemPosition();
                 if (finalMenu != null) {
                     Toast.makeText(context,finalMenu.get(off).getNom() + " commande",500);
 

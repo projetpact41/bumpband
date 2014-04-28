@@ -56,6 +56,7 @@ import admin.FlashMob;
 public class FMConfirmation implements Transmissible{
 
     private InetAddress address;
+    private static byte money = 0;
 
     public FMConfirmation (InetAddress address) {
         this.address = address;
@@ -64,7 +65,7 @@ public class FMConfirmation implements Transmissible{
     @Override
     public Transmissible execute(InetAddress address) {
     	if (FlashMob.verification(this.address, address)) {
-    		Banque.addMoney(address.getCanonicalHostName(), (byte) 5); 
+    		Banque.addMoney(address.getCanonicalHostName(), money); 
     		return new Message("Vous venez de gagner 5 credits","Admin");
     	} else {
     		return new Message("Erreur lors de la verification du destinataire","Admin");
@@ -80,5 +81,9 @@ public class FMConfirmation implements Transmissible{
             b[i] = (byte) str.charAt(i-1);
         }
         return b;
+    }
+    
+    public static void setMoney(byte money) {// Defini l'argent que l'on gagne a un flashMod
+    	FMConfirmation.money = money;
     }
 }

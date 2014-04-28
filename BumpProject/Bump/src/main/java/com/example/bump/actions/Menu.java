@@ -24,6 +24,7 @@
 package com.example.bump.actions;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.bump.BFList;
 
@@ -33,17 +34,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
 /**
  * Created by jjuulliieenn on 15/04/14.
  */
-public class Menu implements Transmissible{
+public class Menu implements Transmissible, Serializable{
 
-    private ArrayList<Boisson> menu ;
+    private ArrayList<Boisson> menu = new ArrayList<Boisson>();;
 
     public void ajouteBoisson(Boisson b){
+        Log.i("admin","ajout d'une boisson");
         menu.add(b);
     }
 
@@ -82,12 +85,14 @@ public class Menu implements Transmissible{
     @Override
     public Transmissible execute(Context context, InetAddress address) {
 
+        Log.i("admin", "Menu execute");
         BFList bfList = new BFList("admin.txt",context);
 
         if (!bfList.isBF(address.getHostAddress())) return new Transmission(false); //Verification de l'admin
 
         ObjectOutputStream oos = null;
         try {
+            Log.i("admin","Menu recu");
             oos = new ObjectOutputStream(
                     new BufferedOutputStream(
                             new FileOutputStream(
@@ -110,6 +115,8 @@ public class Menu implements Transmissible{
                 }
             }
         }
+
         return new Transmission(true);
+
     }
 }

@@ -69,7 +69,7 @@ public class BtInterface {
         String nombt = preferences.getString("bluetooth","XXXXXXX");
 
         for(int i=0;i<appareilsAppareilles.length;i++) {
-            if(appareilsAppareilles[i].getName().contains(/*"Bracelet"*/"RNBT-1ED2"/*nombt*/)) {//1ED2 1D8B
+            if(appareilsAppareilles[i].getName().contains(/*"Bracelet"*/"RNBT-1D8B"/*nombt*/)) {//1ED2 1D8B
                 appareil = appareilsAppareilles[i];
                 try {
                     socket = appareil.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
@@ -257,7 +257,7 @@ public class BtInterface {
         BluetoothDevice[] appareilsAppareilles = (BluetoothDevice[]) setAppareilsApparies.toArray(new BluetoothDevice[setAppareilsApparies.size()]);
 
         for(int i=0;i<appareilsAppareilles.length;i++) {
-            if(appareilsAppareilles[i].getName().contains(/*"Bracelet"*/"RNBT-1ED2"/*nombt*/)) {//1ED2 1D8B
+            if(appareilsAppareilles[i].getName().contains(/*"Bracelet"*/"RNBT-1D8B"/*nombt*/)) {//1ED2 1D8B
                 appareil = appareilsAppareilles[i];
                 try {
                     socket = appareil.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));

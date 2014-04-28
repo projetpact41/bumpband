@@ -31,7 +31,7 @@ import java.util.Hashtable;
 
 public class Banque {
 
-        private static Hashtable<String,Byte> htab; //Contient les clients avec leur solde associe
+        private static Hashtable<String,Byte> htab = new Hashtable<String,Byte>(); //Contient les clients avec leur solde associe
 
         public static void create(String ip) { // cree un client
             htab.put(ip,(byte)20); //On attribue 20 credits au debut

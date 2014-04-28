@@ -24,7 +24,6 @@ package com.example.bump.actions;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -32,7 +31,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.bump.BFList;
-import com.example.bump.MenuPrincipal2;
 import com.example.bump.Verrous;
 
 import java.io.BufferedInputStream;
@@ -95,8 +93,10 @@ public class BumpFriend implements Serializable, Transmissible {
                 bfList.ajoutBF(this);
                 editor.putBoolean("Admin",false); //On ne synchro plus avec l'admin
                 editor.commit();
-                Intent intent = new Intent(context,MenuPrincipal2.class);
-                context.startActivity(intent);
+                Log.i("admin","Admin recu !");
+                //Intent intent = new Intent(context,MenuPrincipal2.class);
+                //context.startActivity(intent);
+                //Log.i("BF","Activite lancee");
                 return new Transmission(true);
             }
 

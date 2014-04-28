@@ -48,15 +48,16 @@ public class TableModel extends AbstractTableModel {
  
         super();
  
-        try {
-         amis = new BFList("BFList.txt") ;
- 	 	 amis.ajoutBF(new BumpFriend("Arturo",InetAddress.getLocalHost()));//getLocalHost juste pour tester
- 	 	 amis.ajoutBF(new BumpFriend("Julien",InetAddress.getLocalHost()));
+        //try {
+         
+         amis = new BFList("listeBF.txt") ;
+ 	 	 //amis.ajoutBF(new BumpFriend("Arturo",InetAddress.getLocalHost()));//getLocalHost juste pour tester
+ 	 	 //amis.ajoutBF(new BumpFriend("Julien",InetAddress.getLocalHost()));
  
-        } catch (UnknownHostException e) {
+        //} catch (UnknownHostException e) {
  	 	 // TODO Auto-generated catch block
- 	 	 e.printStackTrace();
- 	 }
+ 	 	 //e.printStackTrace();
+ 	 //}
 }
  
  
@@ -102,7 +103,6 @@ public class TableModel extends AbstractTableModel {
     public void addAmi(BumpFriend ami) {
  
         amis.ajoutBF(ami);  
- 
  
         fireTableRowsInserted(amis.getBFliste().size() -1, amis.getBFliste().size() -1);
 }

@@ -36,8 +36,11 @@ import com.example.bump.actions.Menu;
 import com.example.bump.actions.Message;
 import com.example.bump.actions.Money;
 import com.example.bump.actions.RequestMoney;
+import com.example.bump.actions.RetirerBoisson;
 import com.example.bump.actions.Transmissible;
 import com.example.bump.actions.Transmission;
+import com.example.bump.actions.Vestiaire_ajout;
+import com.example.bump.actions.Vestiaire_retrait;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -74,6 +77,12 @@ public class Parseur {
             case 10 : return lireMoney(recu);
 
             case 11 : return lireFMConfirmation(recu);
+
+            case 12 : return new Vestiaire_ajout();
+
+            case 13 : return new Vestiaire_retrait();
+
+            case 14 : return new RetirerBoisson();
 
             default : Log.i(TAG, "Classe recue non reconnue.");
                 return null;
@@ -115,6 +124,7 @@ public class Parseur {
     }
 
     private static Transmissible lireMenu(byte[] recu) {
+        Log.i("admin","Lit le menu");
         int n = recu.length-1;
         Menu menu = new Menu();
         for (int i=0;i<n;){
@@ -133,6 +143,7 @@ public class Parseur {
             Boisson boisson = new Boisson(stringBuilder.toString(),prix, new Color(rouge,vert,bleu),degre);
             menu.ajouteBoisson(boisson);
         }
+        Log.i("admin","Fin creation menu");
         return menu;
     }
 

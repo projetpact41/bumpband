@@ -24,9 +24,11 @@ package client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+
 import com.example.bump.actions.Transmissible;
 import com.example.bump.actions.Transmission;
 import com.example.bump.serveur.Parseur;
@@ -78,7 +80,7 @@ public class Destinataire {
                     	//finie
                         Transmissible t = null;
                         Transmissible t2 = null;
-                        //On se prépare a recevoir
+                        //On se prepare a recevoir
                         try{
 
                             byte size = in.readByte(); //Recoit la taille envoyee
@@ -97,7 +99,10 @@ public class Destinataire {
 
                     Thread.sleep(5000); //Permet de ne pas fermer la communication trop tot
 
-                } catch (IOException e) {
+                }catch (EOFException e) {
+                	//Je ne comprends pas pourquoi ca arrive
+                } 
+                catch (IOException e) {
                     System.out.println("Erreur");
                     e.printStackTrace();
                 } catch (InterruptedException e) {

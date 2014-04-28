@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="Commander"
         android:id="@+id/commander"
-        android:layout_below="@+id/boisson1"
+        android:layout_above="@+id/retirer_boisson"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -32,23 +32,24 @@
         android:layout_height="wrap_content"
         android:text="RetirerBoisson"
         android:id="@+id/retirer_boisson"
-        android:layout_below="@+id/commander"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/ajout_vest"
+        android:layout_alignLeft="@+id/restirer_vest"
+        android:layout_alignStart="@+id/restirer_vest" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ajouter Vestiare"
         android:id="@+id/ajout_vest"
-        android:layout_below="@+id/retirer_boisson"
-        android:layout_alignRight="@+id/retirer_boisson"
-        android:layout_alignEnd="@+id/retirer_boisson" />
+        android:layout_above="@+id/restirer_vest"
+        android:layout_alignLeft="@+id/retirer_boisson"
+        android:layout_alignStart="@+id/retirer_boisson" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Retirer Vestiaire"
         android:id="@+id/restirer_vest"
-        android:layout_below="@+id/ajout_vest"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.example.bump.BFList;
 import com.example.bump.MessageActivity;
@@ -58,8 +59,10 @@ public class Message implements Serializable, Transmissible{
     @Override
     public Transmissible execute(Context context, InetAddress address) {
         BFList bfList = new BFList("listeBF.txt",context);
+        BFList bfList2 = new BFList("admin.txt",context);
 
-        if (!bfList.isBF(address.getHostAddress()))
+
+        if (!bfList.isBF(address.getHostAddress()) && !bfList2.isBF(address.getHostAddress()))
             return new Transmission(ErreurTransmission.IPNONRECONNUE);
 
         NotificationCompat.Builder mBuilder =
@@ -70,19 +73,20 @@ public class Message implements Serializable, Transmissible{
 
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(context, MessageActivity.class);
-        resultIntent.putExtra("nom", expediteur);
-        resultIntent.putExtra("message", message);
-        resultIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        //resultIntent.putExtra("nom", expediteur);
+        //resultIntent.putExtra("message", message);
+        //resultIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         //On modifie la messagerie
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String messagerie = preferences.getString("messagerie","");
-        messagerie.concat(expediteur+" : "+message+"\n");
+        messagerie = (expediteur+" : "+message+"\n");
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("messagerie",messagerie);
         editor.commit();
 
+        Log.i("admin","fin d'ecriture dans les prefs");
 
         final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, resultIntent, 0);
         mBuilder.setContentIntent(pendingIntent);

@@ -97,8 +97,8 @@ public class Parseur {
         byte bleu = recu[4];
         byte degre = recu[5];
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 6; i < 6+recu.length ; i++) {
-            stringBuilder.append(recu[i]);
+        for (int i = 6; i < recu.length ; i++) {
+            stringBuilder.append((char)recu[i]);
         }
         return new Boisson(stringBuilder.toString(),prix,new Color(rouge,vert,bleu),degre);
     }

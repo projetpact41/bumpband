@@ -16,7 +16,7 @@ public class Vestiaire_retrait implements Transmissible{
     public byte[] toBytes() {
         byte[] b = new byte[1];
         b[0] = 13;
-        return null;
+        return b;
     }
 
 

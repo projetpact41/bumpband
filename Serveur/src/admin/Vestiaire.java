@@ -33,7 +33,7 @@ import client.Destinataire;
 import com.example.bump.actions.Message;
 
 public class Vestiaire {
-	private static HashMap<String,Integer> table; //Association ip/numero vestiaire
+	private static HashMap<String,Integer> table = new HashMap<String,Integer>(); //Association ip/numero vestiaire
 	private static Integer compt = 1; //Avancement des numeros de vestiaire
 	
 	public static void TraitementVestiaire (String ip) {
@@ -98,6 +98,8 @@ public class Vestiaire {
 			
 		}
 	}
+	
+	
 	
 	private static int afficheEntree (int numeroVestiaire) {
 		String[] option = {"Valider", "Refuser", "Annuler"};

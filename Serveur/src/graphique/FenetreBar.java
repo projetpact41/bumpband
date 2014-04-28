@@ -90,6 +90,14 @@ public class FenetreBar extends JFrame {
     }
 
 
+    public void add (String nclients, String nboissons, String netats) {
+    	modele.add(nclients, nboissons, netats);
+    }
+    
+    public void remove (String nclients) {
+    	modele.remove(nclients);
+    }
+    
 
     private class BoissonAction extends AbstractAction {
 

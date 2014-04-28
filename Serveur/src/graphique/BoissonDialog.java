@@ -1,8 +1,17 @@
 package graphique;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import admin.Boisson;
+import admin.Menu;
 
 /**
  * Created by Arturo on 26/04/2014.
@@ -30,7 +39,7 @@ public class BoissonDialog  extends JFrame {
     	
         setTitle("Creer une nouvelle boisson"); //On donne un titre a l'application
         setSize(400,200); //!#@@#! On donne une taille a notre fen√etre : tu peux mettre plus petit
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On dit a l'application de se fermer lors du clic sur la croix
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On dit a l'application de se fermer lors du clic sur la croix
     }
 
 
@@ -43,31 +52,37 @@ public class BoissonDialog  extends JFrame {
 
         field1 = new JTextField();
         field1.setColumns(10);
+        field1.setText("Nom");
 
         panel.add(field1);
 
         field2 = new JTextField();
         field2.setColumns(10);
+        field2.setText("Prix");
 
         panel.add(field2);
 
         field3 = new JTextField();
         field3.setColumns(10);
+        field3.setText("Degre Alcool");
 
         panel.add(field3);
 
         field4 = new JTextField();
         field4.setColumns(10);
+        field4.setText("Rouge");
 
         panel.add(field4);
 
         field5 = new JTextField();
         field5.setColumns(10);
+        field5.setText("Vert");
 
         panel.add(field5);
 
         field6 = new JTextField();
         field6.setColumns(10);
+        field6.setText("Bleu");
 
         panel.add(field6);
 
@@ -84,6 +99,10 @@ public class BoissonDialog  extends JFrame {
                 //!#@@#! Pour creer une nouvelle boisson : tu utilises le constructeur avec les fonctions getField1,...
                 // en utilisant getBytes pour convertir les string en byte lorsque tu as besoin
 
+            	Boisson boisson = new Boisson(field1.getText(),Byte.parseByte(field2.getText()),
+            			new com.example.bump.actions.Color((byte) Integer.parseInt(field4.getText()),(byte) Integer.parseInt(field5.getText())
+            					, (byte) Integer.parseInt(field6.getText())), Byte.parseByte(field3.getText()));
+            	Menu.ajouteBoisson(boisson);
             }
 
         }

@@ -78,6 +78,8 @@ public class SynchronisationAdmin extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 envoieBF();
+                Intent intent = new Intent(SynchronisationAdmin.this,MenuPrincipal2.class);
+                startActivity(intent);
             }
         });
 

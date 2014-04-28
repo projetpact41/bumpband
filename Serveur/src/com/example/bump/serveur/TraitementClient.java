@@ -25,6 +25,7 @@ package com.example.bump.serveur;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.net.Socket;
 
 import com.example.bump.actions.ErreurTransmission;
@@ -104,7 +105,10 @@ public class TraitementClient extends Thread {
             
             Thread.sleep(1000); // On ne ferme pas la socket trop tot
 
-        } catch (Exception e) {
+        } catch (EOFException e) {
+        	//Je ne comprends pas pourquoi ca arrive
+        }
+        catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {

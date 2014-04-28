@@ -57,8 +57,7 @@
         <activity
             android:name="com.example.bump.MessageActivity"
             android:label="@string/title_activity_message"
-            android:launchMode="singleTop"
-            android:parentActivityName="com.example.bump.MenuPrincipal" >
+            android:parentActivityName="com.example.bump.MenuPrincipal2" >
         </activity>
         <activity
             android:name="com.example.bump.ColorMenu"

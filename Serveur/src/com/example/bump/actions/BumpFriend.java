@@ -33,6 +33,8 @@ import java.io.Serializable;
 import java.io.StreamCorruptedException;
 import java.net.InetAddress;
 
+import com.example.bump.serveur.Main;
+
 import admin.Banque;
 import admin.Menu;
 import bracelet.Verrous;
@@ -72,7 +74,7 @@ public class BumpFriend implements Serializable, Transmissible {
 
     public Transmissible execute (InetAddress address) {
         ObjectInputStream ois = null;
-        try {
+        
             //On verifie que le BF est bien en liste d'attente.
             //Rendez vous
         	//Verrous.sync4.release();
@@ -94,49 +96,66 @@ public class BumpFriend implements Serializable, Transmissible {
                 bfList.ajoutBF(this);
 
                 //int identifiant = HashList.add(this);
-                
-                Destinataire destinataire = new Destinataire(this.adresse, 4444);
-                //destinataire.envoieObjet(new Identifiant(identifiant));
-               
-               // destinataire = new Destinataire(this.adresse, 4444);
-                ois = new ObjectInputStream(
 
-                        new FileInputStream(
-                                new File("fichePerso.txt")
-                        )
+                    	Destinataire destinataire = new Destinataire(adresse, 4444);
+                        //destinataire.envoieObjet(new Identifiant(identifiant));
+                       
+                       // destinataire = new Destinataire(this.adresse, 4444);
+                        try {
+							ois = new ObjectInputStream(
 
-        );
-                System.out.println("Envoi fiche perso...");
-                BumpFriend bfTemp = (BumpFriend) ois.readObject();
-                destinataire.envoieObjet(bfTemp);
-                System.out.println("Fiche Perso envoyee");
+							        new FileInputStream(
+							                new File("fichePerso.txt")
+							        )
+
+            );
+							System.out.println("Envoi fiche perso...");
+	                        BumpFriend bfTemp = (BumpFriend) ois.readObject();
+	                        destinataire.envoieObjet(bfTemp);
+	                        System.out.println("Fiche Perso envoyee");
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} finally {
+				        	//Verrous.enCours.unlock(); //On s'assure qu'on la bien debloque
+				            try {
+				                ois.close();
+				            } catch (IOException e) {
+				                e.printStackTrace();
+				            } catch (NullPointerException e){
+				                e.printStackTrace();
+				            }
+                        
+						}
+                        
+                    try {
+						Thread.sleep(2000);
+						System.out.println("Je dors");
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} //Sinon le menu n'est pas accepte
                 
                 
+                System.out.println("Thread lance");
                 //Verrous.enCours.unlock(); // On deblogue la possibilite de faire un bump
                 Banque.create(adresse.getCanonicalHostName());
+                System.out.println("Ajout banque");
+                
+                //Ajout a la fenetre d'ami
+                
+                Main.fenetreTableau.add(this);
                 
                 return new Menu();
             /*} else return new Transmission(ErreurTransmission.IPNONRECONNUE);*/
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (StreamCorruptedException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-        	Verrous.enCours.unlock(); //On s'assure qu'on la bien debloque
-            try {
-                ois.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e){
-                e.printStackTrace();
-            }
-        }
-        return new Transmission(ErreurTransmission.PROBLEMETRAITEMENT);
-    }
+        
+         }
 
 
 

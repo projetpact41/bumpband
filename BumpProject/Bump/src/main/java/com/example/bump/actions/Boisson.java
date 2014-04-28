@@ -24,12 +24,13 @@ package com.example.bump.actions;
 
 import android.content.Context;
 
+import java.io.Serializable;
 import java.net.InetAddress;
 
 /**
  * Created by jjuulliieenn on 15/04/14.
  */
-public class Boisson implements Transmissible{
+public class Boisson implements Transmissible, Serializable{
     private String nom;
     private byte prix ;
     private Color code ;

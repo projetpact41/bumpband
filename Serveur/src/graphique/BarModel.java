@@ -1,6 +1,9 @@
 package graphique;
 
 import javax.swing.table.AbstractTableModel;
+
+import admin.Commande;
+
 import java.util.ArrayList;
 
 
@@ -11,11 +14,11 @@ public class BarModel extends AbstractTableModel {
         /**
          *
          */
-        private static final long serialVersionUID = 1L;
+        private final long serialVersionUID = 1L;
 
-        private ArrayList<String> clients;
-        private ArrayList<String> boissons;
-        private ArrayList<String> etats;
+        private ArrayList<String> clients = new ArrayList<String>();
+        private ArrayList<String> boissons= new ArrayList<String>();
+        private ArrayList<String> etats= new ArrayList<String>();
 
 
         private final String[] entetes = {"Nom", "Boisson","Etat"};
@@ -70,14 +73,36 @@ public class BarModel extends AbstractTableModel {
             }
         }
 
-        public void actualiser(ArrayList<String> nclients, ArrayList<String> nboissons, ArrayList<String> netats) {
-            clients = nclients;
-            boissons = nboissons;
-            etats = netats;
+        public void add (String nclients, String nboissons, String netats) {
+        	System.out.println("Ajout dans le bar");
+        	
+            clients.add(nclients);
+            boissons.add(nboissons);
+            etats.add(netats);
+            
+            fireTableRowsInserted(clients.size() -1, clients.size()-1);
+        }
+        
+        public void remove (String nclients) {
+        	int i = 0;
+        	for (String nom : clients) {
+        		if (nom.compareTo(nclients) == 0) {
+        			break;
+        		}
+        		i++;
+        	}
+        	if (i<clients.size()) {
+        		clients.remove(i);
+        		boissons.remove(i);
+        		etats.remove(i);
+        		fireTableRowsDeleted(clients.size(),clients.size());
+        	}
         }
 
         public void change(int rowIndex) {
             //!#@@#! Ecrire la fonction pour changer le i eme état à la ligne i qui est donc etats.get(i)
+        	
+        	Commande.prepare(clients.get(rowIndex));
         }
 
         /*public void supprimeCommande(int rowIndex) {

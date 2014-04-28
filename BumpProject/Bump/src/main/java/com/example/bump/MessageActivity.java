@@ -23,6 +23,8 @@
 
 package com.example.bump;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -44,17 +46,14 @@ public class MessageActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("admin","Création messagerie");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
         //expediteur = (TextView) findViewById(R.id.expedi);
         message = (TextView) findViewById(R.id.messagerie);
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
+
     }
 
     @Override
@@ -70,7 +69,11 @@ public class MessageActivity extends ActionBarActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String messagerie = preferences.getString("messagerie","");
         //expediteur.setText("Messagerie");
-        message.setText(messagerie);
+        message.append(messagerie);
+        final NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        //la suppression de la notification se fait grâce à son ID
+        notificationManager.cancel(0);
+        Log.i("admin",messagerie);
 
     }
 

@@ -53,6 +53,7 @@ public class Menu implements Transmissible{
 
     @Override
     public byte[] toBytes() {
+    	System.out.println("Envoie menu");
         int n=menu.size();
         int taille = 1;
 
@@ -75,6 +76,7 @@ public class Menu implements Transmissible{
                 compteur++;
             }
             b[compteur] = (byte) '|';
+            compteur++;
         }
         return b;
     }

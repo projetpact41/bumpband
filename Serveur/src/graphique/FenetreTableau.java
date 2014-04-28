@@ -24,14 +24,19 @@ package graphique;
 
 
 
-import javax.swing.*;
-
-import com.example.bump.actions.BumpFriend;
-
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.awt.*;
-import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import com.example.bump.actions.BumpFriend;
  
 public class FenetreTableau extends JFrame {
  /**
@@ -135,5 +140,8 @@ public class FenetreTableau extends JFrame {
  
         }
 }
+    public void add(BumpFriend bf) {
+    	modele.addAmi(bf);
+    }
 }
 

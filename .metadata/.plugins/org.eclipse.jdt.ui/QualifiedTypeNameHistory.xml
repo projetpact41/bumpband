@@ -11,10 +11,13 @@
 <fullyQualifiedTypeName name="com.example.bump.actions.Transmission"/>
 <fullyQualifiedTypeName name="com.example.bump.actions.Transmissible"/>
 <fullyQualifiedTypeName name="java.net.InetAddress"/>
-<fullyQualifiedTypeName name="admin.FlashMob"/>
 <fullyQualifiedTypeName name="admin.Banque"/>
 <fullyQualifiedTypeName name="admin.Vestiaire"/>
-<fullyQualifiedTypeName name="admin.Commande"/>
 <fullyQualifiedTypeName name="com.example.bump.actions.Color"/>
 <fullyQualifiedTypeName name="admin.Menu"/>
+<fullyQualifiedTypeName name="com.example.bump.actions.FMConfirmation"/>
+<fullyQualifiedTypeName name="admin.FlashMob"/>
+<fullyQualifiedTypeName name="admin.Commande"/>
+<fullyQualifiedTypeName name="graphique.BarModel"/>
+<fullyQualifiedTypeName name="com.example.bump.serveur.Main"/>
 </qualifiedTypeNameHistroy>
