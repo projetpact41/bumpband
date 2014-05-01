@@ -8,7 +8,7 @@ public class Vestiaire_retrait implements Transmissible{
 
 	@Override
 	public Transmissible execute(InetAddress address) {
-		Vestiaire.TraitementVestiaire(address.getCanonicalHostName());
+		Vestiaire.TraitementVestiaire(address.getHostAddress());
 		return new Transmission(true);
 	}
 

@@ -15,4 +15,13 @@
         android:textColor="#FFFF"
         android:id="@+id/textView"
         android:layout_gravity="center" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reinitialisation"
+        android:id="@+id/reinitialisation"
+        android:layout_gravity="center_horizontal|bottom"
+        android:textColor="#FFFFFF"
+        android:background="#0033FF"/>
 </FrameLayout>

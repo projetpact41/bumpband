@@ -56,25 +56,27 @@ public class Connexion implements Serializable, Transmissible{ //Sert a etablir 
     @Override
     public Transmissible execute(Context context, InetAddress address) {
         try {
+            Log.i("bf","connexion semaphore1");
             //Thread.sleep(1000); //Le temps de se scynchroniser.
             //Verification des security codes
-            Verrous.sync2.release();
-            Verrous.sync1.acquire();
+            Verrous.sync3.release();
+            Verrous.sync4.acquire();
 
+            Log.i("bf","connexion semaphore2");
             dis = new DataInputStream(
                                   new BufferedInputStream(
                                     new FileInputStream(
                                       new File(context.getFilesDir(),"monSC.txt"))));
             int sC = dis.readInt();
             dis.close();
-            Verrous.monSC.unlock();
+            //Verrous.monSC.unlock();
             if (sC != monSC) return new Transmission(ErreurTransmission.SCINCORRECT);
             dis = new DataInputStream(
                     new BufferedInputStream(
                             new FileInputStream(
                                     new File(context.getFilesDir(),"tonSC.txt"))));
             sC = dis.readInt();
-            Verrous.tonSC.unlock();
+            //Verrous.tonSC.unlock();
             if (sC != tonSC) return new Transmission(ErreurTransmission.SCINCORRECT);
 
             //On envoie alors sa fiche bumpfriend perso

@@ -34,6 +34,7 @@ import com.example.bump.actions.*;
 public class Parseur {
 	
 	public static Transmissible parser(byte[] recu) {
+		if (recu.length <= 0) return new Transmission(false);
         switch (recu[0]) {
             case 0 : return lireBF(recu);
             case 1 : return lireColor(recu);

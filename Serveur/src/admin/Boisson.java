@@ -65,10 +65,10 @@ public class Boisson implements Transmissible{
 
     @Override
     public Transmissible execute(InetAddress address) {
-    	int i = Banque.getMoney(address.getCanonicalHostName()); //On vérifie si le client a assez d'argent
+    	int i = Banque.getMoney(address.getHostAddress()); //On vérifie si le client a assez d'argent
     	if (i-prix < 0) return new Message ("Vous n'avez pas assez d'argent","Admin");
     	//Quand on reçoit une boisson, on considère qu'il s'agit d'une commande.
-    	i = Commande.add(address.getCanonicalHostName(), this); //On l'ajoute donc à la liste des commandes
+    	i = Commande.add(address.getHostAddress(), this); //On l'ajoute donc à la liste des commandes
     	//On confirme/infirme ensuite la commande par un message
     	if (i == 0) {
     		return new Message("Nous confirmons la commande de "+nom+" pour "+prix+" credits.","Admin");

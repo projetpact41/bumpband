@@ -65,7 +65,7 @@ public class FMConfirmation implements Transmissible{
     @Override
     public Transmissible execute(InetAddress address) {
     	if (FlashMob.verification(this.address, address)) {
-    		Banque.addMoney(address.getCanonicalHostName(), money); 
+    		Banque.addMoney(address.getHostAddress(), money); 
     		return new Message("Vous venez de gagner 5 credits","Admin");
     	} else {
     		return new Message("Erreur lors de la verification du destinataire","Admin");
@@ -74,7 +74,7 @@ public class FMConfirmation implements Transmissible{
 
     @Override
     public byte[] toBytes() {
-        String str = address.getCanonicalHostName();
+        String str = address.getHostAddress();
         byte[] b = new byte[1+str.length()];
         b[0] = 11;
         for (int i = 1; i < 1+str.length(); i++) {

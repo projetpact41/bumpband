@@ -145,7 +145,7 @@ public class BumpFriend implements Serializable, Transmissible {
                 
                 System.out.println("Thread lance");
                 //Verrous.enCours.unlock(); // On deblogue la possibilite de faire un bump
-                Banque.create(adresse.getCanonicalHostName());
+                Banque.create(adresse.getHostAddress());
                 System.out.println("Ajout banque");
                 
                 //Ajout a la fenetre d'ami

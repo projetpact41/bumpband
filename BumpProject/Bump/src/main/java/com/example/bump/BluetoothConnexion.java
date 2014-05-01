@@ -68,9 +68,13 @@ public class BluetoothConnexion extends ActionBarActivity {
                 //int off = spinner.getBaseline(); //distance a la premiere ligne
                 //BluetoothDevice btd = appareilsAppareilles[off-109];
                 String btd = (String)spinner.getSelectedItem();
+                //Nom du peripherique dans les preferences
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("bluetooth",btd);
+                editor.commit();
+                Intent i = new Intent(BluetoothConnexion.this, MenuPrincipal2.class);
+                startActivity(i);
                 BtParseur.sendIp(context);
             }
         });
@@ -89,7 +93,7 @@ public class BluetoothConnexion extends ActionBarActivity {
         passer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(BluetoothConnexion.this, SynchronisationAdmin.class);
+                Intent i = new Intent(BluetoothConnexion.this, MenuPrincipal2.class);
                 startActivity(i);
             }
         });

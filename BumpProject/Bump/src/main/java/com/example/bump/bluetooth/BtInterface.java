@@ -68,8 +68,11 @@ public class BtInterface {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String nombt = preferences.getString("bluetooth","XXXXXXX");
 
+
+        Log.i(TAG,"nom appareil : " + nombt);
+
         for(int i=0;i<appareilsAppareilles.length;i++) {
-            if(appareilsAppareilles[i].getName().contains(/*"Bracelet"*/"RNBT-1D8B"/*nombt*/)) {//1ED2 1D8B
+            if(appareilsAppareilles[i].getName().contains(/*"RNBT-1D8B"*/nombt)) {//1ED2 1D8B
                 appareil = appareilsAppareilles[i];
                 try {
                     socket = appareil.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
@@ -105,6 +108,7 @@ public class BtInterface {
     public void sendData(byte[] data) {
         try {
             if (socket == null) {
+                setAppareil();
                 Intent intent = new Intent(contexte, BluetoothConnexion.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 contexte.startActivity(intent);
@@ -126,6 +130,7 @@ public class BtInterface {
                 Verrous.phone = false;
                 return;
             }
+            setAppareil();
             Intent intent = new Intent(contexte, BluetoothConnexion.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             contexte.startActivity(intent);
@@ -177,6 +182,7 @@ public class BtInterface {
         public ThreadReception(Handler h) {
             handler = h;
         }
+        private long time = 0;
 
         @Override
         public void run() {
@@ -189,6 +195,7 @@ public class BtInterface {
                         continue;
                     }
                     if (socket == null) {
+                        setAppareil();
                         socket = appareil.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
                         Log.i(TAG,"Creation de la socket");
                         socket.connect();
@@ -221,15 +228,19 @@ public class BtInterface {
                             //String data = new String(temp); //Attention, la chaine de caractere ne veut rien dire en soit, la reconvertir en byte[]
                             //Log.i(TAG,"Conversion des bytes en String");
 
+                        //if (time - System.currentTimeMillis() < 10000) {
+                          //  time = System.currentTimeMillis();
                             Message msg = handler.obtainMessage();
                             Bundle b = new Bundle();
 
                             b.putByteArray("receivedData",/*temp*/buffer);
                             msg.setData(b);
                             handler.sendMessage(msg); //handler contiendra un bundle
-                            Log.i(TAG,"Confirmation de la reception de donnees");
+                            Log.i(TAG, "Confirmation de la reception de donnees");
+                        //}
                     }
                 } catch (IOException e) {
+                    setAppareil();
                     if (appareil != null)
                         Log.e(TAG,"Reception : " + appareil.getName() + " " + e.getMessage()  );
                      try {
@@ -252,12 +263,14 @@ public class BtInterface {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(contexte);
         String nombt = preferences.getString("bluetooth","XXXXXXX");
 
+        Log.i(TAG,"nom appareil :"+nombt);
+
         Set<BluetoothDevice> setAppareilsApparies = BluetoothAdapter.getDefaultAdapter().getBondedDevices();
         Log.i(TAG,"Recuperation des devices bluetooth");
         BluetoothDevice[] appareilsAppareilles = (BluetoothDevice[]) setAppareilsApparies.toArray(new BluetoothDevice[setAppareilsApparies.size()]);
 
         for(int i=0;i<appareilsAppareilles.length;i++) {
-            if(appareilsAppareilles[i].getName().contains(/*"Bracelet"*/"RNBT-1D8B"/*nombt*/)) {//1ED2 1D8B
+            if(appareilsAppareilles[i].getName().contains(/*"Bracelet""RNBT-1D8B"*/nombt)) {//1ED2 1D8B
                 appareil = appareilsAppareilles[i];
                 try {
                     socket = appareil.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
@@ -268,9 +281,9 @@ public class BtInterface {
                     os = socket.getOutputStream();
                     Log.i(TAG,"Recuperation des flux");
                 } catch (IOException e) {
-                    Intent intent = new Intent(contexte, BluetoothConnexion.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    contexte.startActivity(intent);
+                   // Intent intent = new Intent(contexte, BluetoothConnexion.class);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //contexte.startActivity(intent);
 
                     Log.e(TAG,"Initialisation " + e.getMessage());
                 }

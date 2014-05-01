@@ -75,15 +75,15 @@ public class FlashMob {
 		int n = groupe.size();
 		for (int i = 0; i< n ; i++) { //On verifie s'il sont bien au bon endroid
 			BumpFriend bf = groupe.get(i);
-			if (bf.getAdresse().getCanonicalHostName().equals(adr1.getCanonicalHostName())
-					|| bf.getAdresse().getCanonicalHostName().equals(adr2.getCanonicalHostName())) {
+			if (bf.getAdresse().getHostAddress().equals(adr1.getHostAddress())
+					|| bf.getAdresse().getHostAddress().equals(adr2.getHostAddress())) {
 				if (i%2 != 0) {
 					return false;
 				} else {
 					if (i+1 >= n) return false;
 					else {
-						if (bf.getAdresse().getCanonicalHostName().equals(adr1.getCanonicalHostName())
-					|| bf.getAdresse().getCanonicalHostName().equals(adr2.getCanonicalHostName())) {
+						if (bf.getAdresse().getHostAddress().equals(adr1.getHostAddress())
+					|| bf.getAdresse().getHostAddress().equals(adr2.getHostAddress())) {
 							return true;
 						}
 						else return false;

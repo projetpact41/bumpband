@@ -259,7 +259,7 @@ public class MainActivity extends ActionBarActivity {
                     bfList = new BFList("admin.txt",this);
                     bfList.initialiser();
 
-                    i = new Intent(MainActivity.this, BluetoothConnexion.class);
+                    i = new Intent(MainActivity.this, SynchronisationAdmin.class);
                     startActivity(i);
                     Log.i(TAG,"Lancement de l'autre activite");
 

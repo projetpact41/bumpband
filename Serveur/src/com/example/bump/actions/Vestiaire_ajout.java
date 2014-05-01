@@ -9,7 +9,7 @@ public class Vestiaire_ajout implements Transmissible{
 	@Override
 	public Transmissible execute(InetAddress address) {
 		System.out.println("Reception d'un ajout");
-		Vestiaire.TraitementVestiaire(address.getCanonicalHostName());
+		Vestiaire.TraitementVestiaire(address.getHostAddress());
 		return new Transmission(true);
 	}
 

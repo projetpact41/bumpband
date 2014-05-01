@@ -85,7 +85,7 @@ public class TableModel extends AbstractTableModel {
  
             case 0:
  
-                return amis.getBFliste().get(rowIndex).getAdresse().getCanonicalHostName();
+                return amis.getBFliste().get(rowIndex).getAdresse().getHostAddress();
  
             case 1:
  

@@ -41,6 +41,7 @@ import com.example.bump.actions.RetirerBoisson;
 import com.example.bump.actions.Transmissible;
 import com.example.bump.actions.Vestiaire_ajout;
 import com.example.bump.actions.Vestiaire_retrait;
+import com.example.bump.bluetooth.BtParseur;
 import com.example.bump.client.Destinataire;
 
 import java.io.BufferedInputStream;
@@ -170,6 +171,9 @@ public class CommandeActivity extends ActionBarActivity {
                         Destinataire destinataire = new Destinataire(admin.getAdresse(),4444);
                         destinataire.envoieObjet((Transmissible) finalMenu.get(off),context);
                     }
+
+                    BtParseur.sendColor(finalMenu.get(off).getCode(),context);
+
                 }
             }
         });

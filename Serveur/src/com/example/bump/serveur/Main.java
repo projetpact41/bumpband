@@ -117,7 +117,7 @@ public class Main {
 	
 	private static String getIpAddr() { //Retourne l'ip de l'ordinateur
 		try {
-			return InetAddress.getLocalHost().getCanonicalHostName();
+			return InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 			return null;

@@ -25,26 +25,30 @@ package com.example.bump.bluetooth;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.bump.BFList;
 import com.example.bump.MenuPrincipal2;
-import com.example.bump.Verrous;
-import com.example.bump.actions.Connexion;
+import com.example.bump.actions.BumpFriend;
+import com.example.bump.actions.Color;
 import com.example.bump.client.Destinataire;
 
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.util.Arrays;
@@ -144,6 +148,7 @@ public class GestionBt extends Service {
             return;
         }
         else {
+            if (s[1] == -1) return;
             Log.d(TAG,"Traitement BUMP");
             StringBuilder str = new StringBuilder();
             str.append(s[1] & 0xff);
@@ -173,7 +178,8 @@ public class GestionBt extends Service {
         BFList bfList = new BFList("admin.txt",this);
 
         if (bfList.isBF(ip)) { //c'est l'admin avec qui on a déjà bumpe
-            //TODO Cas des boissons au bar
+            //
+            // TODO Cas des boissons au bar
             return;
         }
 
@@ -181,7 +187,7 @@ public class GestionBt extends Service {
         DataOutputStream dos = null;
         ObjectOutputStream oos = null;
         try {
-            Verrous.enCours.lock();
+           // Verrous.enCours.lock();
             oos = new ObjectOutputStream(
                     new BufferedOutputStream(
                             new FileOutputStream(
@@ -191,7 +197,7 @@ public class GestionBt extends Service {
             );
             oos.writeObject(InetAddress.getByName(ip));
             oos.flush();
-            Verrous.monSC.lock();
+            //Verrous.monSC.lock();
             dos = new DataOutputStream(
                     new BufferedOutputStream(
                             new FileOutputStream(
@@ -203,7 +209,7 @@ public class GestionBt extends Service {
             dos.flush();
             dos.close();
 
-            Verrous.tonSC.lock();
+            //Verrous.tonSC.lock();
             dos = new DataOutputStream(
                     new BufferedOutputStream(
                             new FileOutputStream(
@@ -215,19 +221,42 @@ public class GestionBt extends Service {
             dos.flush();
 
             Destinataire destinataire = new Destinataire(InetAddress.getByName(ip),PORT);
-            destinataire.envoieObjet(new Connexion(Byte.parseByte(monSC),Byte.parseByte(tonSC),InetAddress.getByName(getIpAddr())),GestionBt.this);
+            //destinataire.envoieObjet(new Connexion(Byte.parseByte(monSC),Byte.parseByte(tonSC),InetAddress.getByName(getIpAddr())),GestionBt.this);
 
-            Verrous.sync1.release();
-            Verrous.sync2.acquire();
-            Verrous.sync3.release();
-            Verrous.sync4.acquire();
+            ObjectInputStream ois = new ObjectInputStream(
+
+                    new FileInputStream(
+                            new File(getFilesDir(),"fichePerso.txt")
+                    )
+
+            );
+
+            BumpFriend bfTemp = (BumpFriend) ois.readObject();
+
+            destinataire.envoieObjet(bfTemp,this);
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            int rouge = preferences.getInt("rouge_jeu",0);
+            int vert = preferences.getInt("vert_jeu",0);
+            int bleu = preferences.getInt("bleu_jeu",0);
+
+            if (rouge != 0 || vert != 0 || bleu != 0) {
+
+                Destinataire destinataire2 = new Destinataire(InetAddress.getByName(ip), PORT);
+                destinataire2.envoieObjet(new Color((byte) rouge, (byte) vert, (byte) bleu), this);
+
+            }
+            //Verrous.sync1.release();
+            //Verrous.sync2.acquire();
+            //Verrous.sync3.release();
+            //Verrous.sync4.acquire();
 
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
             try {

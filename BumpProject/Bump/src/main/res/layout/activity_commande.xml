@@ -20,36 +20,45 @@
         android:background="#FFFF"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Commander"
         android:id="@+id/commander"
         android:layout_above="@+id/retirer_boisson"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#FFFFFF"
+        android:background="#FF6633"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="RetirerBoisson"
         android:id="@+id/retirer_boisson"
         android:layout_above="@+id/ajout_vest"
         android:layout_alignLeft="@+id/restirer_vest"
-        android:layout_alignStart="@+id/restirer_vest" />
+        android:layout_alignStart="@+id/restirer_vest"
+        android:textColor="#FFFFFF"
+        android:background="#CC0099"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ajouter Vestiare"
+        android:text="Ajouter Vestiaire"
         android:id="@+id/ajout_vest"
         android:layout_above="@+id/restirer_vest"
         android:layout_alignLeft="@+id/retirer_boisson"
-        android:layout_alignStart="@+id/retirer_boisson" />
+        android:layout_alignStart="@+id/retirer_boisson"
+        android:textColor="#FFFFFF"
+        android:background="#33FF99"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Retirer Vestiaire"
         android:id="@+id/restirer_vest"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFFFFF"
+        android:background="#CC0033"/>
 </RelativeLayout>

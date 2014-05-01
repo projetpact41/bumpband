@@ -32,7 +32,7 @@ public class RequestMoney implements Transmissible{
 
     @Override
     public Transmissible execute(InetAddress address) {
-    	byte money = Banque.getMoney(address.getCanonicalHostName());
+    	byte money = Banque.getMoney(address.getHostAddress());
         return ((Transmissible) new Money(money));
     }
 

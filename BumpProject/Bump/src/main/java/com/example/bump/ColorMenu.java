@@ -65,7 +65,7 @@ public class ColorMenu extends ActionBarActivity implements SeekBar.OnSeekBarCha
         clignote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BtParseur.clignote((byte) 200, (byte) 15,context);
+                BtParseur.clignote((byte) 200, (byte) 30,context);
             }
         });
 

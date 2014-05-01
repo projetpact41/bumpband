@@ -31,7 +31,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.bump.BFList;
-import com.example.bump.Verrous;
+import com.example.bump.bluetooth.BtParseur;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -78,7 +78,8 @@ public class BumpFriend implements Serializable, Transmissible {
     }
 
     public Transmissible execute (Context context, InetAddress address) {
-        if (adresse.equals(getIpAddr(context))) {
+        if (this.adresse.getHostAddress().equals(getIpAddr(context))) {
+            Log.i("BF","Mon ip?");
             return new Transmission(ErreurTransmission.PROBLEMETRAITEMENT); //Empeche de s'auto-ajouter
         }
         Log.i("BF","BF recu");
@@ -94,6 +95,7 @@ public class BumpFriend implements Serializable, Transmissible {
                 editor.putBoolean("Admin",false); //On ne synchro plus avec l'admin
                 editor.commit();
                 Log.i("admin","Admin recu !");
+                BtParseur.sendColor(new Color((byte)122,(byte)122,(byte)122),context);
                 //Intent intent = new Intent(context,MenuPrincipal2.class);
                 //context.startActivity(intent);
                 //Log.i("BF","Activite lancee");
@@ -102,11 +104,13 @@ public class BumpFriend implements Serializable, Transmissible {
 
             //On verifie que le BF est bien en liste d'attente.
             //On commence par attendre 2 secondes que le serveur traite le client, au cas ou
-            //Thread.sleep(2000);
+            //Thread.sleep(1000);
             //Rendez vous
-            Verrous.sync4.release();
-            Verrous.sync3.acquire();
+            Log.i("bf","bumpfriend semaphore1");
+            //Verrous.sync3.acquire();
+            //Verrous.sync4.release();
 
+            Log.i("bf","bumpfriend semaphore2");
             ois = new ObjectInputStream(
                     new BufferedInputStream(
                             new FileInputStream(
@@ -115,30 +119,27 @@ public class BumpFriend implements Serializable, Transmissible {
                     )
             ); //Contient le bf en cours de synchro
 
-            InetAddress testAdresse = (InetAddress) ois.readObject(); //On verifie que l'ajout se fait avec la bonne personne
-            Log.e("BF","Ici" + testAdresse.getHostAddress());
+            //InetAddress testAdresse = (InetAddress) ois.readObject(); //On verifie que l'ajout se fait avec la bonne personne
+            //Log.e("BF","Ici" + testAdresse.getHostAddress());
             Log.e("BF",adresse.getHostAddress());
-            if (testAdresse.equals(adresse)) {
+            //if (testAdresse.equals(adresse)) {
                 Log.e("BF","Ici");
                     BFList bfList = new BFList("listeBF.txt", context);
                     bfList.ajoutBF(this);
-
-                Verrous.enCours.unlock(); // On deblogue la possibilite de faire un bump
+                BtParseur.sendColor(new Color((byte)122,(byte)122,(byte)122),context);
+                //BtParseur.clignote((byte)100,(byte)30,context);
+                //Verrous.enCours.unlock(); // On deblogue la possibilite de faire un bump
                 return new Transmission (true);
-            } else return new Transmission(ErreurTransmission.IPNONRECONNUE);
+            //} else return new Transmission(ErreurTransmission.IPNONRECONNUE);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (StreamCorruptedException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } finally {
             try {
-                Verrous.enCours.unlock();
+                //Verrous.enCours.unlock();
                 if (ois != null) {
                     ois.close();
                 }

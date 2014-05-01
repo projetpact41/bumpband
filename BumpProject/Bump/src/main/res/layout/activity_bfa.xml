@@ -15,8 +15,8 @@
         android:ems="10"
         android:id="@+id/message"
         android:layout_gravity="center"
-        android:textColor="#0000"
-        android:background="#FFFF"
+        android:textColor="#000000"
+        android:background="#FFFFFF"
         android:layout_marginTop="101dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />

@@ -77,8 +77,12 @@ public class SynchronisationAdmin extends ActionBarActivity {
         synchro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("Admin",true);
+                editor.commit();
                 envoieBF();
-                Intent intent = new Intent(SynchronisationAdmin.this,MenuPrincipal2.class);
+                Intent intent = new Intent(SynchronisationAdmin.this,BluetoothConnexion.class);
                 startActivity(intent);
             }
         });
@@ -90,7 +94,7 @@ public class SynchronisationAdmin extends ActionBarActivity {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean("Admin",false);
                 editor.commit();
-                Intent intent = new Intent(SynchronisationAdmin.this,MenuPrincipal2.class);
+                Intent intent = new Intent(SynchronisationAdmin.this,BluetoothConnexion.class);
                 startActivity(intent);
             }
         });
