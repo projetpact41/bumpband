@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Serveur/src/graphique/0000008102-BoissonModel.java&apos; to &apos;BoissonModel.java&apos;" description="Rename resource &apos;0000008102-BoissonModel.java&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/graphique/0000008102-BoissonModel.java" name="BoissonModel.java" stamp="1398974130891" updateReferences="true"/>
+</session>

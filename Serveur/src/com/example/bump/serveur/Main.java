@@ -26,6 +26,7 @@ import graphique.FenetreBar;
 import graphique.FenetreMessage;
 import graphique.FenetreTableau;
 import graphique.FlashMobFenetre;
+import graphique.MenuTableau;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -94,10 +95,10 @@ public class Main {
         
 		//afficher mon ip
 		
-		Boisson boisson = new Boisson("whisky",(byte) 2,new Color((byte) 0, (byte) 0, (byte) 0),(byte)5);
+		//Boisson boisson = new Boisson("whisky",(byte) 2,new Color((byte) 0, (byte) 0, (byte) 0),(byte)5);
 		
-		new Menu();
-		Menu.ajouteBoisson(boisson);
+		//new Menu();
+		//Menu.ajouteBoisson(boisson);
 		
 		//Initialisation des graphiques
 		
@@ -112,6 +113,7 @@ public class Main {
                 fenetre.setVisible(true);
             }
         });
+		new MenuTableau().setVisible(true);
 		
 	}
 	

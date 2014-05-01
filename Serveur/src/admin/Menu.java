@@ -46,10 +46,12 @@ public class Menu implements Transmissible{
         maj();
     }
 
-    private static void retireBoisson(Boisson b){
+    public static void retireBoisson(Boisson b){
         menu.remove(b);
         maj();
     }
+
+    public static ArrayList<Boisson> getMenu(){ return menu;}
 
     @Override
     public byte[] toBytes() {

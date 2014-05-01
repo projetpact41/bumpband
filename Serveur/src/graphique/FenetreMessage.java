@@ -1,6 +1,28 @@
+//The MIT License (MIT)
+//
+//Copyright (c) 2014 Julien ROMERO
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+
 package graphique;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
@@ -23,40 +45,37 @@ public class FenetreMessage extends JFrame {
 
     private JTextField field1;
 
-        public FenetreMessage() {
+    public FenetreMessage(){
+        super();
 
-            super();
-
-
-            setTitle("Pour taper votre message");
-
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-            JPanel boutons = new JPanel();
-
-            field1 = new JTextField();
-            field1.setColumns(10);
-
-            boutons.add(field1);
-
-
-            boutons.add(new JButton(new SendAction()));
-
-
-            getContentPane().add(boutons, BorderLayout.SOUTH);
-
-
-            pack();
-        }
-
-    public JTextField getField1(){
-        return field1;
+        build();//On initialise notre fenetre
     }
 
-    public static void main(String[] args) {
+    private void build(){
+        setTitle("Tapez votre message"); //On donne un titre de l'application
+        setSize(400,200); //!#@@#!On donne une taille de notre fenetre
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On dit a l'application de se fermer lors du clic sur la croix
+        setContentPane(buildContentPane());
+    }
 
-        new FenetreMessage().setVisible(true);
+    private JPanel buildContentPane(){
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+        panel.setBackground(Color.white);
+
+        field1 = new JTextField();
+        field1.setColumns(20);
+
+        panel.add(field1);
+
+
+        JButton bouton = new JButton(new SendAction());
+
+        panel.add(bouton);
+
+
+
+        return panel;
     }
 
     private class SendAction extends AbstractAction {
@@ -73,7 +92,7 @@ public class FenetreMessage extends JFrame {
         	System.out.println("Appui Envoyer");
         	BFList bfList = new BFList("listeBF.txt");
     		ArrayList<BumpFriend> liste = bfList.getBFliste();
-    		System.out.println("Création message");
+    		System.out.println("Creation message");
     		Message message = new Message(field1.getText(),"Admin");
     		System.out.println("Message cree "+ liste.size());
     		
